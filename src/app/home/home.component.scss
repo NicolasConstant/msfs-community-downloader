@@ -1,3 +1,47 @@
 :host {
-  
+    // height: 100%;
+}
+
+.left-bar {
+    position: fixed;
+    top: 35px;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    border-right: 1px solid greenyellow;
+    background-color: black;
+}
+
+.package-content {
+    // outline: greenyellow 1px dotted;
+    position: fixed;
+    top: 35px;
+    right: 0;
+    left: 250px;
+    bottom: 0;
+
+    // float: right;
+    // margin-left: 253px;
+    // width: calc(100% - 253px);
+    // height: 100%;
+
+    background-color: blue;
+}
+
+.settings {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    padding: 20px;
+
+    color: grey;
+    font-weight: 400;
+    text-decoration: none;
+
+    border-top: 1px solid greenyellow;
+
+    &:hover {
+        color: white;
+    }
 }

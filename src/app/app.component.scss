@@ -3,8 +3,9 @@
 #titlebar {
     display: block;
     position: fixed;
-    height: 27px;
-    width: calc(100% - 2px);
+    height: 35px;
+    width: 100%;
+    top: 0;
     /*Compensate for body 1px border*/
     background: #254053;
 
@@ -19,14 +20,18 @@
     }
 
     color: #FFF;
+}
+
+#main {
+    height: calc(100% - 36px);
+    width: 100%;
+    position: fixed;
+    top: 36px;
+    // padding: 20px;
+    overflow-y: auto;
 
 
-    & #main {
-        height: calc(100% - 27px);
-        margin-top: 27px;
-        // padding: 20px;
-        overflow-y: auto;
-    }
+    background-color: pink;
 }
 
 #window-controls {
