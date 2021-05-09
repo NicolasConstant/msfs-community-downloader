@@ -1,3 +1,143 @@
-:host {
-  
+:host {}
+
+#titlebar {
+    display: block;
+    position: fixed;
+    height: 27px;
+    width: calc(100% - 2px);
+    /*Compensate for body 1px border*/
+    background: #254053;
+
+    padding: 4px;
+
+    & #drag-region {
+        width: 100%;
+        height: 100%;
+        -webkit-app-region: drag;
+        display: grid;
+        grid-template-columns: auto 138px;
+    }
+
+    color: #FFF;
+
+
+    & #main {
+        height: calc(100% - 27px);
+        margin-top: 27px;
+        // padding: 20px;
+        overflow-y: auto;
+    }
+}
+
+#window-controls {
+    // outline: 1px greenyellow solid;
+    display: grid;
+    grid-template-columns: repeat(2, 46px);
+    position: absolute;
+    top: 0;
+    right: 8px;
+    height: 100%;
+
+    & .button {
+        grid-row: 1 / span 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    -webkit-app-region: no-drag;
+
+    & .button {
+        user-select: none;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        &:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
+}
+
+#min-button {
+    grid-column: 1;
+}
+
+// #max-button,
+// #restore-button {
+//     grid-column: 2;
+// }
+
+#close-button {
+    grid-column: 2;
+
+    &:hover {
+        background: #E81123 !important;
+    }
+
+    &:active {
+        background: #F1707A !important;
+    }
+
+    &:active .icon {
+        filter: invert(1);
+    }
+}
+
+@media (-webkit-device-pixel-ratio: 1.5),
+(device-pixel-ratio: 1.5),
+(-webkit-device-pixel-ratio: 2),
+(device-pixel-ratio: 2),
+(-webkit-device-pixel-ratio: 3),
+(device-pixel-ratio: 3) {
+    #window-controls .icon {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+
+
+#restore-button {
+    display: none !important;
+}
+
+
+#window-title {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 12px;
+
+    & span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1.5;
+    }
+}
+
+.maximized {
+    & #titlebar {
+        width: 100%;
+        padding: 0;
+    }
+
+    & #window-title {
+        margin-left: 12px;
+    }
+
+    & #restore-button {
+        display: flex !important;
+    }
+
+    & #max-button {
+        display: none;
+    }
 }
