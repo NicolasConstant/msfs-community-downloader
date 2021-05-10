@@ -24,6 +24,8 @@ export class PackageMiniComponent implements OnInit {
                 return "Update Available";
             case InstallStatusEnum.error:
                 return "Error";
+            case InstallStatusEnum.unknown:
+                return "Unknown";
         }
     }
 }
