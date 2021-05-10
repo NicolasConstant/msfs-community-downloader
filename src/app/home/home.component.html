@@ -2,8 +2,10 @@
 <div class="left-bar">
     <div class="packages">
         <ng-container *ngFor="let p of packages">
-            <app-package-mini [package]="p" ></app-package-mini>
-        </ng-container>        
+            <a href (click)="selectPackage(p)">
+                <app-package-mini [package]="p"></app-package-mini>
+            </a>
+        </ng-container>
     </div>
 
     <a class="settings" routerLink="/detail">
@@ -12,7 +14,7 @@
 </div>
 
 <div class="package-content">
-
+    <app-package-detailed [package]="selectedPackage"></app-package-detailed>
 </div>
 
 <!-- <h1 class="title">

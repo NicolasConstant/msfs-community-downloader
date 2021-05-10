@@ -10,6 +10,7 @@ import { PackagesService, Package } from '../core/services/packages.service';
 export class HomeComponent implements OnInit {
 
     packages: Package[] = [];
+    selectedPackage: Package;
 
     constructor(
         private router: Router,
@@ -22,10 +23,25 @@ export class HomeComponent implements OnInit {
                 packages.forEach(p => {
                     this.packages.push(p);
                 });
+
+                this.selectedPackage =  this.packages.find(x => x.isSelected === true);
             })
             .catch(err => {
 
             });
+    }
+
+    selectPackage(p: Package): boolean{
+        this.packages.forEach(p => {
+            p.isSelected = false;
+        });
+
+        const selected = this.packages.find(x => x.id === p.id);
+        selected.isSelected = true;
+        this.selectedPackage = selected;
+
+        return false;
+
     }
 
 }
