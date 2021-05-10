@@ -1,5 +1,11 @@
 <!-- <div class="container"> -->
 <div class="left-bar">
+    <div class="packages">
+        <ng-container *ngFor="let p of packages">
+            <app-package-mini [package]="p" ></app-package-mini>
+        </ng-container>        
+    </div>
+
     <a class="settings" routerLink="/detail">
         Settings
     </a>

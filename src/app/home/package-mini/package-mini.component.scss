@@ -1,0 +1,15 @@
+.package {
+    display: block;
+    width: 100%;
+    background-color: indianred;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: indigo;
+    }
+
+    &__selected {
+        background-color: rgb(143, 0, 245);
+    }
+}

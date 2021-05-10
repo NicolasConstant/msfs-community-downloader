@@ -8,7 +8,7 @@
     left: 0;
     bottom: 0;
     width: 250px;
-    border-right: 1px solid greenyellow;
+    // border-right: 1px solid greenyellow;
     background-color: black;
 }
 
@@ -28,15 +28,27 @@
     background-color: blue;
 }
 
+.packages {
+    background:pink;
+
+    position: fixed;
+    top: 35px;
+    left: 0;
+    bottom: 42px;
+    width: 250px;
+
+    overflow: auto;
+}
+
 .settings {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 250px;
-    padding: 20px;
+    padding: 10px 20px;
 
     color: grey;
-    font-weight: 400;
+    font-weight: bold;
     text-decoration: none;
 
     border-top: 1px solid greenyellow;
