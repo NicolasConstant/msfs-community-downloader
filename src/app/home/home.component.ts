@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PackagesService, Package } from '../core/services/packages.service';
+import { UpdaterService } from '../core/services/updater.service';
 
 @Component({
     selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private packagesService: PackagesService) { }
+        private packagesService: PackagesService,
+        private updaterService: UpdaterService) { }
 
     ngOnInit(): void {
         this.packagesService.getPackages()
@@ -24,8 +26,14 @@ export class HomeComponent implements OnInit {
                     this.packages.push(p);
                 });
 
-                this.selectedPackage =  this.packages.find(x => x.isSelected === true);
-            })
+                if(this.packages.length > 0){
+                    const selected = this.packages[0];
+                    selected.isSelected = true;
+                    this.selectedPackage = selected;
+
+                    this.updaterService.analysePackages(this.packages);
+                }
+            })      
             .catch(err => {
 
             });

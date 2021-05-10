@@ -10,26 +10,6 @@ export class GithubService {
 
     constructor(private http: HttpClient) { }
 
-    // analysePackages(packages: Package[]): Promise<any> {
-    //     let pipeline: Promise<any> = Promise.resolve(true);
-    //     packages.forEach(x => {
-    //         pipeline = pipeline.then(_ => {
-    //             return this.retrievePackageInfo(x)
-    //                 .then(res => {
-    //                     if (res) {
-    //                         x.localVersion = res.localVersion;
-    //                         x.availableVersion = res.availableVersion;
-    //                         x.state = res.state;
-    //                     }
-    //                 })
-    //                 .catch(err => {
-
-    //                 });
-    //         });
-    //     });
-    //     return pipeline;
-    // }
-
     retrievePackageInfo(p: Package): Promise<PackageInfo> {
         const route = `https://api.github.com/repos/${p.githubOwner}/${p.githubRepo}/releases`;
         return this.http.get<GithubRelease[]>(route).toPromise()        

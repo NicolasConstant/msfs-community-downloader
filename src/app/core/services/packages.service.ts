@@ -73,6 +73,7 @@ export class Package {
     public githubRepo: string;
     public assetName: string;
     public folderName: string;
+    public assetDownloadUrl: string;
 
     public url: string;
     public illustration: string;

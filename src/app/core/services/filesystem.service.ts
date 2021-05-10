@@ -34,6 +34,6 @@ export class FilesystemService {
 
 export class LocalState {
     constructor(
-        folderFound: boolean,
-        version: string) { }
+        public folderFound: boolean,
+        public version: string) { }
 }
