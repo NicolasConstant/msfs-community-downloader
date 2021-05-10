@@ -9,7 +9,7 @@
     bottom: 0;
     width: 250px;
     // border-right: 1px solid greenyellow;
-    background-color: black;
+    background-color: #090c10;
 }
 
 .package-content {
@@ -25,12 +25,10 @@
     // width: calc(100% - 253px);
     // height: 100%;
 
-    background-color: blue;
+    background-color: #0d1117;
 }
 
 .packages {
-    background:pink;
-
     position: fixed;
     top: 35px;
     left: 0;
@@ -38,6 +36,10 @@
     width: 250px;
 
     overflow: auto;
+
+    &__link {
+        text-decoration: none;
+    }
 }
 
 .settings {
@@ -47,11 +49,11 @@
     width: 250px;
     padding: 10px 20px;
 
-    color: grey;
+    color: #626c7c;
     font-weight: bold;
     text-decoration: none;
 
-    border-top: 1px solid greenyellow;
+    border-top: 1px solid #131922;
 
     &:hover {
         color: white;

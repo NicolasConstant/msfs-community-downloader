@@ -2,7 +2,7 @@
 <div class="left-bar">
     <div class="packages">
         <ng-container *ngFor="let p of packages">
-            <a href (click)="selectPackage(p)">
+            <a href (click)="selectPackage(p)" class="packages__link">
                 <app-package-mini [package]="p"></app-package-mini>
             </a>
         </ng-container>
@@ -14,7 +14,7 @@
 </div>
 
 <div class="package-content">
-    <app-package-detailed [package]="selectedPackage"></app-package-detailed>
+    <app-package-detailed *ngIf="selectedPackage" [package]="selectedPackage"></app-package-detailed>
 </div>
 
 <!-- <h1 class="title">

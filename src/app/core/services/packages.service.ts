@@ -16,7 +16,7 @@ export class PackagesService {
                 null,
                 "1.0.0",
                 "url",
-                "img",
+                "assets/illustrations/aa.jpg",
                 true
             ),
             new Package(
@@ -27,18 +27,18 @@ export class PackagesService {
                 null,
                 "1.0.0",
                 "url",
-                "img",
+                "assets/illustrations/aa.jpg",
                 false
             ),
             new Package(
                 "aa-liv-3",
                 "AA Liveries",
                 "Azghar Airline Liveries",
-                InstallStatusEnum.notFound,
+                InstallStatusEnum.updateAvailable,
                 null,
                 "1.0.0",
                 "url",
-                "img",
+                "assets/illustrations/aa.jpg",
                 false
             )
 
@@ -61,8 +61,8 @@ export class Package {
 }
 
 export enum InstallStatusEnum {
-    notFound,
-    installed,
-    updateAvailable,
-    error
+    notFound = 0,
+    installed = 1,
+    updateAvailable = 2,
+    error = 3
 }

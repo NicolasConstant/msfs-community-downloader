@@ -1,4 +1,20 @@
 <div class="package-detailed">
-    <h1>{{package.description}}</h1>
+    <div class="package-detailed__banner" [ngStyle]="{'background-image':'url('+package.illustration+')'}">
+        <div class="package-detailed__banner__inner">
+            <h1 class="package-detailed__banner__inner--name">{{package.name}}</h1>
+            <h2 class="package-detailed__banner__inner--description">{{package.description}}</h2>
+        </div>
+    </div>
 
+    <div class="package-detailed__content">
+
+        <div>Local Version: {{package.localVersion}}</div>
+        <div>Available Version: {{package.availableVersion}}</div>
+        <div>
+            <a href *ngIf="package.state === 0" class="button button--install" (click)="install()">Install</a>
+            <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
+            <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
+        </div>
+
+    </div>
 </div>

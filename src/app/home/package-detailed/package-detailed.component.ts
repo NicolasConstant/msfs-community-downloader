@@ -14,4 +14,15 @@ export class PackageDetailedComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    install():boolean {
+        return false;
+    }
+
+    remove():boolean {
+        return false;
+    }
+
+    update():boolean {
+        return false;
+    }
 }
