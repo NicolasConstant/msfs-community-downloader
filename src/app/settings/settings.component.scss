@@ -1,3 +1,32 @@
 :host {
   
 }
+
+.settings {
+    color: whitesmoke;
+    background-color: #0d1117;
+    height: 100%;
+
+    &__content {
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+
+    }
+}
+
+.close {
+    display: inline-block;
+    color: whitesmoke;
+    border: 1px solid rgb(50, 57, 75);
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-decoration: none;
+    margin-top: 30px;
+}
+
+.folder-path {
+    margin-top: 5px;
+    padding: 5px;
+    width: 100%;
+}
