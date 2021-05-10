@@ -10,10 +10,10 @@
 
         <div>Local Version: {{package.localVersion}}</div>
         <div>Available Version: {{package.availableVersion}}</div>
-        <div>
-            <a href *ngIf="package.state === 0" class="button button--install" (click)="install()">Install</a>
+        <div>            
             <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
             <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
+            <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
         </div>
 
     </div>

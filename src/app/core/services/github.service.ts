@@ -17,7 +17,12 @@ export class GithubService {
                 const lastRelease = rel.find(x => this.isCandidate(x, p));
                 const asset = lastRelease.assets.find(y => y.name === p.assetName);
                 
-                const res = new PackageInfo(lastRelease.tag_name, asset.browser_download_url);
+                let downloadUrl = lastRelease.zipball_url;
+                if(asset){
+                    downloadUrl = asset.browser_download_url;
+                }
+
+                const res = new PackageInfo(lastRelease.tag_name, downloadUrl);
                 return res;
             });
     }
@@ -25,7 +30,7 @@ export class GithubService {
     private isCandidate(rel: GithubRelease, p: Package): boolean {
         return  rel.draft === false 
                 && rel.prerelease === false
-                && rel.assets.findIndex(y => y.name === p.assetName) !== -1;
+                && (!p.assetName || rel.assets.findIndex(y => y.name === p.assetName) !== -1);
     }
 }
 
@@ -41,6 +46,7 @@ interface GithubRelease {
     draft: boolean;
     prerelease: boolean;
     assets: GithubAsset[];
+    zipball_url: string;
 }
 
 interface GithubAsset {
