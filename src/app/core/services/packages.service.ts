@@ -15,7 +15,7 @@ export class PackagesService {
         aa.githubOwner = "dites33";
         aa.githubRepo = "aa";
         aa.illustration = "assets/illustrations/aa.jpg";
-        aa.assetName = "AA";
+        aa.folderName = "AA";
         aa.state = InstallStatusEnum.unknown;
         
         return Promise.resolve([aa]);
@@ -72,6 +72,7 @@ export class Package {
     public githubOwner: string;
     public githubRepo: string;
     public assetName: string;
+    public folderName: string;
 
     public url: string;
     public illustration: string;

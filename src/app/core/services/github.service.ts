@@ -49,7 +49,7 @@ export class GithubService {
     }
 }
 
-class PackageInfo {
+export class PackageInfo {
     constructor(
         public availableVersion: string,
         public downloadUrl: string) { };
