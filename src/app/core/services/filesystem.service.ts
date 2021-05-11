@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Package } from './packages.service';
 import { SettingsService } from './settings.service';
 import { ElectronService } from './electron/electron.service';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +10,7 @@ export class FilesystemService {
 
     constructor(
         private settingsService: SettingsService,
-        private electronService: ElectronService,
-        private http: HttpClient
+        private electronService: ElectronService
     ) { }
 
     retrievePackageInfo(p: Package): LocalState {
@@ -42,61 +40,7 @@ export class FilesystemService {
         this.electronService.fs.mkdirSync(tempDir);
         console.warn(tempDir);
         return tempDir;
-    }
-
-    downloadFile(assetDownloadUrl: string, tempDir: string) {
-        const fullPath = `${tempDir}/asset.zip`;
-        // const file = this.electronService.fs.createWriteStream(fullPath);
-
-
-
-        this.electronService.ipcRenderer.send('download-item', {url: assetDownloadUrl, properties: { directory: tempDir, filename: 'asset.zip'}});
-        this.electronService.ipcRenderer.on('download-success', (event, arg) => {
-            console.warn('SUCCESS');
-            console.warn(arg);
-        });
-        this.electronService.ipcRenderer.on("download progress", (event, progress) => {
-            console.log(progress); // Progress in fraction, between 0 and 1
-            const progressInPercentages = progress * 100; // With decimal point and a bunch of numbers
-            const cleanProgressInPercentages = Math.floor(progress * 100); // Without decimal point
-            console.warn(progressInPercentages);
-            console.warn(cleanProgressInPercentages);
-        });
-
-        // const resquest = this.http.get(assetDownloadUrl, (err, res) => {
-        //     res.pipe(file)
-        // });
-
-        // fetch(assetDownloadUrl)
-        //     .then(res => {
-        //         res.arrayBuffer
-        //     })
-
-        // this.http.get(assetDownloadUrl, { responseType: 'blob', observe: 'response' })
-        //     // .pipe(file)
-        //     .subscribe((response) => {
-        //         console.log(response); // this returns {size: 508079, type: "application/xlsx"}
-        //         // here goes the code for writing content into file
-
-        //         file.pipe(response);
-        //         // response.pipe(file)
-        //     });
-
-        //         // const reader = new FileReader();
-        //         // reader.readAsBinaryString(file);
-
-        //         // reader.onload = (data) => {
-        //         //     const csvData = reader.result;
-        //         //     console.log(csvData); // here I get contect of file using file reader
-        //         // });
-
-        // this.http.get(assetDownloadUrl).toPromise()
-        //     .then((res: Response) => {
-        //         res.pipe(file)
-        //     })
-
-        // throw new Error("Method not implemented.");
-    }
+    }   
 }
 
 export class LocalState {

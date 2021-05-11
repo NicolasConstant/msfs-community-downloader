@@ -69,10 +69,9 @@ try {
         ipcMain.on('download-item', async (event, info) => {
             info.properties.onProgress = status => event.sender.send("download progress", status);
 
-            console.log(info.url);
             const win = BrowserWindow.getFocusedWindow();
-            console.log(await download(win, info.url, info.properties)
-                .then(dl => event.sender.send('download-success', dl.getSavePath())));
+            await download(win, info.url, info.properties)
+                .then(dl => event.sender.send('download-success', dl.getSavePath()));
         });
     });
 

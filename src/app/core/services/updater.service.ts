@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FilesystemService, LocalState } from './filesystem.service';
 import { GithubService, PackageInfo } from './github.service';
 import { Package, InstallStatusEnum } from './packages.service';
+import { DownloaderService } from './downloader.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,8 @@ export class UpdaterService {
 
     constructor(
         private filesystemService: FilesystemService,
-        private githubService: GithubService
+        private githubService: GithubService,
+        private downloaderService: DownloaderService
     ) { }
 
     analysePackages(packages: Package[]): Promise<any> {
@@ -44,8 +46,8 @@ export class UpdaterService {
     }
 
     install(p: Package) {
-        const tempDir = this.filesystemService.getTempDir();        
-        const zipFile = this.filesystemService.downloadFile(p.assetDownloadUrl, tempDir);
+        const tempDir = this.filesystemService.getTempDir();
+        this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
     }
 
     update(p: Package) {
