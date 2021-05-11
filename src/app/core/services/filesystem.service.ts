@@ -55,6 +55,13 @@ export class FilesystemService {
             console.warn('SUCCESS');
             console.warn(arg);
         });
+        this.electronService.ipcRenderer.on("download progress", (event, progress) => {
+            console.log(progress); // Progress in fraction, between 0 and 1
+            const progressInPercentages = progress * 100; // With decimal point and a bunch of numbers
+            const cleanProgressInPercentages = Math.floor(progress * 100); // Without decimal point
+            console.warn(progressInPercentages);
+            console.warn(cleanProgressInPercentages);
+        });
 
         // const resquest = this.http.get(assetDownloadUrl, (err, res) => {
         //     res.pipe(file)
