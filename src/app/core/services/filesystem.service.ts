@@ -46,7 +46,15 @@ export class FilesystemService {
 
     downloadFile(assetDownloadUrl: string, tempDir: string) {
         const fullPath = `${tempDir}/asset.zip`;
-        const file = this.electronService.fs.createWriteStream(fullPath);
+        // const file = this.electronService.fs.createWriteStream(fullPath);
+
+
+
+        this.electronService.ipcRenderer.send('download-item', {url: assetDownloadUrl, properties: { directory: tempDir, filename: 'asset.zip'}});
+        this.electronService.ipcRenderer.on('download-success', (event, arg) => {
+            console.warn('SUCCESS');
+            console.warn(arg);
+        });
 
         // const resquest = this.http.get(assetDownloadUrl, (err, res) => {
         //     res.pipe(file)
@@ -80,7 +88,7 @@ export class FilesystemService {
         //         res.pipe(file)
         //     })
 
-        throw new Error("Method not implemented.");
+        // throw new Error("Method not implemented.");
     }
 }
 
