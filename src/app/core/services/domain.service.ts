@@ -83,7 +83,10 @@ export class DomainService {
     }
 
     update(p: Package) {
-        throw new Error("Method not implemented.");
+        p.state = InstallStatusEnum.downloading;
+        this.app.tick();
+        const tempDir = this.filesystemService.getTempDir();
+        this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
     }
     remove(p: Package) {
         throw new Error("Method not implemented.");

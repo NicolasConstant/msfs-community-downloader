@@ -14,16 +14,10 @@ export class DownloaderService {
     
     constructor(private electronService: ElectronService) { 
         this.electronService.ipcRenderer.on('download-success', (event, arg) => {
-            console.warn('SUCCESS');
-            console.warn(arg);
-            
-            console.warn(this.downloadCache);
             const info = this.downloadCache[arg];
-            console.warn(info);
             if(info){
                 this.fileDownloaded.next(info);
                 delete this.downloadCache[arg];
-                console.warn(this.downloadCache);
             }
         });
 
