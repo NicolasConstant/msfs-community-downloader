@@ -46,8 +46,6 @@ export class UpdaterService {
     install(p: Package) {
         const tempDir = this.filesystemService.getTempDir();        
         const zipFile = this.filesystemService.downloadFile(p.assetDownloadUrl, tempDir);
-
-        throw new Error("Method not implemented.");
     }
 
     update(p: Package) {
