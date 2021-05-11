@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Package } from '../../core/services/packages.service';
-import { UpdaterService } from '../../core/services/updater.service';
+import { DomainService } from '../../core/services/domain.service';
 
 @Component({
     selector: 'app-package-detailed',
@@ -11,24 +11,24 @@ export class PackageDetailedComponent implements OnInit {
     @Input() package: Package;
 
     constructor(
-        private updaterService: UpdaterService
+        private domainService: DomainService
     ) { }
 
     ngOnInit(): void {
     }
 
     install():boolean {
-        this.updaterService.install(this.package);
+        this.domainService.install(this.package);
         return false;
     }
 
     remove():boolean {
-        this.updaterService.remove(this.package);
+        this.domainService.remove(this.package);
         return false;
     }
 
     update():boolean {
-        this.updaterService.update(this.package);
+        this.domainService.update(this.package);
         return false;
     }
 }

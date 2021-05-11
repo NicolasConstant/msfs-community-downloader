@@ -10,12 +10,20 @@ export class DownloaderService {
     public fileDownloaded = new BehaviorSubject<FileDownloadInfo>(null);
     public fileDownloadedUpdated = new BehaviorSubject<string>(null);
 
+    private downloadCache: { [id: string]: FileDownloadInfo; } = {};
+    
     constructor(private electronService: ElectronService) { 
         this.electronService.ipcRenderer.on('download-success', (event, arg) => {
             console.warn('SUCCESS');
             console.warn(arg);
-            if(arg){
-                this.fileDownloaded.next(arg);
+            
+            console.warn(this.downloadCache);
+            const info = this.downloadCache[arg];
+            console.warn(info);
+            if(info){
+                this.fileDownloaded.next(info);
+                delete this.downloadCache[arg];
+                console.warn(this.downloadCache);
             }
         });
 
@@ -29,6 +37,9 @@ export class DownloaderService {
         info.packageId = packageId;
         info.url = assetDownloadUrl;
         info.properties = { directory: tempDir, filename: 'asset.zip'};
+
+        const path = `${tempDir}\\${'asset.zip'}`;
+        this.downloadCache[path] = info;
 
         this.electronService.ipcRenderer.send('download-item', info);
     }

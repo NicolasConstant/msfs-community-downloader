@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UpdaterService } from './updater.service';
+import { DomainService } from './domain.service';
 
-describe('UpdaterService', () => {
-  let service: UpdaterService;
+describe('DomainService', () => {
+  let service: DomainService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UpdaterService);
+    service = TestBed.inject(DomainService);
   });
 
   it('should be created', () => {

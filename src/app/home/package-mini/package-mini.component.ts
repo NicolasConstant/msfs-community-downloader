@@ -26,6 +26,10 @@ export class PackageMiniComponent implements OnInit {
                 return "Error";
             case InstallStatusEnum.unknown:
                 return "Unknown";
+            case InstallStatusEnum.downloading:
+                return "Downloading...";
+            case InstallStatusEnum.extracting:
+                return "Extracting..."
         }
     }
 }

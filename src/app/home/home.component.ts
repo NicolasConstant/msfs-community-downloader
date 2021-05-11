@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PackagesService, Package } from '../core/services/packages.service';
-import { UpdaterService } from '../core/services/updater.service';
+import { DomainService } from '../core/services/domain.service';
 
 @Component({
     selector: 'app-home',
@@ -15,11 +15,10 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private packagesService: PackagesService,
-        private updaterService: UpdaterService) { }
+        private domainService: DomainService) { }
 
     ngOnInit(): void {
-        this.packagesService.getPackages()
+        this.domainService.getPackages()
             .then((packages: Package[]) => {
                 this.packages = [];
                 packages.forEach(p => {
@@ -31,7 +30,7 @@ export class HomeComponent implements OnInit {
                     selected.isSelected = true;
                     this.selectedPackage = selected;
 
-                    this.updaterService.analysePackages(this.packages);
+                    this.domainService.analysePackages(this.packages);
                 }
             })      
             .catch(err => {
@@ -49,7 +48,5 @@ export class HomeComponent implements OnInit {
         this.selectedPackage = selected;
 
         return false;
-
     }
-
 }

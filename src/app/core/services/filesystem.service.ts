@@ -33,7 +33,7 @@ export class FilesystemService {
 
     getTempDir(): string {
         let tempDir = this.electronService.fs.mkdtempSync("msfs-downloader___");
-        tempDir = `${this.settingsService.getSettings().communityPath}/${tempDir}`;
+        tempDir = `${this.settingsService.getSettings().communityPath}\\${tempDir}`;
         if (this.electronService.fs.existsSync(tempDir)) {
             this.electronService.fs.rmdirSync(tempDir, { recursive: true });
         }

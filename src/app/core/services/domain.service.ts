@@ -1,19 +1,30 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ApplicationRef } from '@angular/core';
 import { FilesystemService, LocalState } from './filesystem.service';
 import { GithubService, PackageInfo } from './github.service';
-import { Package, InstallStatusEnum } from './packages.service';
-import { DownloaderService } from './downloader.service';
+import { Package, InstallStatusEnum, PackagesService } from './packages.service';
+import { DownloaderService, FileDownloadInfo } from './downloader.service';
+import { Subscription } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class UpdaterService {
+export class DomainService {
+    private packages: Package[];
+    private downloadSub: Subscription;
 
     constructor(
+        private app: ApplicationRef,
+        private packageService: PackagesService,
         private filesystemService: FilesystemService,
         private githubService: GithubService,
         private downloaderService: DownloaderService
-    ) { }
+    ) {
+        this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
+            if (r) {
+                this.processDownloadedFile(r);
+            }
+        })
+    }
 
     analysePackages(packages: Package[]): Promise<any> {
         let pipeline: Promise<any> = Promise.resolve(true);
@@ -45,7 +56,28 @@ export class UpdaterService {
         return InstallStatusEnum.error;
     }
 
+    private processDownloadedFile(r: FileDownloadInfo) {
+        console.log('processDownloadedFile');
+        console.warn(r);
+
+        const downloadedPackage = this.packages.find(x => x.id === r.packageId);
+        downloadedPackage.state = InstallStatusEnum.extracting;
+        this.app.tick();
+
+        //TODO
+    }
+
+    getPackages(): Promise<Package[]> {
+        return this.packageService.getPackages()
+            .then(p => {
+                this.packages = p;
+                return p;
+            });
+    }
+
     install(p: Package) {
+        p.state = InstallStatusEnum.downloading;
+        this.app.tick();
         const tempDir = this.filesystemService.getTempDir();
         this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
     }
@@ -56,5 +88,5 @@ export class UpdaterService {
     remove(p: Package) {
         throw new Error("Method not implemented.");
     }
-   
+
 }
