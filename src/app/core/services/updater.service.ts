@@ -7,6 +7,7 @@ import { Package, InstallStatusEnum } from './packages.service';
     providedIn: 'root'
 })
 export class UpdaterService {
+
     constructor(
         private filesystemService: FilesystemService,
         private githubService: GithubService
@@ -41,4 +42,19 @@ export class UpdaterService {
         }
         return InstallStatusEnum.error;
     }
+
+    install(p: Package) {
+        const tempDir = this.filesystemService.getTempDir();        
+        const zipFile = this.filesystemService.downloadFile(p.assetDownloadUrl, tempDir);
+
+        throw new Error("Method not implemented.");
+    }
+
+    update(p: Package) {
+        throw new Error("Method not implemented.");
+    }
+    remove(p: Package) {
+        throw new Error("Method not implemented.");
+    }
+   
 }
