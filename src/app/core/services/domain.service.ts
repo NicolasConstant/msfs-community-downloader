@@ -74,9 +74,9 @@ export class DomainService {
 
     private getState(local: LocalState, info: PackageInfo): InstallStatusEnum {
         if (!local.folderFound) return InstallStatusEnum.notFound;
-        if (local.version && info.downloadUrl) {
-            if (local.version === info.downloadUrl) return InstallStatusEnum.installed;
-            if (local.version !== info.downloadUrl) return InstallStatusEnum.updateAvailable;
+        if (local.version && info.availableVersion) {
+            if (local.version === info.availableVersion) return InstallStatusEnum.installed;
+            if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
         }
         return InstallStatusEnum.error;
     }
