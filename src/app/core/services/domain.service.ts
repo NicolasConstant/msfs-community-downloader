@@ -4,6 +4,7 @@ import { GithubService, PackageInfo } from './github.service';
 import { Package, InstallStatusEnum, PackagesService } from './packages.service';
 import { DownloaderService, FileDownloadInfo } from './downloader.service';
 import { Subscription } from 'rxjs';
+import { ExtractorService } from './extractor.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,9 +18,13 @@ export class DomainService {
         private packageService: PackagesService,
         private filesystemService: FilesystemService,
         private githubService: GithubService,
-        private downloaderService: DownloaderService
+        private downloaderService: DownloaderService,
+        private extractorService: ExtractorService,
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
+            console.warn('sub r');
+            console.warn(r);
+
             if (r) {
                 this.processDownloadedFile(r);
             }
@@ -64,7 +69,7 @@ export class DomainService {
         downloadedPackage.state = InstallStatusEnum.extracting;
         this.app.tick();
 
-        //TODO
+        this.extractorService.extract(downloadedPackage.id, r.filePath);
     }
 
     getPackages(): Promise<Package[]> {

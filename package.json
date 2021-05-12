@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@electron/remote": "1.0.4",
+    "adm-zip": "0.5.5",
     "electron-dl": "3.2.1"
   },
   "devDependencies": {

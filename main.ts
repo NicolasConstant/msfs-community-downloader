@@ -2,6 +2,7 @@ import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { download } from 'electron-dl';
+import * as AdmZip from 'adm-zip';
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -72,6 +73,16 @@ try {
             const win = BrowserWindow.getFocusedWindow();
             await download(win, info.url, info.properties)
                 .then(dl => event.sender.send('download-success', dl.getSavePath()));
+        });
+
+        ipcMain.on('extract-item', async (event, info) => {
+            console.warn('EXTRACT ITEM');
+            console.warn(info);
+
+            var zip = new AdmZip(info.filePath);
+            zip.extractAllTo(info.extractFolder, true);
+
+            event.sender.send('extract-success', info);
         });
     });
 

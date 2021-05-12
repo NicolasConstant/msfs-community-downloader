@@ -14,6 +14,9 @@ export class DownloaderService {
     
     constructor(private electronService: ElectronService) { 
         this.electronService.ipcRenderer.on('download-success', (event, arg) => {
+            console.warn("on('download-success')");
+            console.warn(arg);
+
             const info = this.downloadCache[arg];
             if(info){
                 this.fileDownloaded.next(info);
@@ -22,19 +25,20 @@ export class DownloaderService {
         });
 
         this.electronService.ipcRenderer.on("download progress", (event, progress) => {
-            console.log(progress);        
+            console.log(progress);
         });
     }
 
     download(packageId: string, assetDownloadUrl: string, tempDir: string){
+        const path = `${tempDir}\\${'asset.zip'}`;
+        
         var info = new FileDownloadInfo();
         info.packageId = packageId;
         info.url = assetDownloadUrl;
         info.properties = { directory: tempDir, filename: 'asset.zip'};
-
-        const path = `${tempDir}\\${'asset.zip'}`;
+        info.filePath = path;
+        
         this.downloadCache[path] = info;
-
         this.electronService.ipcRenderer.send('download-item', info);
     }
 }
@@ -43,4 +47,5 @@ export class FileDownloadInfo {
     packageId: string;
     url: string;
     properties: any;
+    filePath: string;
 }
