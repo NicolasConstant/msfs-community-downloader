@@ -80,9 +80,17 @@ try {
             console.warn('EXTRACT ITEM');
             console.warn(info);
 
-            var zip = new AdmZip(info.filePath);
-            zip.extractAllTo(info.extractFolder, true);
+            var pro = new Promise((resolve, reject) => {
+                var zip = new AdmZip(info.filePath);
+                zip.extractAllToAsync(info.extractFolder, true, (err) => {
+                    if(err) reject();
+                    resolve();
+                });   
+            });
 
+            console.warn('AWAIT EXTRACT ITEM');
+            await pro;   
+            console.warn('AWAITED EXTRACT ITEM');
             event.sender.send('extract-success', info);
         });
 
@@ -93,8 +101,10 @@ try {
             try {
                 console.warn('copy-folder');
                 console.warn(info);
-                fse.copySync(info.source, info.target, { overwrite: true });
-                event.sender.send('copy-folder-success', info);
+                fse.copy(info.source, info.target, { overwrite: true }, (err) => {
+                    if (err) return console.error(err);
+                    event.sender.send('copy-folder-success', info);
+                });
             }
             catch (err) {
                 console.error(err);
