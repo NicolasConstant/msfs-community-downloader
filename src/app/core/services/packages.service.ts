@@ -17,8 +17,19 @@ export class PackagesService {
         aa.illustration = "assets/illustrations/aa.jpg";
         aa.folderName = "AA";
         aa.state = InstallStatusEnum.unknown;
+
+        var test = new Package();
+        test.id = "aa-liv-test";
+        test.name = "Test Livs";
+        test.description = "TEST Liveries";
+        test.githubOwner = "nicolasconstant";
+        test.githubRepo = "test-msfs-package";
+        test.illustration = "assets/illustrations/aa.jpg";
+        test.folderName = "AATEST";
+        test.assetName = "release.zip";
+        test.state = InstallStatusEnum.unknown; 
         
-        return Promise.resolve([aa]);
+        return Promise.resolve([aa, test]);
 
         //     new Package();
         //         "aa-liv",
@@ -78,6 +89,7 @@ export class Package {
     public url: string;
     public illustration: string;
     public isSelected: boolean;
+    tempWorkingDir: string;
 }
 
 export enum InstallStatusEnum {

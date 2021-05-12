@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as url from 'url';
 import { download } from 'electron-dl';
 import * as AdmZip from 'adm-zip';
+import * as fse from 'fs-extra';
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -33,7 +34,7 @@ function createWindow(): BrowserWindow {
 
     if (serve) {
 
-        //win.webContents.openDevTools();
+        win.webContents.openDevTools();
 
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/node_modules/electron`)
@@ -64,8 +65,8 @@ try {
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
     // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
-    app.on('ready', () =>{ 
-        setTimeout(createWindow, 400); 
+    app.on('ready', () => {
+        setTimeout(createWindow, 400);
 
         ipcMain.on('download-item', async (event, info) => {
             info.properties.onProgress = status => event.sender.send("download progress", status);
@@ -83,6 +84,21 @@ try {
             zip.extractAllTo(info.extractFolder, true);
 
             event.sender.send('extract-success', info);
+        });
+
+        ipcMain.on('copy-folder', async (event, info) => {
+            console.warn('COPY FOLDER');
+            console.warn(info);
+
+            try {
+                console.warn('copy-folder');
+                console.warn(info);
+                fse.copySync(info.source, info.target, { overwrite: true });
+                event.sender.send('copy-folder-success', info);
+            }
+            catch (err) {
+                console.error(err);
+            }
         });
     });
 

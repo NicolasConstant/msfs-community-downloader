@@ -2,24 +2,37 @@ import { Injectable } from '@angular/core';
 import { Package } from './packages.service';
 import { SettingsService } from './settings.service';
 import { ElectronService } from './electron/electron.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class FilesystemService {
+export class FilesystemService {  
+    public folderCopied = new BehaviorSubject<CopyFolderInfo>(null);
+
     constructor(
         private settingsService: SettingsService,
         private electronService: ElectronService
-    ) { }
+    ) { 
+
+        this.electronService.ipcRenderer.on('copy-folder-success', (event, arg) => {
+            console.warn("on('copy-folder-success')");
+            console.warn(arg);
+
+            if(arg){
+                this.folderCopied.next(arg);
+            }
+        });
+    }
 
     retrievePackageInfo(p: Package): LocalState {
         const communityPath = this.settingsService.getSettings().communityPath;
         if (!communityPath) return new LocalState(false, null);
 
-        const path = `${communityPath}/${p.folderName}`;
+        const path = `${communityPath}\\${p.folderName}`;
         const folderFound = this.electronService.fs.existsSync(path);
 
-        const versionPath = `${path}/msfs-downloader-updater.json`;
+        const versionPath = `${path}\\msfs-downloader-updater.json`;
         const versionFound = this.electronService.fs.existsSync(versionPath);
 
         let version: string = null;
@@ -45,75 +58,47 @@ export class FilesystemService {
         const fs = this.electronService.fs;
         const addinFile = `${extractedFolder}\\manifest.json`;
 
+        console.warn('addinFile')
+        console.warn(addinFile)
+
         if (!fs.existsSync(extractedFolder)) return null;
         if (fs.existsSync(addinFile)) return extractedFolder;
 
         const subDirs = this.getDirectories(extractedFolder);
-        console.log(subDirs);
+        console.warn('subDirs');
+        console.warn(subDirs);
         for (let d of subDirs) {
-            let result = this.findAddinFolder(d);
+            const subDirPath = `${extractedFolder}\\${d}`;
+            console.warn('subDirPath');
+            console.warn(subDirPath);
+            let result = this.findAddinFolder(subDirPath);
             if (result) return result;
         }
 
         return null;
     }
 
-    deleteIfCommunityContains(folderName: string) {
-        const communityDir = this.settingsService.getSettings().communityPath;
-        const folderPath = `${communityDir}\\${folderName}`;
-
+    deleteFolder(folderPath: string) {
         if (this.electronService.fs.existsSync(folderPath)) {
             this.electronService.fs.rmdirSync(folderPath, { recursive: true });
         }
     }
 
-    copyToCommunity(addinFolderPath: string, packageFolderName: string) {
+    copyToCommunity(packageId: string, addinFolderPath: string, packageFolderName: string) {
         const communityDir = this.settingsService.getSettings().communityPath;
         const target = `${communityDir}\\${packageFolderName}`;
 
-        this.copyFolderRecursiveSync(addinFolderPath, target);
+        const info = new CopyFolderInfo();
+        info.packageId = packageId;
+        info.source = addinFolderPath;
+        info.target = target;
+
+        this.electronService.ipcRenderer.send('copy-folder', info);
     }
 
-    private copyFolderRecursiveSync(source, target) {
-        const fs = this.electronService.fs;
-        const path = this.electronService.remote.path;
-
-        var files = [];
-
-        // Check if folder needs to be created or integrated
-        var targetFolder = path.join(target, path.basename(source));
-        if (!fs.existsSync(targetFolder)) {
-            fs.mkdirSync(targetFolder);
-        }
-
-        // Copy
-        if (fs.lstatSync(source).isDirectory()) {
-            files = fs.readdirSync(source);
-            files.forEach(function (file) {
-                var curSource = path.join(source, file);
-                if (fs.lstatSync(curSource).isDirectory()) {
-                    this.copyFolderRecursiveSync(curSource, targetFolder);
-                } else {
-                    this.copyFileSync(curSource, targetFolder);
-                }
-            });
-        }
-    }
-
-    private copyFileSync(source, target) {
-        const fs = this.electronService.fs;
-        const path = this.electronService.remote.path;
-
-        var targetFile = target;
-
-        // If target is a directory, a new file with the same name will be created
-        if (fs.existsSync(target)) {
-            if (fs.lstatSync(target).isDirectory()) {
-                targetFile = path.join(target, path.basename(source));
-            }
-        }
-
-        fs.writeFileSync(targetFile, fs.readFileSync(source));
+    writeVersionFile(targetDir: string, version: string) {
+        const path = `${targetDir}\\msfs-downloader-updater.json`;
+        this.electronService.fs.writeFileSync(path, version, 'utf-8'); 
     }
 
     private getDirectories(path): string[] {
@@ -128,4 +113,10 @@ export class LocalState {
     constructor(
         public folderFound: boolean,
         public version: string) { }
+}
+
+export class CopyFolderInfo {
+    packageId: string;
+    source: string;
+    target: string;
 }

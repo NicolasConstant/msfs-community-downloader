@@ -1,18 +1,20 @@
 import { Injectable, ApplicationRef } from '@angular/core';
-import { FilesystemService, LocalState } from './filesystem.service';
+import { FilesystemService, LocalState, CopyFolderInfo } from './filesystem.service';
 import { GithubService, PackageInfo } from './github.service';
 import { Package, InstallStatusEnum, PackagesService } from './packages.service';
 import { DownloaderService, FileDownloadInfo } from './downloader.service';
 import { Subscription } from 'rxjs';
 import { ExtractorService, FileExtractedInfo } from './extractor.service';
+import { SettingsService } from './settings.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DomainService {  
+export class DomainService {    
     private packages: Package[];
     private downloadSub: Subscription;
     private extractSub: Subscription;
+    private copySub: Subscription;
 
     constructor(
         private app: ApplicationRef,
@@ -21,6 +23,7 @@ export class DomainService {
         private githubService: GithubService,
         private downloaderService: DownloaderService,
         private extractorService: ExtractorService,
+        private settingsService: SettingsService
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
             console.warn('sub download r');
@@ -38,6 +41,14 @@ export class DomainService {
                 this.processExtractedFolder(r);
             }
         });
+        this.copySub = filesystemService.folderCopied.subscribe(r => {
+            console.warn('sub copy r');
+            console.warn(r);
+
+            if(r){
+                this.processCopiedFolder(r);
+            }
+        })
     }
 
     analysePackages(packages: Package[]): Promise<any> {
@@ -85,14 +96,30 @@ export class DomainService {
         const extractedFolder = r.extractFolder;
         const addinFolderPath = this.filesystemService.findAddinFolder(extractedFolder);
 
-        console.warn('addinFolderPath');
+        console.warn('FOUND addinFolderPath');
         console.warn(addinFolderPath);
+
+        if(!addinFolderPath) return;
 
         const p = this.packages.find(x => x.id === r.packageId);
 
-        this.filesystemService.deleteIfCommunityContains(p.folderName);
-        this.filesystemService.copyToCommunity(addinFolderPath, p.folderName);
-        //TODO: DeleteTempFolder
+        const communityDir = this.settingsService.getSettings().communityPath;
+        const folderPath = `${communityDir}\\${p.folderName}`;
+
+        this.filesystemService.deleteFolder(folderPath);
+        this.filesystemService.copyToCommunity(p.id, addinFolderPath, p.folderName);        
+    }
+
+    processCopiedFolder(r: CopyFolderInfo) {
+        const p = this.packages.find(x => x.id === r.packageId);
+        if(p.tempWorkingDir){
+            this.filesystemService.deleteFolder(p.tempWorkingDir);
+            p.tempWorkingDir = null;
+        }
+        this.filesystemService.writeVersionFile(r.target, p.availableVersion);
+        p.localVersion = p.availableVersion;
+        p.state = InstallStatusEnum.installed;
+        this.app.tick();
     }
 
     getPackages(): Promise<Package[]> {
@@ -107,6 +134,7 @@ export class DomainService {
         p.state = InstallStatusEnum.downloading;
         this.app.tick();
         const tempDir = this.filesystemService.getTempDir();
+        p.tempWorkingDir = tempDir;
         this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
     }
 
