@@ -10,7 +10,18 @@ export class ExtractorService {
     
     constructor(
         private electronService: ElectronService
-    ) { }
+    ) {
+        this.electronService.ipcRenderer.on('extract-success', (event, arg) => {
+            console.warn("extract-success");
+            console.warn(arg);
+
+            // const info = this.downloadCache[arg];
+            if(arg){
+                this.fileExtracted.next(arg);
+                // delete this.downloadCache[arg];
+            }
+        });
+    }
 
     extract(packageId: string, filePath: string){
         console.warn('Launch Extract');

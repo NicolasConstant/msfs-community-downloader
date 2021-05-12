@@ -4,14 +4,15 @@ import { GithubService, PackageInfo } from './github.service';
 import { Package, InstallStatusEnum, PackagesService } from './packages.service';
 import { DownloaderService, FileDownloadInfo } from './downloader.service';
 import { Subscription } from 'rxjs';
-import { ExtractorService } from './extractor.service';
+import { ExtractorService, FileExtractedInfo } from './extractor.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DomainService {
+export class DomainService {  
     private packages: Package[];
     private downloadSub: Subscription;
+    private extractSub: Subscription;
 
     constructor(
         private app: ApplicationRef,
@@ -22,13 +23,21 @@ export class DomainService {
         private extractorService: ExtractorService,
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
-            console.warn('sub r');
+            console.warn('sub download r');
             console.warn(r);
 
             if (r) {
                 this.processDownloadedFile(r);
             }
         })
+        this.extractSub = extractorService.fileExtracted.subscribe(r => {
+            console.warn('sub extract r');
+            console.warn(r);
+
+            if(r){
+                this.processExtractedFolder(r);
+            }
+        });
     }
 
     analysePackages(packages: Package[]): Promise<any> {
@@ -70,6 +79,20 @@ export class DomainService {
         this.app.tick();
 
         this.extractorService.extract(downloadedPackage.id, r.filePath);
+    }
+
+    processExtractedFolder(r: FileExtractedInfo) {
+        const extractedFolder = r.extractFolder;
+        const addinFolderPath = this.filesystemService.findAddinFolder(extractedFolder);
+
+        console.warn('addinFolderPath');
+        console.warn(addinFolderPath);
+
+        const p = this.packages.find(x => x.id === r.packageId);
+
+        this.filesystemService.deleteIfCommunityContains(p.folderName);
+        this.filesystemService.copyToCommunity(addinFolderPath, p.folderName);
+        //TODO: DeleteTempFolder
     }
 
     getPackages(): Promise<Package[]> {
