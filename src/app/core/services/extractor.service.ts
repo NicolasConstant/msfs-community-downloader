@@ -7,7 +7,7 @@ import { ElectronService } from './electron/electron.service';
 })
 export class ExtractorService {
     public fileExtracted = new BehaviorSubject<FileExtractedInfo>(null);
-    
+
     constructor(
         private electronService: ElectronService
     ) {
@@ -16,19 +16,19 @@ export class ExtractorService {
             console.warn(arg);
 
             // const info = this.downloadCache[arg];
-            if(arg){
+            if (arg) {
                 this.fileExtracted.next(arg);
                 // delete this.downloadCache[arg];
             }
         });
     }
 
-    extract(packageId: string, filePath: string){
+    extract(packageId: string, filePath: string): void {
         console.warn('Launch Extract');
         console.warn(packageId);
         console.warn(filePath);
 
-        var info = new FileExtractedInfo();
+        const info = new FileExtractedInfo();
         info.packageId = packageId;
         info.filePath = filePath;
         info.extractFolder = `${filePath.replace('\\asset.zip', '')}\\extracted`;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Package, InstallStatusEnum } from './packages.service';
+import { Package } from './packages.service';
 
 @Injectable({
     providedIn: 'root'
@@ -37,7 +37,7 @@ export class GithubService {
 export class PackageInfo {
     constructor(
         public availableVersion: string,
-        public downloadUrl: string) { };
+        public downloadUrl: string) { }
 }
 
 interface GithubRelease {

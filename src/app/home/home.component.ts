@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PackagesService, Package } from '../core/services/packages.service';
+import { Package } from '../core/services/packages.service';
 import { DomainService } from '../core/services/domain.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
                 }
             })      
             .catch(err => {
-
+                console.error(err);
             });
     }
 

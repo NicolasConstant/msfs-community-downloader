@@ -29,10 +29,10 @@ export class DownloaderService {
         });
     }
 
-    download(packageId: string, assetDownloadUrl: string, tempDir: string){
+    download(packageId: string, assetDownloadUrl: string, tempDir: string): void {
         const path = `${tempDir}\\${'asset.zip'}`;
         
-        var info = new FileDownloadInfo();
+        const info = new FileDownloadInfo();
         info.packageId = packageId;
         info.url = assetDownloadUrl;
         info.properties = { directory: tempDir, filename: 'asset.zip'};

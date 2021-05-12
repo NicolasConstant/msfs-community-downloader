@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { StringLiteral } from 'typescript';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +7,7 @@ export class PackagesService {
     constructor() { }
 
     getPackages(): Promise<Package[]> {
-        var aa =  new Package();
+        const aa =  new Package();
         aa.id = "aa-liv";
         aa.name = "AA Liveries";
         aa.description = "Azghar Airline Liveries";
@@ -18,7 +17,7 @@ export class PackagesService {
         aa.folderName = "AA";
         aa.state = InstallStatusEnum.unknown;
 
-        var test = new Package();
+        const test = new Package();
         test.id = "aa-liv-test";
         test.name = "Test Livs";
         test.description = "TEST Liveries";

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron'; //screen
 import * as path from 'path';
 import * as url from 'url';
 import { download } from 'electron-dl';
@@ -14,8 +14,8 @@ const args = process.argv.slice(1),
 
 function createWindow(): BrowserWindow {
 
-    const electronScreen = screen;
-    const size = electronScreen.getPrimaryDisplay().workAreaSize;
+    // const electronScreen = screen;
+    // const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
     // Create the browser window.
     win = new BrowserWindow({
@@ -68,47 +68,41 @@ try {
     app.on('ready', () => {
         setTimeout(createWindow, 400);
 
-        ipcMain.on('download-item', async (event, info) => {
-            info.properties.onProgress = status => event.sender.send("download progress", status);
+        ipcMain.on('download-item', (event, info) => {
+            (async () => {
+                info.properties.onProgress = status => event.sender.send("download progress", status);
 
-            const win = BrowserWindow.getFocusedWindow();
-            await download(win, info.url, info.properties)
-                .then(dl => event.sender.send('download-success', dl.getSavePath()));
+                const win = BrowserWindow.getFocusedWindow();
+                await download(win, info.url, info.properties)
+                    .then(dl => event.sender.send('download-success', dl.getSavePath()));
+            })();
         });
 
-        ipcMain.on('extract-item', async (event, info) => {
-            console.warn('EXTRACT ITEM');
-            console.warn(info);
-
-            var pro = new Promise((resolve, reject) => {
-                var zip = new AdmZip(info.filePath);
-                zip.extractAllToAsync(info.extractFolder, true, (err) => {
-                    if(err) reject();
-                    resolve();
-                });   
-            });
-
-            console.warn('AWAIT EXTRACT ITEM');
-            await pro;   
-            console.warn('AWAITED EXTRACT ITEM');
-            event.sender.send('extract-success', info);
-        });
-
-        ipcMain.on('copy-folder', async (event, info) => {
-            console.warn('COPY FOLDER');
-            console.warn(info);
-
-            try {
-                console.warn('copy-folder');
-                console.warn(info);
-                fse.copy(info.source, info.target, { overwrite: true }, (err) => {
-                    if (err) return console.error(err);
-                    event.sender.send('copy-folder-success', info);
+        ipcMain.on('extract-item', (event, info) => {
+            (async () => {
+                const pro = new Promise((resolve, reject) => {
+                    const zip = new AdmZip(info.filePath);
+                    zip.extractAllToAsync(info.extractFolder, true, (err) => {
+                        if (err) reject();
+                        resolve();
+                    });
                 });
-            }
-            catch (err) {
-                console.error(err);
-            }
+                await pro;
+                event.sender.send('extract-success', info);
+            })();
+        });
+
+        ipcMain.on('copy-folder', (event, info) => {
+            (async () => {
+                const pro = new Promise((resolve, reject) => {
+                    fse.copy(info.source, info.target, { overwrite: true }, (err) => {
+                        if (err) reject(err);
+                        resolve();
+                    });
+                });
+                await pro;
+                event.sender.send('copy-folder-success', info);
+            })();
         });
     });
 

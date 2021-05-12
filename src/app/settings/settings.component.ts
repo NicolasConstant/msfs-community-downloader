@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
                 this.communityPath = res;
             })
             .catch(err => {
-
+                console.error(err);
             });
         
         return false;

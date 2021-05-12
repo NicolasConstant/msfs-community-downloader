@@ -58,8 +58,8 @@ export class FilesystemService {
         const fs = this.electronService.fs;
         const addinFile = `${extractedFolder}\\manifest.json`;
 
-        console.warn('addinFile')
-        console.warn(addinFile)
+        console.warn('addinFile');
+        console.warn(addinFile);
 
         if (!fs.existsSync(extractedFolder)) return null;
         if (fs.existsSync(addinFile)) return extractedFolder;
@@ -67,24 +67,24 @@ export class FilesystemService {
         const subDirs = this.getDirectories(extractedFolder);
         console.warn('subDirs');
         console.warn(subDirs);
-        for (let d of subDirs) {
+        for (const d of subDirs) {
             const subDirPath = `${extractedFolder}\\${d}`;
             console.warn('subDirPath');
             console.warn(subDirPath);
-            let result = this.findAddinFolder(subDirPath);
+            const result = this.findAddinFolder(subDirPath);
             if (result) return result;
         }
 
         return null;
     }
 
-    deleteFolder(folderPath: string) {
+    deleteFolder(folderPath: string): void {
         if (this.electronService.fs.existsSync(folderPath)) {
             this.electronService.fs.rmdirSync(folderPath, { recursive: true });
         }
     }
 
-    copyToCommunity(packageId: string, addinFolderPath: string, packageFolderName: string) {
+    copyToCommunity(packageId: string, addinFolderPath: string, packageFolderName: string): void {
         const communityDir = this.settingsService.getSettings().communityPath;
         const target = `${communityDir}\\${packageFolderName}`;
 
@@ -96,12 +96,12 @@ export class FilesystemService {
         this.electronService.ipcRenderer.send('copy-folder', info);
     }
 
-    writeVersionFile(targetDir: string, version: string) {
+    writeVersionFile(targetDir: string, version: string): void {
         const path = `${targetDir}\\msfs-downloader-updater.json`;
         this.electronService.fs.writeFileSync(path, version, 'utf-8'); 
     }
 
-    private getDirectories(path): string[] {
+    private getDirectories(path: string): string[] {
         const fs = this.electronService.fs;
         return fs.readdirSync(path).filter(function (file) {
             return fs.statSync(path + '/' + file).isDirectory();
