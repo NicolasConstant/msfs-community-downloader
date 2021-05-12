@@ -29,7 +29,9 @@ export class PackageMiniComponent implements OnInit {
             case InstallStatusEnum.downloading:
                 return "Downloading...";
             case InstallStatusEnum.extracting:
-                return "Extracting..."
+                return "Extracting...";
+            case InstallStatusEnum.installing:
+                return "Installing...";
         }
     }
 }

@@ -96,8 +96,9 @@ export enum InstallStatusEnum {
     unknown = 0,
     installed = 1,
     updateAvailable = 2,
-    error = 3,    
+    error = 3,
     notFound = 4,
     downloading = 5,
-    extracting = 6
+    extracting = 6,
+    installing = 7
 }

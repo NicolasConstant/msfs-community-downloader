@@ -106,6 +106,9 @@ export class DomainService {
         const communityDir = this.settingsService.getSettings().communityPath;
         const folderPath = `${communityDir}\\${p.folderName}`;
 
+        p.state = InstallStatusEnum.installing;
+        this.app.tick();
+
         this.filesystemService.deleteFolder(folderPath);
         this.filesystemService.copyToCommunity(p.id, addinFolderPath, p.folderName);        
     }
