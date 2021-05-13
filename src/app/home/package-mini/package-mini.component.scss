@@ -6,12 +6,17 @@
     padding: 10px 20px;
     cursor: pointer;
     border-bottom: 1px solid #131922;
+    border-bottom: 1px solid #424e58;
 
     &:hover {
         background-color: #222d3b;
+        background-color: #9aa5b1;
+        background-color: #52606d;
     }
 
     &__selected {
         background-color: #12171f;
+        background-color: #52606d;
+        background-color: #3e4c59;
     }
 }
