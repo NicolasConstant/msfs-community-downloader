@@ -7,81 +7,105 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class FilesystemService {  
+export class FilesystemService {
     public folderCopied = new BehaviorSubject<CopyFolderInfo>(null);
 
     constructor(
         private settingsService: SettingsService,
         private electronService: ElectronService
-    ) { 
+    ) {
 
         this.electronService.ipcRenderer.on('copy-folder-success', (event, arg) => {
             console.warn("on('copy-folder-success')");
             console.warn(arg);
 
-            if(arg){
+            if (arg) {
                 this.folderCopied.next(arg);
             }
         });
     }
 
-    retrievePackageInfo(p: Package): LocalState {
-        const communityPath = this.settingsService.getSettings().communityPath;
-        if (!communityPath) return new LocalState(false, null);
+    retrievePackageInfo(p: Package): Promise<LocalState> {
+        const promise = new Promise<LocalState>((resolve, reject) => {
+            try {
+                const communityPath = this.settingsService.getSettings().communityPath;
+                if (!communityPath) return resolve(new LocalState(false, null));
 
-        const path = `${communityPath}\\${p.folderName}`;
-        const folderFound = this.electronService.fs.existsSync(path);
+                const path = `${communityPath}\\${p.folderName}`;
+                const folderFound = this.electronService.fs.existsSync(path);
 
-        const versionPath = `${path}\\msfs-downloader-updater.json`;
-        const versionFound = this.electronService.fs.existsSync(versionPath);
+                const versionPath = `${path}\\msfs-downloader-updater.json`;
+                const versionFound = this.electronService.fs.existsSync(versionPath);
 
-        let version: string = null;
-        if (versionFound) {
-            version = this.electronService.fs.readFileSync(versionPath, 'utf-8');
-        }
+                let version: string = null;
+                if (versionFound) {
+                    version = this.electronService.fs.readFileSync(versionPath, 'utf-8');
+                }
 
-        return new LocalState(folderFound, version);
+                resolve(new LocalState(folderFound, version));
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        return promise;
     }
 
-    getTempDir(): string {
-        let tempDir = this.electronService.fs.mkdtempSync("msfs-downloader___");
-        tempDir = `${this.settingsService.getSettings().communityPath}\\${tempDir}`;
-        if (this.electronService.fs.existsSync(tempDir)) {
-            this.electronService.fs.rmdirSync(tempDir, { recursive: true });
-        }
-        this.electronService.fs.mkdirSync(tempDir);
-        console.warn(tempDir);
-        return tempDir;
+    getTempDir(): Promise<string> {
+        const promise = new Promise<string>((resolve, reject) => {
+            try {
+                let tempDir = this.electronService.fs.mkdtempSync("msfs-downloader___");
+                tempDir = `${this.settingsService.getSettings().communityPath}\\${tempDir}`;
+                if (this.electronService.fs.existsSync(tempDir)) {
+                    this.electronService.fs.rmdirSync(tempDir, { recursive: true });
+                }
+                this.electronService.fs.mkdirSync(tempDir);
+                resolve(tempDir);
+            } catch (error) {
+                reject(error);
+            }
+        });
+        return promise;
     }
 
-    findAddinFolder(extractedFolder: string): string {
-        const fs = this.electronService.fs;
-        const addinFile = `${extractedFolder}\\manifest.json`;
+    findAddinFolder(extractedFolder: string): Promise<string> {
+        const promise = new Promise<string>((resolve, reject) => {
+            (async () => {
+                try {
+                    const fs = this.electronService.fs;
+                    const addinFile = `${extractedFolder}\\manifest.json`;
 
-        console.warn('addinFile');
-        console.warn(addinFile);
+                    if (!fs.existsSync(extractedFolder)) return resolve(null);
+                    if (fs.existsSync(addinFile)) return resolve(extractedFolder);
 
-        if (!fs.existsSync(extractedFolder)) return null;
-        if (fs.existsSync(addinFile)) return extractedFolder;
+                    const subDirs = await this.getDirectories(extractedFolder);
+                    for (const d of subDirs) {
+                        const subDirPath = `${extractedFolder}\\${d}`;
+                        const result = await this.findAddinFolder(subDirPath);
+                        if (result) return resolve(result);
+                    }
 
-        const subDirs = this.getDirectories(extractedFolder);
-        console.warn('subDirs');
-        console.warn(subDirs);
-        for (const d of subDirs) {
-            const subDirPath = `${extractedFolder}\\${d}`;
-            console.warn('subDirPath');
-            console.warn(subDirPath);
-            const result = this.findAddinFolder(subDirPath);
-            if (result) return result;
-        }
-
-        return null;
+                    resolve(null);
+                } catch (error) {
+                    reject(error);
+                }
+            })();
+        });
+        return promise;
     }
 
-    deleteFolder(folderPath: string): void {
-        if (this.electronService.fs.existsSync(folderPath)) {
-            this.electronService.fs.rmdirSync(folderPath, { recursive: true });
-        }
+    deleteFolder(folderPath: string): Promise<any> {
+        const promise = new Promise<any>((resolve, reject) => {
+            try {
+                if (this.electronService.fs.existsSync(folderPath)) {
+                    this.electronService.fs.rmdirSync(folderPath, { recursive: true });
+                }
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        });
+        return promise;
     }
 
     copyToCommunity(packageId: string, addinFolderPath: string, packageFolderName: string): void {
@@ -96,16 +120,32 @@ export class FilesystemService {
         this.electronService.ipcRenderer.send('copy-folder', info);
     }
 
-    writeVersionFile(targetDir: string, version: string): void {
-        const path = `${targetDir}\\msfs-downloader-updater.json`;
-        this.electronService.fs.writeFileSync(path, version, 'utf-8'); 
+    writeVersionFile(targetDir: string, version: string): Promise<any> {
+        const promise = new Promise<any>((resolve, reject) => {
+            try {
+                const path = `${targetDir}\\msfs-downloader-updater.json`;
+                this.electronService.fs.writeFileSync(path, version, 'utf-8');
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        });
+        return promise;
     }
 
-    private getDirectories(path: string): string[] {
-        const fs = this.electronService.fs;
-        return fs.readdirSync(path).filter(function (file) {
-            return fs.statSync(path + '/' + file).isDirectory();
+    private getDirectories(path: string): Promise<string[]> {
+        const promise = new Promise<string[]>((resolve, reject) => {
+            try {
+                const fs = this.electronService.fs;
+                const res = fs.readdirSync(path).filter(function (file) {
+                    return fs.statSync(path + '/' + file).isDirectory();
+                });
+                resolve(res);
+            } catch (error) {
+                reject(error);
+            }
         });
+        return promise;
     }
 }
 

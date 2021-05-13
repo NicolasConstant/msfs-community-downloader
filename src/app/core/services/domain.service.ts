@@ -62,13 +62,15 @@ export class DomainService {
     }
 
     private analysePackage(p: Package): Promise<any> {
-        const local = this.filesystemService.retrievePackageInfo(p);
-        return this.githubService.retrievePackageInfo(p)
-            .then((info: PackageInfo) => {
-                p.localVersion = local.version;
-                p.availableVersion = info.availableVersion;
-                p.assetDownloadUrl = info.downloadUrl;
-                p.state = this.getState(local, info);
+        const localPromise = this.filesystemService.retrievePackageInfo(p);
+        const githubPromise = this.githubService.retrievePackageInfo(p);
+
+        return Promise.all([localPromise, githubPromise])
+            .then(result => {
+                p.localVersion = result[0].version;
+                p.availableVersion = result[1].availableVersion;
+                p.assetDownloadUrl = result[1].downloadUrl;
+                p.state = this.getState(result[0], result[1]);
             });
     }
 
@@ -92,12 +94,9 @@ export class DomainService {
         this.extractorService.extract(downloadedPackage.id, r.filePath);
     }
 
-    processExtractedFolder(r: FileExtractedInfo): void {
+    async processExtractedFolder(r: FileExtractedInfo): Promise<any> {
         const extractedFolder = r.extractFolder;
-        const addinFolderPath = this.filesystemService.findAddinFolder(extractedFolder);
-
-        console.warn('FOUND addinFolderPath');
-        console.warn(addinFolderPath);
+        const addinFolderPath = await this.filesystemService.findAddinFolder(extractedFolder);
 
         if(!addinFolderPath) return;
 
@@ -109,7 +108,7 @@ export class DomainService {
         p.state = InstallStatusEnum.installing;
         this.app.tick();
 
-        this.filesystemService.deleteFolder(folderPath);
+        await this.filesystemService.deleteFolder(folderPath);
         this.filesystemService.copyToCommunity(p.id, addinFolderPath, p.folderName);        
     }
 
@@ -136,20 +135,19 @@ export class DomainService {
     install(p: Package): void {
         p.state = InstallStatusEnum.downloading;
         this.app.tick();
-        const tempDir = this.filesystemService.getTempDir();
-        p.tempWorkingDir = tempDir;
-        this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
+        this.filesystemService.getTempDir()
+            .then(tempDir => {
+                p.tempWorkingDir = tempDir;
+                this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
+            });      
     }
 
     update(p: Package): void {
-        p.state = InstallStatusEnum.downloading;
-        this.app.tick();
-        const tempDir = this.filesystemService.getTempDir();
-        this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
+        this.install(p);
     }
+
     remove(p: Package): void {
         console.log(p);
         throw new Error("Method not implemented.");
     }
-
 }
