@@ -3,10 +3,12 @@
 #titlebar {
     display: block;
     position: fixed;
-    height: 27px;
-    width: calc(100% - 2px);
+    height: 35px;
+    width: 100%;
+    top: 0;
     /*Compensate for body 1px border*/
-    background: #254053;
+    background: #161b22;
+    background: #0c0f13;
 
     padding: 4px;
 
@@ -18,15 +20,16 @@
         grid-template-columns: auto 138px;
     }
 
-    color: #FFF;
+    color: #8794a8;
+}
 
-
-    & #main {
-        height: calc(100% - 27px);
-        margin-top: 27px;
-        // padding: 20px;
-        overflow-y: auto;
-    }
+#main {
+    height: calc(100% - 36px);
+    width: 100%;
+    position: fixed;
+    top: 36px;
+    // padding: 20px;
+    overflow-y: auto;
 }
 
 #window-controls {
@@ -35,7 +38,7 @@
     grid-template-columns: repeat(2, 46px);
     position: absolute;
     top: 0;
-    right: 8px;
+    right: 0px;
     height: 100%;
 
     & .button {
@@ -53,11 +56,11 @@
         user-select: none;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: #212933;
         }
 
         &:active {
-            background: rgba(255, 255, 255, 0.2);
+            background: #27303b;
         }
     }
 }
@@ -114,6 +117,9 @@
     overflow: hidden;
     font-family: "Segoe UI", sans-serif;
     font-size: 12px;
+    
+    position: relative;
+    top: -1px;
 
     & span {
         overflow: hidden;

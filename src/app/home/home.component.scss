@@ -1,3 +1,61 @@
 :host {
-  
+    // height: 100%;
+}
+
+.left-bar {
+    position: fixed;
+    top: 35px;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    // border-right: 1px solid greenyellow;
+    background-color: #090c10;
+}
+
+.package-content {
+    // outline: greenyellow 1px dotted;
+    position: fixed;
+    top: 35px;
+    right: 0;
+    left: 250px;
+    bottom: 0;
+
+    // float: right;
+    // margin-left: 253px;
+    // width: calc(100% - 253px);
+    // height: 100%;
+
+    background-color: #0d1117;
+}
+
+.packages {
+    position: fixed;
+    top: 35px;
+    left: 0;
+    bottom: 42px;
+    width: 250px;
+
+    overflow: auto;
+
+    &__link {
+        text-decoration: none;
+    }
+}
+
+.settings {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    padding: 10px 20px;
+
+    color: #626c7c;
+    font-weight: bold;
+    text-decoration: none;
+
+    border-top: 1px solid #131922;
+
+    &:hover {
+        color: white;
+    }
 }

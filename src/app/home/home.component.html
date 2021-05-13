@@ -1,7 +1,25 @@
-<div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
+<!-- <div class="container"> -->
+<div class="left-bar">
+    <div class="packages">
+        <ng-container *ngFor="let p of packages">
+            <a href (click)="selectPackage(p)" class="packages__link">
+                <app-package-mini [package]="p"></app-package-mini>
+            </a>
+        </ng-container>
+    </div>
 
-  <a routerLink="/detail">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a>
+    <a class="settings" routerLink="/settings">
+        Settings
+    </a>
 </div>
+
+<div class="package-content">
+    <app-package-detailed *ngIf="selectedPackage" [package]="selectedPackage"></app-package-detailed>
+</div>
+
+<!-- <h1 class="title">
+        {{ 'PAGES.HOME.TITLE' | translate }}
+    </h1>
+
+    <a routerLink="/detail">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a> -->
+<!-- </div> -->

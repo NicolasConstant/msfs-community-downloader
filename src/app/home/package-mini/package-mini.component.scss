@@ -1,0 +1,17 @@
+.package {
+    color: whitesmoke;
+    display: block;
+    width: 100%;
+    // background-color: #060a0f;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #131922;
+
+    &:hover {
+        background-color: #222d3b;
+    }
+
+    &__selected {
+        background-color: #12171f;
+    }
+}

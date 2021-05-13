@@ -41,7 +41,10 @@
     "lint": "ng lint"
   },
   "dependencies": {
-    "@electron/remote": "1.0.4"
+    "@electron/remote": "1.0.4",
+    "adm-zip": "0.5.5",
+    "electron-dl": "3.2.1",
+    "fs-extra": "10.0.0"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "11.1.1",
