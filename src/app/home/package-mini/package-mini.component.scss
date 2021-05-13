@@ -19,4 +19,13 @@
         background-color: #52606d;
         background-color: #3e4c59;
     }
+
+    &__title {
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+
+    &__state {
+        font-size: 0.8em;
+    }
 }
