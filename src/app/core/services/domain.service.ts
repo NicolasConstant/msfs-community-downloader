@@ -2,7 +2,7 @@ import { Injectable, ApplicationRef } from '@angular/core';
 import { FilesystemService, LocalState, CopyFolderInfo } from './filesystem.service';
 import { GithubService, PackageInfo } from './github.service';
 import { Package, InstallStatusEnum, PackagesService } from './packages.service';
-import { DownloaderService, FileDownloadInfo } from './downloader.service';
+import { DownloaderService, FileDownloadInfo, FileDownloadUpdate } from './downloader.service';
 import { Subscription } from 'rxjs';
 import { ExtractorService, FileExtractedInfo } from './extractor.service';
 import { SettingsService } from './settings.service';
@@ -10,9 +10,11 @@ import { SettingsService } from './settings.service';
 @Injectable({
     providedIn: 'root'
 })
-export class DomainService {    
+export class DomainService {
+     
     private packages: Package[];
     private downloadSub: Subscription;
+    private downloadUpdateSub: Subscription;
     private extractSub: Subscription;
     private copySub: Subscription;
 
@@ -31,6 +33,11 @@ export class DomainService {
 
             if (r) {
                 this.processDownloadedFile(r);
+            }
+        });
+        this.downloadUpdateSub = downloaderService.fileDownloadedUpdated.subscribe(r => {
+            if(r){
+                this.processDownloadedUpdate(r);
             }
         });
         this.extractSub = extractorService.fileExtracted.subscribe(r => {
@@ -89,10 +96,20 @@ export class DomainService {
 
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.state = InstallStatusEnum.extracting;
+        downloadedPackage.downloaded = null;
         this.app.tick();
 
         this.extractorService.extract(downloadedPackage.id, r.filePath);
     }
+
+    processDownloadedUpdate(r: FileDownloadUpdate) {
+        console.log('processDownloadedUpdate');
+        console.warn(r);
+
+        const downloadedPackage = this.packages.find(x => x.id === r.packageId);
+        downloadedPackage.downloaded = r.downloadedData;
+        this.app.tick();
+    }  
 
     async processExtractedFolder(r: FileExtractedInfo): Promise<any> {
         const extractedFolder = r.extractFolder;

@@ -6,12 +6,34 @@
     padding: 10px 20px;
     cursor: pointer;
     border-bottom: 1px solid #131922;
+    border-bottom: 1px solid #424e58;
 
     &:hover {
         background-color: #222d3b;
+        background-color: #9aa5b1;
+        background-color: #52606d;
+
+        background-color: #333a4a;
     }
 
     &__selected {
         background-color: #12171f;
+        background-color: #52606d;
+        background-color: #3e4c59;
+
+        background-color: #3f4d68;
+
+        &:hover {
+            background-color: #5a6e95;
+        }
+    }
+
+    &__title {
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+
+    &__state {
+        font-size: 0.8em;
     }
 }

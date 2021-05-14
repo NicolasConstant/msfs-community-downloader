@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron/electron.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -8,15 +8,12 @@ import { BehaviorSubject } from 'rxjs';
 export class DownloaderService {
 
     public fileDownloaded = new BehaviorSubject<FileDownloadInfo>(null);
-    public fileDownloadedUpdated = new BehaviorSubject<string>(null);
+    public fileDownloadedUpdated = new Subject<FileDownloadUpdate>();
 
     private downloadCache: { [id: string]: FileDownloadInfo; } = {};
     
     constructor(private electronService: ElectronService) { 
         this.electronService.ipcRenderer.on('download-success', (event, arg) => {
-            console.warn("on('download-success')");
-            console.warn(arg);
-
             const info = this.downloadCache[arg];
             if(info){
                 this.fileDownloaded.next(info);
@@ -24,8 +21,14 @@ export class DownloaderService {
             }
         });
 
-        this.electronService.ipcRenderer.on("download progress", (event, progress) => {
+        this.electronService.ipcRenderer.on("download-progress", (event, progress) => {
             console.log(progress);
+            
+            const update = new FileDownloadUpdate();
+            update.packageId = progress.packageId;
+            update.downloadedData = Math.round(progress.status.transferredBytes / (1024*1024));
+
+            this.fileDownloadedUpdated.next(update);
         });
     }
 
@@ -48,4 +51,9 @@ export class FileDownloadInfo {
     url: string;
     properties: any;
     filePath: string;
+}
+
+export class FileDownloadUpdate {
+    packageId: string;
+    downloadedData: number;
 }

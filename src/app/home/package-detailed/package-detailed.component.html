@@ -1,20 +1,51 @@
 <div class="package-detailed">
     <div class="package-detailed__banner" [ngStyle]="{'background-image':'url('+package.illustration+')'}">
         <div class="package-detailed__banner__inner">
+            <div class="install-button">
+                <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
+                <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
+                <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
+                <a href *ngIf="package.state === 5 || package.state === 6 || package.state === 7" class="button button--working">{{getWorkingInfo()}}</a>
+            </div>
+
             <h1 class="package-detailed__banner__inner--name">{{package.name}}</h1>
             <h2 class="package-detailed__banner__inner--description">{{package.description}}</h2>
+
+
         </div>
     </div>
 
     <div class="package-detailed__content">
+        <div class="version-bar">
+            <div class="version">
+                <div class="version__title">Installed</div>
+                <div class="version__content">{{package.localVersion}}</div>
+            </div>
 
-        <div>Local Version: {{package.localVersion}}</div>
-        <div>Available Version: {{package.availableVersion}}</div>
-        <div>            
-            <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
-            <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
-            <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
+            <div class="version">
+                <div class="version__title">Available</div>
+                <div class="version__content">{{package.availableVersion}}</div>
+            </div>
+
+            <!-- <div class="install-button">
+                <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
+                <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
+                <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
+            </div> -->
         </div>
+
+        <h3>Summary</h3>
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita doloribus, atque sapiente, alias
+            reprehenderit voluptatum enim libero rerum mollitia, suscipit eveniet doloremque aliquam itaque ad nesciunt
+            quas tempore deleniti amet.<br />
+            <br />
+        </p>
+
+        <h3>Links</h3>
+        Author<br/>
+        Github Repository<br/>
+        Official Webpage<br/>
 
     </div>
 </div>

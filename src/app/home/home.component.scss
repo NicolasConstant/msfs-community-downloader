@@ -8,8 +8,14 @@
     left: 0;
     bottom: 0;
     width: 250px;
-    // border-right: 1px solid greenyellow;
+    
+    // border-right: 1px solid #3f4d68;
+
     background-color: #090c10;
+    background-color: #1f2933;
+
+    background-color: #1a1a1a;
+    background-color: #24272e;
 }
 
 .package-content {
@@ -26,6 +32,11 @@
     // height: 100%;
 
     background-color: #0d1117;
+    background-color: rgb(45, 57, 68);
+
+    background-color: #1a1a1a;
+    background-color: #282c34;
+    background-color: #353944;
 }
 
 .packages {
@@ -54,6 +65,7 @@
     text-decoration: none;
 
     border-top: 1px solid #131922;
+    border-top: 1px solid #424e58;
 
     &:hover {
         color: white;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Package } from '../../core/services/packages.service';
+import { Package, InstallStatusEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
 
 @Component({
@@ -9,26 +9,44 @@ import { DomainService } from '../../core/services/domain.service';
 })
 export class PackageDetailedComponent implements OnInit {
     @Input() package: Package;
+    updatingStatus: string;
 
     constructor(
-        private domainService: DomainService
+        private domainService: DomainService,
     ) { }
 
     ngOnInit(): void {
     }
 
-    install():boolean {
+    install(): boolean {
         this.domainService.install(this.package);
         return false;
     }
 
-    remove():boolean {
+    remove(): boolean {
         this.domainService.remove(this.package);
         return false;
     }
 
-    update():boolean {
+    update(): boolean {
         this.domainService.update(this.package);
         return false;
+    }
+
+    getWorkingInfo(): string {
+        const p = this.package;
+        if (p.state === InstallStatusEnum.downloading) {
+            if (p.downloaded) {
+                return `${p.downloaded} MB`;
+            } else {
+                return `0 MB`;
+            }
+        }
+        if (p.state === InstallStatusEnum.extracting) {
+            return "Extracting...";
+        }
+        if (p.state === InstallStatusEnum.installing) {
+            return "Installing...";
+        }
     }
 }

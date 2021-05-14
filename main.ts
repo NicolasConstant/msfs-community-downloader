@@ -21,7 +21,7 @@ function createWindow(): BrowserWindow {
     win = new BrowserWindow({
         x: 0,
         y: 0,
-        width: 800,
+        width: 1000,
         height: 600,
         frame: false,
         webPreferences: {
@@ -70,7 +70,7 @@ try {
 
         ipcMain.on('download-item', (event, info) => {
             (async () => {
-                info.properties.onProgress = status => event.sender.send("download progress", status);
+                info.properties.onProgress = status => event.sender.send("download-progress", { packageId: info.packageId, status: status});
 
                 const win = BrowserWindow.getFocusedWindow();
                 await download(win, info.url, info.properties)

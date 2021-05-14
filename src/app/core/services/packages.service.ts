@@ -9,8 +9,8 @@ export class PackagesService {
     getPackages(): Promise<Package[]> {
         const aa =  new Package();
         aa.id = "aa-liv";
-        aa.name = "AA Liveries";
-        aa.description = "Azghar Airline Liveries";
+        aa.name = "Azgharie Airlines";
+        aa.description = "Azgharie Airlines Liveries";
         aa.githubOwner = "dites33";
         aa.githubRepo = "aa";
         aa.illustration = "assets/illustrations/aa.jpg";
@@ -89,6 +89,7 @@ export class Package {
     public illustration: string;
     public isSelected: boolean;
     tempWorkingDir: string;
+    downloaded: InstallStatusEnum;
 }
 
 export enum InstallStatusEnum {
