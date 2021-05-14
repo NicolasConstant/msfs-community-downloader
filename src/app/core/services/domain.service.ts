@@ -107,7 +107,7 @@ export class DomainService {
         console.warn(r);
 
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
-        downloadedPackage.downloaded = InstallStatusEnum.extracting;
+        downloadedPackage.downloaded = r.downloadedData;
         this.app.tick();
     }  
 

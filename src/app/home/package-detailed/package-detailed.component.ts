@@ -9,37 +9,43 @@ import { DomainService } from '../../core/services/domain.service';
 })
 export class PackageDetailedComponent implements OnInit {
     @Input() package: Package;
+    updatingStatus: string;
 
     constructor(
-        private domainService: DomainService
+        private domainService: DomainService,
     ) { }
 
     ngOnInit(): void {
     }
 
-    install():boolean {
+    install(): boolean {
         this.domainService.install(this.package);
         return false;
     }
 
-    remove():boolean {
+    remove(): boolean {
         this.domainService.remove(this.package);
         return false;
     }
 
-    update():boolean {
+    update(): boolean {
         this.domainService.update(this.package);
         return false;
     }
 
-    getWorkingInfo(p: Package): string {        
-        if(p.state === InstallStatusEnum.downloading){
-            return `${p.downloaded} MB`;
+    getWorkingInfo(): string {
+        const p = this.package;
+        if (p.state === InstallStatusEnum.downloading) {
+            if (p.downloaded) {
+                return `${p.downloaded} MB`;
+            } else {
+                return `0 MB`;
+            }
         }
-        if(p.state === InstallStatusEnum.extracting){
+        if (p.state === InstallStatusEnum.extracting) {
             return "Extracting...";
         }
-        if(p.state === InstallStatusEnum.installing){
+        if (p.state === InstallStatusEnum.installing) {
             return "Installing...";
         }
     }
