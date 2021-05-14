@@ -89,6 +89,7 @@ export class Package {
     public illustration: string;
     public isSelected: boolean;
     tempWorkingDir: string;
+    downloaded: InstallStatusEnum;
 }
 
 export enum InstallStatusEnum {

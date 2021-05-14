@@ -34,7 +34,7 @@ function createWindow(): BrowserWindow {
 
     if (serve) {
 
-        //win.webContents.openDevTools();
+        win.webContents.openDevTools();
 
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/node_modules/electron`)
@@ -70,7 +70,7 @@ try {
 
         ipcMain.on('download-item', (event, info) => {
             (async () => {
-                info.properties.onProgress = status => event.sender.send("download progress", status);
+                info.properties.onProgress = status => event.sender.send("download-progress", { packageId: info.packageId, status: status});
 
                 const win = BrowserWindow.getFocusedWindow();
                 await download(win, info.url, info.properties)

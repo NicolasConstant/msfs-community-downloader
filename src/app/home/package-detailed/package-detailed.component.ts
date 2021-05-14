@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Package } from '../../core/services/packages.service';
+import { Package, InstallStatusEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
 
 @Component({
@@ -30,5 +30,17 @@ export class PackageDetailedComponent implements OnInit {
     update():boolean {
         this.domainService.update(this.package);
         return false;
+    }
+
+    getWorkingInfo(p: Package): string {        
+        if(p.state === InstallStatusEnum.downloading){
+            return `${p.downloaded} MB`;
+        }
+        if(p.state === InstallStatusEnum.extracting){
+            return "Extracting...";
+        }
+        if(p.state === InstallStatusEnum.installing){
+            return "Installing...";
+        }
     }
 }
