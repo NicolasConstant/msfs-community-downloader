@@ -1,8 +1,8 @@
 <div class="package" [class.package__selected]="package.isSelected">
-    <!-- <fa-icon class="package__icon" [icon]="faArrowDown"></fa-icon> -->
-    <!-- <fa-icon class="package__icon package__icon--working" [icon]="faArrowDown"></fa-icon> -->
-    <fa-icon class="package__icon package__icon--update" [icon]="faArrowDown"></fa-icon>
-    <!-- <fa-icon class="package__icon package__icon--check" [icon]="faCheck"></fa-icon>-->
+    <fa-icon *ngIf="package.state === 0 ||package.state === 3 || package.state === 4" class="package__icon" [icon]="faArrowDown"></fa-icon>
+    <fa-icon *ngIf="package.state === 5 ||package.state === 6 || package.state === 7" class="package__icon package__icon--working" [icon]="faArrowDown"></fa-icon>
+    <fa-icon *ngIf="package.state === 2" class="package__icon package__icon--update" [icon]="faArrowDown"></fa-icon>
+    <fa-icon *ngIf="package.state === 1" class="package__icon package__icon--check" [icon]="faCheck"></fa-icon>
 
     <div class="package__title">{{package.name}}</div>
     <div class="package__state">{{getState(package.state)}}</div>    

@@ -53,19 +53,39 @@
     }
 }
 
-.settings {
+.column-footer{
     position: fixed;
     left: 0;
     bottom: 0;
     width: 250px;
+    border-top: 1px solid #424e58;
+}
+
+.settings {  
+    display: inline-block;
+    width: calc(250px - 42px - 2px);
     padding: 10px 20px;
 
     color: #626c7c;
+    color: #838fa3;
     font-weight: bold;
     text-decoration: none;
 
-    border-top: 1px solid #131922;
-    border-top: 1px solid #424e58;
+    // border-right: 1px solid #424e58;
+
+    // border-top: 1px solid #131922;
+   
+
+    &:hover {
+        color: white;
+    }
+}
+
+.refresh{
+    display: inline-block;
+    padding: 10px 0 0 13px;
+    width: 42px;
+    color: #838fa3;
 
     &:hover {
         color: white;

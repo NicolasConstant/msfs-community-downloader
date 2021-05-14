@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+
 import { Package } from '../core/services/packages.service';
 import { DomainService } from '../core/services/domain.service';
 
@@ -9,6 +11,7 @@ import { DomainService } from '../core/services/domain.service';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+    faSyncAlt = faSyncAlt;
 
     packages: Package[] = [];
     selectedPackage: Package;
@@ -47,6 +50,11 @@ export class HomeComponent implements OnInit {
         selected.isSelected = true;
         this.selectedPackage = selected;
 
+        return false;
+    }
+
+    refresh(): boolean {
+        this.domainService.analysePackages(this.packages);
         return false;
     }
 }
