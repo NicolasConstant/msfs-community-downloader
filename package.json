@@ -1,24 +1,19 @@
 {
-  "name": "angular-electron",
-  "version": "9.0.7",
-  "description": "Angular 11 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "msfs-community-downloader",
+  "version": "0.1.0",
+  "description": "MSFS addin downloader client",
+  "homepage": "https://github.com/nicolasconstant/msfs-community-downloader",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Nicolas Constant",
+    "email": "github@nicolas-constant.com"
   },
   "keywords": [
+    "msfs",
     "angular",
-    "angular 11",
     "electron",
     "nodejs",
     "typescript",
-    "spectron",
-    "eslint",
-    "sass",
-    "windows",
-    "mac",
-    "linux"
+    "windows"
   ],
   "main": "main.js",
   "private": true,
