@@ -36,4 +36,23 @@
     &__state {
         font-size: 0.8em;
     }
+
+    &__icon {
+        float: right;
+        position: relative;
+        top: 10px;
+        right: 5px;
+
+        &--check {
+            color: greenyellow;
+        }
+
+        &--working {
+            color: #ff00ff;
+        }
+
+        &--update {
+            color: #ff9900;
+        }
+    }
 }

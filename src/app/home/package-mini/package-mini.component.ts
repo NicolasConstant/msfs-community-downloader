@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { faArrowDown, faCheck } from '@fortawesome/free-solid-svg-icons';
+
 import { Package, InstallStatusEnum } from '../../core/services/packages.service';
+
+
 
 @Component({
     selector: 'app-package-mini',
@@ -7,6 +11,9 @@ import { Package, InstallStatusEnum } from '../../core/services/packages.service
     styleUrls: ['./package-mini.component.scss']
 })
 export class PackageMiniComponent implements OnInit {
+    faArrowDown = faArrowDown;
+    faCheck = faCheck;
+
     @Input() package: Package;
 
     constructor() { }

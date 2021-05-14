@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Package, InstallStatusEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
+import { faArrowDown, faCoffee  } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-package-detailed',
@@ -8,6 +9,9 @@ import { DomainService } from '../../core/services/domain.service';
     styleUrls: ['./package-detailed.component.scss']
 })
 export class PackageDetailedComponent implements OnInit {
+    // faArrowDown = faArrowDown;
+    faCoffee = faCoffee;
+
     @Input() package: Package;
     updatingStatus: string;
 

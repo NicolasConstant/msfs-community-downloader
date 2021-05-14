@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HomeRoutingModule } from './home-routing.module';
 
@@ -10,6 +11,6 @@ import { PackageDetailedComponent } from './package-detailed/package-detailed.co
 
 @NgModule({
   declarations: [HomeComponent, PackageMiniComponent, PackageDetailedComponent],
-  imports: [CommonModule, SharedModule, HomeRoutingModule]
+  imports: [CommonModule, SharedModule, HomeRoutingModule, FontAwesomeModule]
 })
 export class HomeModule {}
