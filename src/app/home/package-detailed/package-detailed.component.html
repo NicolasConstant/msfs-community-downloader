@@ -1,8 +1,16 @@
 <div class="package-detailed">
     <div class="package-detailed__banner" [ngStyle]="{'background-image':'url('+package.illustration+')'}">
         <div class="package-detailed__banner__inner">
+            <div class="install-button">
+                <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
+                <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
+                <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
+            </div>
+
             <h1 class="package-detailed__banner__inner--name">{{package.name}}</h1>
             <h2 class="package-detailed__banner__inner--description">{{package.description}}</h2>
+
+
         </div>
     </div>
 
@@ -17,14 +25,26 @@
                 <div class="version__title">Available</div>
                 <div class="version__content">{{package.availableVersion}}</div>
             </div>
+
+            <!-- <div class="install-button">
+                <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
+                <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
+                <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
+            </div> -->
         </div>
 
-        csdsdq
-        <div>
-            <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
-            <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
-            <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
-        </div>
+        <h3>Summary</h3>
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita doloribus, atque sapiente, alias
+            reprehenderit voluptatum enim libero rerum mollitia, suscipit eveniet doloremque aliquam itaque ad nesciunt
+            quas tempore deleniti amet.<br />
+            <br />
+        </p>
+
+        <h3>Links</h3>
+        Author<br/>
+        Github Repository<br/>
+        Official Webpage<br/>
 
     </div>
 </div>
