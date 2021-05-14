@@ -21,7 +21,7 @@ function createWindow(): BrowserWindow {
     win = new BrowserWindow({
         x: 0,
         y: 0,
-        width: 800,
+        width: 1000,
         height: 600,
         frame: false,
         webPreferences: {
@@ -34,7 +34,7 @@ function createWindow(): BrowserWindow {
 
     if (serve) {
 
-        win.webContents.openDevTools();
+        //win.webContents.openDevTools();
 
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/node_modules/electron`)
