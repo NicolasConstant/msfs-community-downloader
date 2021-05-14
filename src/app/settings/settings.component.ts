@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import { SettingsService } from '../core/services/settings.service';
 
 @Component({
@@ -7,6 +9,7 @@ import { SettingsService } from '../core/services/settings.service';
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+    faTimes = faTimes;
 
     communityPath: string;
 
