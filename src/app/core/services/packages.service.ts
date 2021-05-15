@@ -24,7 +24,7 @@ export class PackagesService {
         wtg1000.description = "Working Title G1000";
         wtg1000.githubOwner = "Working-Title-MSFS-Mods";
         wtg1000.githubRepo = "fspackages";
-        wtg1000.illustration = "assets/illustrations/aa.jpg";
+        wtg1000.illustration = "assets/illustrations/g1000.jpg";
         wtg1000.folderName = "workingtitle-g1000";
         wtg1000.assetName = "workingtitle-g1000-v";
         wtg1000.state = InstallStatusEnum.unknown;
@@ -35,7 +35,7 @@ export class PackagesService {
         wtg3000.description = "Working Title G3000";
         wtg3000.githubOwner = "Working-Title-MSFS-Mods";
         wtg3000.githubRepo = "fspackages";
-        wtg3000.illustration = "assets/illustrations/aa.jpg";
+        wtg3000.illustration = "assets/illustrations/g3000.jpg";
         wtg3000.folderName = "workingtitle-g3000";
         wtg3000.assetName = "workingtitle-g3000-v";
         wtg3000.state = InstallStatusEnum.unknown;
@@ -46,7 +46,7 @@ export class PackagesService {
         a32nx.description = "flybywire A32NX";
         a32nx.githubOwner = "flybywiresim";
         a32nx.githubRepo = "a32nx";
-        a32nx.illustration = "assets/illustrations/aa.jpg";
+        a32nx.illustration = "assets/illustrations/a32nx.jpg";
         a32nx.folderName = "flybywire-aircraft-a320-neo";
         a32nx.assetName = "A32NX-stable.zip";
         a32nx.state = InstallStatusEnum.unknown;
