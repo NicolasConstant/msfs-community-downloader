@@ -53,6 +53,27 @@
     }
 }
 
+
+.packages::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+.packages::-webkit-scrollbar-track {
+    background: #24272e;
+    /* color of the tracking area */
+}
+
+.packages::-webkit-scrollbar-thumb {
+    background-color: rgb(74, 74, 95);
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid #24272e;
+    /* creates padding around scroll thumb */
+}
+
+
 .column-footer{
     position: fixed;
     left: 0;
