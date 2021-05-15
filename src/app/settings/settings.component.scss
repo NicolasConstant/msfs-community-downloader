@@ -14,18 +14,52 @@
     }
 }
 
+
 .close {
-    display: inline-block;
+    float: right;
+
+    width: 33px;
+    height: 33px;
+
+    // display: inline-block;
     color: whitesmoke;
-    border: 1px solid rgb(50, 57, 75);
-    border-radius: 3px;
-    padding: 5px 20px;
+    border: 2px solid rgb(58, 58, 59);
+    border-radius: 100px;
+    // padding: 5px 5px;
     text-decoration: none;
-    margin-top: 30px;
+    // margin-top: 30px;
+
+    & fa-icon {
+        position: relative;
+        top: 4px;
+        left: 9px;
+    }
+
+    &:hover {
+        background-color: rgb(58, 58, 59);
+    }
 }
 
 .folder-path {
+    display: inline-block;
     margin-top: 5px;
     padding: 5px;
-    width: 100%;
+    width: calc(100% - 100px);
+    height: 33px;
+}
+
+
+.button {
+    position: relative;
+    top: 1px;
+    width: 100px;
+    display: inline-block;
+    color: whitesmoke;
+    border: 1px solid rgb(50, 57, 75);
+    border-width: 1px 1px 1px 0;
+    border-radius: 3px 3px 0 0;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    // margin-top: 30px;
 }

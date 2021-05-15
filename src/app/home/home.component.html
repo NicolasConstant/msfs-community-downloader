@@ -8,9 +8,14 @@
         </ng-container>
     </div>
 
-    <a class="settings" routerLink="/settings">
-        Settings
-    </a>
+    <div class="column-footer">
+        <a class="settings" routerLink="/settings">
+            Settings
+        </a>
+        <a href class="refresh" (click)="refresh()">
+            <fa-icon class="package__icon package__icon--update" [icon]="faSyncAlt"></fa-icon>
+        </a>
+    </div>
 </div>
 
 <div class="package-content">

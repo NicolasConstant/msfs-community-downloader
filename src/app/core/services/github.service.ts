@@ -15,7 +15,7 @@ export class GithubService {
         return this.http.get<GithubRelease[]>(route).toPromise()        
             .then((rel: GithubRelease[]) => {
                 const lastRelease = rel.find(x => this.isCandidate(x, p));
-                const asset = lastRelease.assets.find(y => y.name === p.assetName);
+                const asset = lastRelease.assets.find(y => y.name.includes(p.assetName));
                 
                 let downloadUrl = lastRelease.zipball_url;
                 if(asset){
@@ -30,7 +30,7 @@ export class GithubService {
     private isCandidate(rel: GithubRelease, p: Package): boolean {
         return  rel.draft === false 
                 && rel.prerelease === false
-                && (!p.assetName || rel.assets.findIndex(y => y.name === p.assetName) !== -1);
+                && (!p.assetName || rel.assets.findIndex(y => y.name.includes(p.assetName)) !== -1);
     }
 }
 

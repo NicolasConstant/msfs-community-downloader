@@ -164,7 +164,18 @@ export class DomainService {
     }
 
     remove(p: Package): void {
-        console.log(p);
-        throw new Error("Method not implemented.");
+
+        const communityDir = this.settingsService.getSettings().communityPath;
+        const folderPath = `${communityDir}\\${p.folderName}`;
+
+        this.filesystemService.deleteFolder(folderPath)
+            .then(() => {
+                p.localVersion = null;
+                p.state = InstallStatusEnum.notFound;
+                this.app.tick();
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 }

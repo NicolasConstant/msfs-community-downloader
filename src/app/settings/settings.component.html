@@ -1,15 +1,21 @@
 <div class="settings">
     <div class="settings__content">
+        <a href class="close" routerLink="/">
+            <fa-icon [icon]="faTimes"></fa-icon>
+        </a>
         <h1>Settings</h1>
 
         <h3>Community Folder Path</h3>
-        <input [(ngModel)]="communityPath" type="text" autocomplete="off" class="folder-path"/>
-        <a href class="close" (click)="findCommunityPath()">
+        <p>Please select your MSFS Community folder.</p>
+        <input [(ngModel)]="communityPath" type="text" autocomplete="off" class="folder-path" />
+        <a href class="button" (click)="findCommunityPath()">
             Select
         </a>
-        <br/>
+
+        
+        <!-- <br />
         <a class="close" routerLink="/">
             Close
-        </a>
+        </a> -->
     </div>
 </div>
