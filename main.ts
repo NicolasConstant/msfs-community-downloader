@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'; //screen
+import { app, BrowserWindow, ipcMain, shell } from 'electron'; //screen
 import * as path from 'path';
 import * as url from 'url';
 import { download } from 'electron-dl';
@@ -30,6 +30,15 @@ function createWindow(): BrowserWindow {
             contextIsolation: false,  // false if you want to run 2e2 test with Spectron
             enableRemoteModule: true // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
         },
+    });
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        // config.fileProtocol is my custom file protocol
+        // if (url.startsWith(config.fileProtocol)) {
+        //     return { action: 'allow' };
+        // }
+        // open url in a browser and prevent default
+        shell.openExternal(url);
+        return { action: 'deny' };
     });
 
     if (serve) {

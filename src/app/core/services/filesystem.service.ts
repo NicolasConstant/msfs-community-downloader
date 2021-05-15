@@ -16,9 +16,6 @@ export class FilesystemService {
     ) {
 
         this.electronService.ipcRenderer.on('copy-folder-success', (event, arg) => {
-            console.warn("on('copy-folder-success')");
-            console.warn(arg);
-
             if (arg) {
                 this.folderCopied.next(arg);
             }
@@ -54,8 +51,13 @@ export class FilesystemService {
     getTempDir(): Promise<string> {
         const promise = new Promise<string>((resolve, reject) => {
             try {
-                let tempDir = this.electronService.fs.mkdtempSync("msfs-downloader___");
-                tempDir = `${this.settingsService.getSettings().communityPath}\\${tempDir}`;
+                const communityPath = this.settingsService.getSettings().communityPath;
+
+                if(!communityPath) reject(communityPath);
+
+                let tempDir = `${communityPath}\\msfs-downloader___`;
+                tempDir = this.electronService.fs.mkdtempSync(tempDir);
+                
                 if (this.electronService.fs.existsSync(tempDir)) {
                     this.electronService.fs.rmdirSync(tempDir, { recursive: true });
                 }

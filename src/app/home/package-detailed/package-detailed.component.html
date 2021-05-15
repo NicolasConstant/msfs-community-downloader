@@ -19,12 +19,12 @@
         <div class="version-bar">
             <div class="version">
                 <div class="version__title">Installed</div>
-                <div class="version__content">{{package.localVersion}}</div>
+                <div class="version__content">{{cleanUpVersion(package.localVersion)}}</div>
             </div>
 
             <div class="version">
                 <div class="version__title">Available</div>
-                <div class="version__content">{{package.availableVersion}}</div>
+                <div class="version__content">{{cleanUpVersion(package.availableVersion)}}</div>
             </div>
 
             <!-- <div class="install-button">

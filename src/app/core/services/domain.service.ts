@@ -28,9 +28,6 @@ export class DomainService {
         private settingsService: SettingsService
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
-            console.warn('sub download r');
-            console.warn(r);
-
             if (r) {
                 this.processDownloadedFile(r);
             }
@@ -41,17 +38,11 @@ export class DomainService {
             }
         });
         this.extractSub = extractorService.fileExtracted.subscribe(r => {
-            console.warn('sub extract r');
-            console.warn(r);
-
             if(r){
                 this.processExtractedFolder(r);
             }
         });
         this.copySub = filesystemService.folderCopied.subscribe(r => {
-            console.warn('sub copy r');
-            console.warn(r);
-
             if(r){
                 this.processCopiedFolder(r);
             }
@@ -91,9 +82,6 @@ export class DomainService {
     }
 
     private processDownloadedFile(r: FileDownloadInfo) {
-        console.log('processDownloadedFile');
-        console.warn(r);
-
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.state = InstallStatusEnum.extracting;
         downloadedPackage.downloaded = null;
@@ -103,9 +91,6 @@ export class DomainService {
     }
 
     processDownloadedUpdate(r: FileDownloadUpdate) {
-        console.log('processDownloadedUpdate');
-        console.warn(r);
-
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.downloaded = r.downloadedData;
         this.app.tick();

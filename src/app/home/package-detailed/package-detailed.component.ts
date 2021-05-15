@@ -49,4 +49,10 @@ export class PackageDetailedComponent implements OnInit {
             return "Installing...";
         }
     }
+
+    cleanUpVersion(version: string): string {
+        const pattern = this.package.versionPatternToRemove;
+        if(!pattern || !version) return version;
+        return version.replace(pattern, '');
+    }
 }
