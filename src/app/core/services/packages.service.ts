@@ -16,6 +16,7 @@ export class PackagesService {
         wtcj4.illustration = "assets/illustrations/wt-cj4.jpg";
         wtcj4.folderName = "workingtitle-aircraft-cj4";
         wtcj4.assetName = "workingtitle-cj4-v";
+        wtcj4.versionPatternToRemove = "cj4-";
         wtcj4.state = InstallStatusEnum.unknown;
 
         const wtg1000 = new Package();
@@ -27,6 +28,7 @@ export class PackagesService {
         wtg1000.illustration = "assets/illustrations/g1000.jpg";
         wtg1000.folderName = "workingtitle-g1000";
         wtg1000.assetName = "workingtitle-g1000-v";
+        wtg1000.versionPatternToRemove = "g1000-";
         wtg1000.state = InstallStatusEnum.unknown;
 
         const wtg3000 = new Package();
@@ -38,6 +40,7 @@ export class PackagesService {
         wtg3000.illustration = "assets/illustrations/g3000.jpg";
         wtg3000.folderName = "workingtitle-g3000";
         wtg3000.assetName = "workingtitle-g3000-v";
+        wtg3000.versionPatternToRemove = "g3000-";
         wtg3000.state = InstallStatusEnum.unknown;
 
         const a32nx = new Package();
@@ -137,14 +140,15 @@ export class Package {
     public githubOwner: string;
     public githubRepo: string;
     public assetName: string;
+    public versionPatternToRemove: string;
     public folderName: string;
     public assetDownloadUrl: string;
 
     public url: string;
     public illustration: string;
     public isSelected: boolean;
-    tempWorkingDir: string;
-    downloaded: InstallStatusEnum;
+    public tempWorkingDir: string;
+    public downloaded: InstallStatusEnum;    
 }
 
 export enum InstallStatusEnum {
