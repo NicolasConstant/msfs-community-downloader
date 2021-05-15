@@ -12,7 +12,7 @@ The software is in a really early stage.
 
 ## Screens
 
-[WIP]
+![App Screen](https://raw.githubusercontent.com/NicolasConstant/msfs-community-downloader/master/psd/app.jpg)
 
 ## Dependancies
 
