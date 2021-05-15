@@ -16,9 +16,6 @@ export class FilesystemService {
     ) {
 
         this.electronService.ipcRenderer.on('copy-folder-success', (event, arg) => {
-            console.warn("on('copy-folder-success')");
-            console.warn(arg);
-
             if (arg) {
                 this.folderCopied.next(arg);
             }

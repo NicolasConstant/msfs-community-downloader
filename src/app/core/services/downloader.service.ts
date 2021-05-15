@@ -22,8 +22,6 @@ export class DownloaderService {
         });
 
         this.electronService.ipcRenderer.on("download-progress", (event, progress) => {
-            console.log(progress);
-            
             const update = new FileDownloadUpdate();
             update.packageId = progress.packageId;
             update.downloadedData = Math.round(progress.status.transferredBytes / (1024*1024));
