@@ -78,7 +78,7 @@ export class DomainService {
             if (local.version === info.availableVersion) return InstallStatusEnum.installed;
             if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
         }
-        return InstallStatusEnum.error;
+        return InstallStatusEnum.notFound;
     }
 
     private processDownloadedFile(r: FileDownloadInfo) {
