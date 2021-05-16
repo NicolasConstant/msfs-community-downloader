@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-electron": {
+    "msfs-community-downloader": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -81,24 +81,24 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "msfs-community-downloader:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "angular-electron:build:dev"
+              "browserTarget": "msfs-community-downloader:build:dev"
             },
             "web": {
-              "browserTarget": "angular-electron:build:web"
+              "browserTarget": "msfs-community-downloader:build:web"
             },
             "production": {
-              "browserTarget": "angular-electron:build:production"
+              "browserTarget": "msfs-community-downloader:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "msfs-community-downloader:build"
           }
         },
         "test": {
@@ -132,7 +132,7 @@
         }
       }
     },
-    "angular-electron-e2e": {
+    "msfs-community-downloader-e2e": {
       "root": "e2e",
       "projectType": "application",
       "architect": {
@@ -148,7 +148,7 @@
       }
     }
   },
-  "defaultProject": "angular-electron",
+  "defaultProject": "msfs-community-downloader",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
