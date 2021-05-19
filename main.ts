@@ -24,6 +24,8 @@ function createWindow(): BrowserWindow {
         width: 1000,
         height: 600,
         frame: false,
+        backgroundColor: "#030915",
+        icon: 'src/assets/icons/favicon.ico',
         webPreferences: {
             nodeIntegration: true,
             allowRunningInsecureContent: (serve) ? true : false,
