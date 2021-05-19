@@ -154,3 +154,21 @@
         display: none;
     }
 }
+
+.title-links {
+    -webkit-app-region: no-drag;
+    position: absolute;
+    right: 80px;
+    color: rgb(82, 80, 94);
+
+    &__link {
+        color: whitesmoke;
+        text-decoration: none;
+        transition: all .15s;
+
+        &:hover{
+            color: rgb(255, 186, 57);
+            color: rgb(66, 179, 255);
+        }
+    }
+}
