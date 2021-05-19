@@ -70,6 +70,30 @@ export class PackagesService {
         // wtg3x.assetName = "workingtitle-g3000-v";
         // wtg3x.state = InstallStatusEnum.unknown;
 
+        const b787xe = new Package();
+        b787xe.id = "b787xe";
+        b787xe.name = "B787-XE";
+        b787xe.description = "Boeing 787-XE";
+        b787xe.githubOwner = "lmk02";
+        b787xe.githubRepo = "B787-XE";
+        b787xe.illustration = "assets/illustrations/b787xe.jpg";
+        b787xe.folderName = "B787-XE";
+        // b787xe.assetName = "A32NX-stable.zip";
+        b787xe.state = InstallStatusEnum.unknown;
+        b787xe.summary = "We have just started working on a mod for the Boeing 787-10. There is a lot of effort going into this mod. We are currently working on implementing all MFS Pages and improving the FMC.<br/><br/>There is a lot more to come.<br/>We can't wait to improve the 787-10.";
+
+        const salty747 = new Package();
+        salty747.id = "salty747";
+        salty747.name = "Salty 747";
+        salty747.description = "Salty Simulations 747-8";
+        salty747.githubOwner = "saltysimulations";
+        salty747.githubRepo = "salty-747";
+        salty747.illustration = "assets/illustrations/salty747.jpg";
+        salty747.folderName = "salty-747";
+        salty747.assetName = "salty-747.zip";
+        salty747.state = InstallStatusEnum.unknown;
+        salty747.summary = "The Salty Simulations 747 is an open-source modification for the default Asobo 747-8 included in Microsoft Flight Simulator.<br/><br/>We are dedicated to improving the default 747-8 to a level where it is enjoyable and realistic to fly.";
+
         const aa =  new Package();
         aa.id = "aa-liv";
         aa.name = "Azgharie Airlines";
@@ -93,7 +117,7 @@ export class PackagesService {
         // test.assetName = "release.zip";
         // test.state = InstallStatusEnum.unknown; 
         
-        return Promise.resolve([wtcj4, wtg1000, wtg3000, a32nx, aa]);
+        return Promise.resolve([wtcj4, wtg1000, wtg3000, a32nx, b787xe, salty747, aa]);
 
         //     new Package();
         //         "aa-liv",
