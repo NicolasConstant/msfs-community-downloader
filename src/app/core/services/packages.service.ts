@@ -46,7 +46,7 @@ export class PackagesService {
         const a32nx = new Package();
         a32nx.id = "a32nx";
         a32nx.name = "FBW A32NX";
-        a32nx.description = "flybywire A32NX";
+        a32nx.description = "flybywire A32NX (stable)";
         a32nx.githubOwner = "flybywiresim";
         a32nx.githubRepo = "a32nx";
         a32nx.illustration = "assets/illustrations/a32nx.jpg";
