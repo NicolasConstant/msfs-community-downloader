@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { version } from '../../../package.json';
@@ -16,9 +17,12 @@ export class SettingsComponent implements OnInit {
 
     communityPath: string;
 
-    constructor(private settingsService: SettingsService) { }
+    constructor(
+        private router: Router,
+        private settingsService: SettingsService
+    ) { }
 
-    ngOnInit(): void { 
+    ngOnInit(): void {
         this.communityPath = this.settingsService.getSettings().communityPath;
     }
 
@@ -30,8 +34,13 @@ export class SettingsComponent implements OnInit {
             .catch(err => {
                 console.error(err);
             });
-        
+
         return false;
     }
 
+    resetSettings(): boolean {
+        localStorage.clear();
+        this.router.navigate(['/']);
+        return false;
+    }
 }

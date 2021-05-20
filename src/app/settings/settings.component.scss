@@ -1,5 +1,4 @@
-:host {
-}
+:host {}
 
 .settings {
     color: whitesmoke;
@@ -49,21 +48,41 @@
 }
 
 
+// .button {
+//     position: relative;
+//     top: 1px;
+//     left: -5px;
+//     width: 95px;
+//     display: inline-block;
+//     color: whitesmoke;
+//     border: 1px solid rgb(50, 57, 75);
+//     border-width: 1px 1px 1px 0;
+//     border-radius: 3px 3px 0 0;
+//     padding: 5px 20px;
+//     text-align: center;
+//     text-decoration: none;
+//     // margin-top: 30px;
+// }
+
 .button {
-    position: relative;
-    top: 1px;
-    left: -5px;
     width: 95px;
     display: inline-block;
     color: whitesmoke;
     border: 1px solid rgb(50, 57, 75);
-    border-width: 1px 1px 1px 0;
+    border-width: 1px;
     border-radius: 3px 3px 0 0;
     padding: 5px 20px;
     text-align: center;
     text-decoration: none;
-    // margin-top: 30px;
+
+    &--select {
+        position: relative;
+        top: 1px;
+        left: -5px;
+        border-width: 1px 1px 1px 0;
+    }
 }
+
 
 .link {
     color: gray;
