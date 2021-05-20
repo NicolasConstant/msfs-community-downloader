@@ -24,29 +24,42 @@ export class SettingsService {
             const electron = this.electronService.remote;
             const configDir: string = (electron.app || electron.remote.app).getPath('userData');
 
+            console.warn(`configDir: ${configDir}`);
+
             const appDataDir = configDir.toLowerCase().split('roaming')[0];
+
+            console.warn(`appDataDir: ${appDataDir}`);
 
             const steamPath = `${appDataDir}roaming\\Microsoft Flight Simulator\\UserCfg.opt`;
             const winStorePath = `${appDataDir}local\\Packages\\Microsoft.FlightSimulator _8wekyb3d8bbwe\\LocalCache\\UserCfg.opt`;
 
             let userCfgContent: string;
             if (this.electronService.fs.existsSync(steamPath)) {
+                console.warn(`steam path found`);
                 userCfgContent = this.electronService.fs.readFileSync(steamPath, 'utf-8');
             } else if (this.electronService.fs.existsSync(winStorePath)) {
+                console.warn(`msfs path found`);
                 userCfgContent = this.electronService.fs.readFileSync(winStorePath, 'utf-8');
             }
 
             if (!userCfgContent) return null;
 
+            console.warn(`userCfgContent read succesfuly`);
+
             const installPackagePath = userCfgContent
                 .split('InstalledPackagesPath')[1]
                 .split('"')[1];
+
+            console.warn(`installPackagePath: ${installPackagePath}`);
 
             if (!installPackagePath) return null;
 
             const community = `${installPackagePath}\\Community`;
 
+            console.warn(`community: ${community}`);
+
             if (this.electronService.fs.existsSync(community)) {
+                console.warn(`community: exists`);
                 return community;
             }
             return null;
