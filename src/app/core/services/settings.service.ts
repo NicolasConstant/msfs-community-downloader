@@ -1,15 +1,59 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron/electron.service';
+import { FilesystemService } from './filesystem.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SettingsService {
-    constructor(private electronService: ElectronService) {
+    constructor(
+        private electronService: ElectronService
+    ) {
     }
 
     getSettings(): SettingsData {
-        return this.getSavedSettings();
+        const settings = this.getSavedSettings();
+        if (!settings.communityPath) {
+            settings.communityPath = this.findCommunityFolder();
+        }
+        return settings;
+    }
+
+    private findCommunityFolder(): string {
+        try {
+            const electron = this.electronService.remote;
+            const configDir: string = (electron.app || electron.remote.app).getPath('userData');
+
+            const appDataDir = configDir.toLowerCase().split('roaming')[0];
+
+            const steamPath = `${appDataDir}roaming\\Microsoft Flight Simulator\\UserCfg.opt`;
+            const winStorePath = `${appDataDir}local\\Packages\\Microsoft.FlightSimulator _8wekyb3d8bbwe\\LocalCache\\UserCfg.opt`;
+
+            let userCfgContent: string;
+            if (this.electronService.fs.existsSync(steamPath)) {
+                userCfgContent = this.electronService.fs.readFileSync(steamPath, 'utf-8');
+            } else if (this.electronService.fs.existsSync(winStorePath)) {
+                userCfgContent = this.electronService.fs.readFileSync(winStorePath, 'utf-8');
+            }
+
+            if (!userCfgContent) return null;
+
+            const installPackagePath = userCfgContent
+                .split('InstalledPackagesPath')[1]
+                .split('"')[1];
+
+            if (!installPackagePath) return null;
+
+            const community = `${installPackagePath}\\Community`;
+
+            if (this.electronService.fs.existsSync(community)) {
+                return community;
+            }
+            return null;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
     }
 
     findAndSelectCommunityPath(): Promise<string> {
@@ -38,7 +82,7 @@ export class SettingsService {
     private saveSettings(settings: SettingsData) {
         const json = JSON.stringify(settings);
         localStorage.setItem('settings', json);
-    }   
+    }
 }
 
 class SettingsData {

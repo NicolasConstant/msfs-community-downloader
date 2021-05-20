@@ -14,7 +14,11 @@ export class GithubService {
         const route = `https://api.github.com/repos/${p.githubOwner}/${p.githubRepo}/releases`;
         return this.http.get<GithubRelease[]>(route).toPromise()        
             .then((rel: GithubRelease[]) => {
-                const lastRelease = rel.find(x => this.isCandidate(x, p));
+                const lastRelease = rel
+                    .sort((a, b) => {
+                        return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
+                    })
+                    .find(x => this.isCandidate(x, p));
                 const asset = lastRelease.assets.find(y => y.name.includes(p.assetName));
                 
                 let downloadUrl = lastRelease.zipball_url;
@@ -47,6 +51,7 @@ interface GithubRelease {
     prerelease: boolean;
     assets: GithubAsset[];
     zipball_url: string;
+    published_at: Date;
 }
 
 interface GithubAsset {

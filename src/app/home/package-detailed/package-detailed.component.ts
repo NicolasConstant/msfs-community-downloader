@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+
 import { Package, InstallStatusEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
 
@@ -8,6 +10,8 @@ import { DomainService } from '../../core/services/domain.service';
     styleUrls: ['./package-detailed.component.scss']
 })
 export class PackageDetailedComponent implements OnInit {
+    faGithub = faGithub;
+
     @Input() package: Package;
     updatingStatus: string;
 

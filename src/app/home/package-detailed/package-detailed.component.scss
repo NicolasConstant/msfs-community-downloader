@@ -150,6 +150,26 @@
     }
 }
 
+.version__github {
+    float: right;
+    color: whitesmoke;
+
+    &--icon {
+        font-size: 40px;
+    }
+
+    &:hover {
+        color: gray;
+    }
+}
+
+.link {
+    color: whitesmoke;
+    &:hover{
+        color: gray;
+    }
+}
+
 .install-button {
     // outline: 1px dotted salmon;
     float: right;
@@ -221,6 +241,6 @@
     }
 
     &--working {
-        background-image: linear-gradient(to right, #ba25ff, #7300a8);       
+        background-image: linear-gradient(to right, #ba25ff, #7300a8);
     }
 }
