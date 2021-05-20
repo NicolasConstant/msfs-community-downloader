@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron/electron.service';
-import { FilesystemService } from './filesystem.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,11 +14,15 @@ export class SettingsService {
         const settings = this.getSavedSettings();
         if (!settings.communityPath) {
             settings.communityPath = this.findCommunityFolder();
+            if(settings.communityPath) { 
+                this.saveSettings(settings);
+            }
         }
         return settings;
     }
 
     private findCommunityFolder(): string {
+        console.log('find community folder');
         try {
             const electron = this.electronService.remote;
             const configDir: string = (electron.app || electron.remote.app).getPath('userData');
