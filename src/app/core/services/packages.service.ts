@@ -182,7 +182,7 @@ export class Package {
     public illustration: string;
     public isSelected: boolean;
     public tempWorkingDir: string;
-    public downloaded: InstallStatusEnum;    
+    public downloaded: number;
 
     public summary: string;
     public webpageUrl: string;
