@@ -16,6 +16,10 @@
         background-color: #333a4a;
     }
 
+    &:hover &__icon--uninstalled {
+        color: #d1d7e7;
+    }
+
     &__selected {
         background-color: #12171f;
         background-color: #52606d;
