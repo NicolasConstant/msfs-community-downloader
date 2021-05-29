@@ -6,7 +6,7 @@
                 <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
                 <span *ngIf="package.state === 3">Error</span>
                 <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
-                <a href *ngIf="package.state === 5 || package.state === 6 || package.state === 7"
+                <a *ngIf="package.state === 5 || package.state === 6 || package.state === 7"
                     class="button button--working">{{getWorkingInfo()}}</a>
             </div>
 
