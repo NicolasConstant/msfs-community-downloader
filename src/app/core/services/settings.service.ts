@@ -34,7 +34,7 @@ export class SettingsService {
             console.warn(`appDataDir: ${appDataDir}`);
 
             const steamPath = `${appDataDir}roaming\\Microsoft Flight Simulator\\UserCfg.opt`;
-            const winStorePath = `${appDataDir}local\\Packages\\Microsoft.FlightSimulator _8wekyb3d8bbwe\\LocalCache\\UserCfg.opt`;
+            const winStorePath = `${appDataDir}local\\Packages\\Microsoft.FlightSimulator_8wekyb3d8bbwe\\LocalCache\\UserCfg.opt`;
 
             let userCfgContent: string;
             if (this.electronService.fs.existsSync(steamPath)) {
