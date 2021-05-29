@@ -19,6 +19,7 @@ export class PackagesService {
         wtcj4.versionPatternToRemove = "cj4-";
         wtcj4.state = InstallStatusEnum.unknown;
         wtcj4.summary = "OPEN BETA<br/>Performance and avionics improvements for the Citation CJ4";
+        wtcj4.webpageUrl = "https://www.workingtitle.aero/packages/cj4/";
 
         const wtg1000 = new Package();
         wtg1000.id = "wt-g1000";
@@ -32,6 +33,7 @@ export class PackagesService {
         wtg1000.versionPatternToRemove = "g1000-";
         wtg1000.state = InstallStatusEnum.unknown;
         wtg1000.summary = "Fixes and enhancements for the stock G1000 avionics package";
+        wtg1000.webpageUrl = "https://www.workingtitle.aero/packages/g1000/";
 
         const wtg3000 = new Package();
         wtg3000.id = "wt-g3000";
@@ -45,6 +47,7 @@ export class PackagesService {
         wtg3000.versionPatternToRemove = "g3000-";
         wtg3000.state = InstallStatusEnum.unknown;
         wtg3000.summary = "Fixes and enhancements for the stock G3000 avionics package";
+        wtg3000.webpageUrl = "https://www.workingtitle.aero/packages/g3000/";
 
         const a32nx = new Package();
         a32nx.id = "a32nx";
