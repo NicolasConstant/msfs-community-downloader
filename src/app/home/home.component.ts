@@ -28,20 +28,24 @@ export class HomeComponent implements OnInit {
                     this.packages.push(p);
                 });
 
-                if(this.packages.length > 0){
-                    const selected = this.packages[0];
-                    selected.isSelected = true;
-                    this.selectedPackage = selected;
+                if (this.packages.length > 0) {
+                    let selected = this.packages.find(x => x.isSelected);
 
+                    if (!selected) {                        
+                        const selected = this.packages[0];
+                        selected.isSelected = true;                        
+                    }
+
+                    this.selectedPackage = selected;
                     this.domainService.analysePackages(this.packages);
                 }
-            })      
+            })
             .catch(err => {
                 console.error(err);
             });
     }
 
-    selectPackage(p: Package): boolean{
+    selectPackage(p: Package): boolean {
         this.packages.forEach(p => {
             p.isSelected = false;
         });
