@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit {
                 if (this.packages.length > 0) {
                     let selected = this.packages.find(x => x.isSelected);
 
-                    if (!selected) {                        
-                        const selected = this.packages[0];
+                    if (!selected) {
+                        selected = this.packages[0];
                         selected.isSelected = true;                        
                     }
 
