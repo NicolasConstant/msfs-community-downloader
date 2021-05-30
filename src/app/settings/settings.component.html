@@ -8,7 +8,7 @@
         <h3>Community Folder Path</h3>
         <p>Please select your MSFS Community folder.</p>
         <input [(ngModel)]="communityPath" type="text" autocomplete="off" class="folder-path" readonly />
-        <a href class="button" (click)="findCommunityPath()">
+        <a href class="button button--select" (click)="findCommunityPath()">
             Select
         </a>
 
@@ -17,9 +17,22 @@
         <h3>Software</h3>
         <p>
             Current version: {{version}}<br />
+            <br />
             Find updates on <a href="https://github.com/NicolasConstant/msfs-community-downloader" target="_blank"
                 class="link">Github</a>
+            <br/>
+            Support the development on <a href="https://patreon.com/nicolasconstant" target="_blank" class="link">Patreon</a><br/>
+            Get sneak peeks on <a href="https://discord.gg/ANXAx3tx9B" target="_blank" class="link">Discord</a>
+            <br/>
+            <br/>
         </p>
+        <h3>Reset Settings</h3>
+        <p>
+            If you want to reset all your settings.
+        </p>
+        <a href class="button" (click)="resetSettings()">
+            Reset
+        </a>
         <!-- <br />
         <a class="close" routerLink="/">
             Close

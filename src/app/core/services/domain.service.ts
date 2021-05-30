@@ -68,11 +68,16 @@ export class DomainService {
                 p.localVersion = result[0].version;
                 p.availableVersion = result[1].availableVersion;
                 p.assetDownloadUrl = result[1].downloadUrl;
-                p.state = this.getState(result[0], result[1]);
+                p.state = this.getState(p, result[0], result[1]);
+                p.publishedAt = result[1].publishedAt;
             });
     }
 
-    private getState(local: LocalState, info: PackageInfo): InstallStatusEnum {
+    private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
+        if(p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
+        if(p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
+        if(p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
+
         if (!local.folderFound) return InstallStatusEnum.notFound;
         if (local.version && info.availableVersion) {
             if (local.version === info.availableVersion) return InstallStatusEnum.installed;
@@ -81,7 +86,7 @@ export class DomainService {
         return InstallStatusEnum.notFound;
     }
 
-    private processDownloadedFile(r: FileDownloadInfo) {
+    private processDownloadedFile(r: FileDownloadInfo): void {
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.state = InstallStatusEnum.extracting;
         downloadedPackage.downloaded = null;
@@ -90,7 +95,7 @@ export class DomainService {
         this.extractorService.extract(downloadedPackage.id, r.filePath);
     }
 
-    processDownloadedUpdate(r: FileDownloadUpdate) {
+    processDownloadedUpdate(r: FileDownloadUpdate): void {
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.downloaded = r.downloadedData;
         this.app.tick();
@@ -127,6 +132,10 @@ export class DomainService {
     }
 
     getPackages(): Promise<Package[]> {
+        if(this.packages) { 
+            return Promise.resolve(this.packages);
+        }
+
         return this.packageService.getPackages()
             .then(p => {
                 this.packages = p;
@@ -135,6 +144,8 @@ export class DomainService {
     }
 
     install(p: Package): void {
+        // const p = this.packages.find(x => x.id === pack.id);
+
         p.state = InstallStatusEnum.downloading;
         this.app.tick();
         this.filesystemService.getTempDir()

@@ -26,7 +26,7 @@ export class GithubService {
                     downloadUrl = asset.browser_download_url;
                 }
 
-                const res = new PackageInfo(lastRelease.tag_name, downloadUrl);
+                const res = new PackageInfo(lastRelease.tag_name, downloadUrl, lastRelease.published_at);
                 return res;
             });
     }
@@ -41,7 +41,8 @@ export class GithubService {
 export class PackageInfo {
     constructor(
         public availableVersion: string,
-        public downloadUrl: string) { }
+        public downloadUrl: string,
+        public publishedAt: Date) { }
 }
 
 interface GithubRelease {

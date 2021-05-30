@@ -1,6 +1,6 @@
 {
     "name": "msfs-community-downloader",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "MSFS addin downloader client",
     "homepage": "https://github.com/nicolasconstant/msfs-community-downloader",
     "author": {
@@ -24,11 +24,12 @@
         "build": "npm run electron:serve-tsc && ng build --base-href ./",
         "build:dev": "npm run build -- -c dev",
         "build:prod": "npm run build -- -c production",
-        "ng:serve": "ng serve -c web -o",
+        "ng:serve": "ng serve -c web",
         "electron:serve-tsc": "tsc -p tsconfig.serve.json",
         "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
         "electron:local": "npm run build:prod && npx electron .",
         "electron:build": "npm run build:prod && electron-builder build --publish=never",
+        "release": "npm run electron:build",
         "test": "ng test --watch=false",
         "test:watch": "ng test",
         "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
