@@ -69,6 +69,7 @@ export class DomainService {
                 p.availableVersion = result[1].availableVersion;
                 p.assetDownloadUrl = result[1].downloadUrl;
                 p.state = this.getState(p, result[0], result[1]);
+                p.publishedAt = result[1].publishedAt;
             });
     }
 

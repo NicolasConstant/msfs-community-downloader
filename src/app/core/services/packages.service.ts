@@ -170,6 +170,7 @@ export class Package {
     public state: InstallStatusEnum;
     public localVersion: string;
     public availableVersion: string;
+    public publishedAt: Date;
 
     public githubOwner: string;
     public githubRepo: string;

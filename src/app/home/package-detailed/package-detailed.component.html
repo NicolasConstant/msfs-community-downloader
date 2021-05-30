@@ -29,6 +29,11 @@
                 <div class="version__content">{{cleanUpVersion(package.availableVersion)}}</div>
             </div>
 
+            <div class="release-date">
+                <span class="release-date__title">Release date</span><br/>
+                <span class="release-date__date">{{ package.publishedAt | date:'yyyy/MM/dd' }}</span>
+            </div>
+
             <a href="https://github.com/{{package.githubOwner}}/{{package.githubRepo}}" target="_blank" class="version__github">
                 <fa-icon class="version__github--icon" [icon]="faGithub"></fa-icon>
             </a>
