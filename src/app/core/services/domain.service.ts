@@ -86,7 +86,7 @@ export class DomainService {
         return InstallStatusEnum.notFound;
     }
 
-    private processDownloadedFile(r: FileDownloadInfo) {
+    private processDownloadedFile(r: FileDownloadInfo): void {
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.state = InstallStatusEnum.extracting;
         downloadedPackage.downloaded = null;
@@ -95,7 +95,7 @@ export class DomainService {
         this.extractorService.extract(downloadedPackage.id, r.filePath);
     }
 
-    processDownloadedUpdate(r: FileDownloadUpdate) {
+    processDownloadedUpdate(r: FileDownloadUpdate): void {
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.downloaded = r.downloadedData;
         this.app.tick();
