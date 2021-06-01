@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit {
     version = version;
 
     communityPath: string;
+    isCommunity: boolean = true;
 
     constructor(
         private router: Router,
@@ -30,6 +31,8 @@ export class SettingsComponent implements OnInit {
         this.settingsService.findAndSelectCommunityPath()
             .then(res => {
                 this.communityPath = res;
+
+                this.isCommunity = this.communityPath.toLowerCase().endsWith('community');
             })
             .catch(err => {
                 console.error(err);
