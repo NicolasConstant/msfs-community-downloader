@@ -11,7 +11,7 @@ import { SettingsService } from './settings.service';
     providedIn: 'root'
 })
 export class DomainService {
-     
+
     private packages: Package[];
     private downloadSub: Subscription;
     private downloadUpdateSub: Subscription;
@@ -33,17 +33,17 @@ export class DomainService {
             }
         });
         this.downloadUpdateSub = downloaderService.fileDownloadedUpdated.subscribe(r => {
-            if(r){
+            if (r) {
                 this.processDownloadedUpdate(r);
             }
         });
         this.extractSub = extractorService.fileExtracted.subscribe(r => {
-            if(r){
+            if (r) {
                 this.processExtractedFolder(r);
             }
         });
         this.copySub = filesystemService.folderCopied.subscribe(r => {
-            if(r){
+            if (r) {
                 this.processCopiedFolder(r);
             }
         });
@@ -74,9 +74,9 @@ export class DomainService {
     }
 
     private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
-        if(p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
-        if(p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
-        if(p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
+        if (p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
+        if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
+        if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
 
         if (!local.folderFound) return InstallStatusEnum.notFound;
         if (local.version && info.availableVersion) {
@@ -99,13 +99,13 @@ export class DomainService {
         const downloadedPackage = this.packages.find(x => x.id === r.packageId);
         downloadedPackage.downloaded = r.downloadedData;
         this.app.tick();
-    }  
+    }
 
     async processExtractedFolder(r: FileExtractedInfo): Promise<any> {
         const extractedFolder = r.extractFolder;
         const addinFolderPath = await this.filesystemService.findAddinFolder(extractedFolder);
 
-        if(!addinFolderPath) return;
+        if (!addinFolderPath) return;
 
         const p = this.packages.find(x => x.id === r.packageId);
 
@@ -115,13 +115,22 @@ export class DomainService {
         p.state = InstallStatusEnum.installing;
         this.app.tick();
 
+        // Clean up
         await this.filesystemService.deleteFolder(folderPath);
-        this.filesystemService.copyToCommunity(p.id, addinFolderPath, p.folderName);        
+
+        if (p.oldFolderNames && p.oldFolderNames.length > 0) {
+            p.oldFolderNames.forEach(async o => {
+                const oldFolderPath = `${communityDir}\\${o}`;
+                await this.filesystemService.deleteFolder(oldFolderPath);
+            });
+        }
+
+        this.filesystemService.copyToCommunity(p.id, addinFolderPath, p.folderName);
     }
 
     processCopiedFolder(r: CopyFolderInfo): void {
         const p = this.packages.find(x => x.id === r.packageId);
-        if(p.tempWorkingDir){
+        if (p.tempWorkingDir) {
             this.filesystemService.deleteFolder(p.tempWorkingDir);
             p.tempWorkingDir = null;
         }
@@ -132,7 +141,7 @@ export class DomainService {
     }
 
     getPackages(): Promise<Package[]> {
-        if(this.packages) { 
+        if (this.packages) {
             return Promise.resolve(this.packages);
         }
 
@@ -152,7 +161,7 @@ export class DomainService {
             .then(tempDir => {
                 p.tempWorkingDir = tempDir;
                 this.downloaderService.download(p.id, p.assetDownloadUrl, tempDir);
-            });      
+            });
     }
 
     update(p: Package): void {

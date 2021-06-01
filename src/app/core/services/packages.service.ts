@@ -76,9 +76,9 @@ export class PackagesService {
         const b787xe = new Package();
         b787xe.id = "b787xe";
         b787xe.name = "HD B78XH";
-        b787xe.description = " Heavy Division B78XH";
-        b787xe.githubOwner = "lmk02";
-        b787xe.githubRepo = "B787-XE";
+        b787xe.description = "Heavy Division B78XH";
+        b787xe.githubOwner = "Heavy-Division";
+        b787xe.githubRepo = "B78XH";
         b787xe.illustration = "assets/illustrations/b787xe.jpg";
         b787xe.folderName = "B78XH";
         b787xe.oldFolderNames = ["B787-XE"];
