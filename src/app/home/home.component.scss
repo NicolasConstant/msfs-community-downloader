@@ -112,3 +112,21 @@
         color: white;
     }
 }
+
+.is-github-rate-limited {
+    z-index: 9999;    
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+
+    background-color: rgb(141, 14, 14);    
+    color: white;
+
+    border: 1px solid white;
+    border-radius:3px;
+
+    &__title {
+        font-weight: bold;    
+    }
+}

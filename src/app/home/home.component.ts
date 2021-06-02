@@ -4,6 +4,7 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { Package } from '../core/services/packages.service';
 import { DomainService } from '../core/services/domain.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-home',
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
 
     packages: Package[] = [];
     selectedPackage: Package;
+    isGithubRateLimited: boolean;
 
     constructor(
         private router: Router,
@@ -33,11 +35,14 @@ export class HomeComponent implements OnInit {
 
                     if (!selected) {
                         selected = this.packages[0];
-                        selected.isSelected = true;                        
+                        selected.isSelected = true;
                     }
 
                     this.selectedPackage = selected;
-                    this.domainService.analysePackages(this.packages);
+                    this.domainService.analysePackages(this.packages)
+                        .catch((err: HttpErrorResponse) => {
+                            this.analyseHttpError(err);
+                        });
                 }
             })
             .catch(err => {
@@ -58,7 +63,15 @@ export class HomeComponent implements OnInit {
     }
 
     refresh(): boolean {
-        this.domainService.analysePackages(this.packages);
+        this.isGithubRateLimited = false;
+        this.domainService.analysePackages(this.packages)
+            .catch((err: HttpErrorResponse) => {
+                this.analyseHttpError(err);
+            });
         return false;
+    }
+
+    private analyseHttpError(err: HttpErrorResponse){
+        this.isGithubRateLimited = err.error.message.includes('API rate limit exceeded');
     }
 }

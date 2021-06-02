@@ -18,8 +18,14 @@
     </div>
 </div>
 
-<div class="package-content">
+<div class="package-content">  
     <app-package-detailed *ngIf="selectedPackage" [package]="selectedPackage"></app-package-detailed>
+</div>
+
+<div *ngIf="isGithubRateLimited" class="is-github-rate-limited">
+    <span class="is-github-rate-limited__title">Oh Noz!</span><br/>
+    You're Github rate limited.<br/>
+    Please retry later.
 </div>
 
 <!-- <h1 class="title">
