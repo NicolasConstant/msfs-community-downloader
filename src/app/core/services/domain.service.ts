@@ -78,6 +78,7 @@ export class DomainService {
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
         if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
 
+        if (local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
         if (!local.folderFound) return InstallStatusEnum.notFound;
         if (local.version && info.availableVersion) {
             if (local.version === info.availableVersion) return InstallStatusEnum.installed;

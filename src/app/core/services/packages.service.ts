@@ -212,5 +212,6 @@ export enum InstallStatusEnum {
     notFound = 4,
     downloading = 5,
     extracting = 6,
-    installing = 7
+    installing = 7,
+    untrackedPackageFound = 8
 }
