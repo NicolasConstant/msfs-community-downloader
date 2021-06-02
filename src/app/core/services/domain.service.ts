@@ -65,11 +65,20 @@ export class DomainService {
 
         return Promise.all([localPromise, githubPromise])
             .then(result => {
-                p.localVersion = result[0].version;
-                p.availableVersion = result[1].availableVersion;
-                p.assetDownloadUrl = result[1].downloadUrl;
-                p.state = this.getState(p, result[0], result[1]);
-                p.publishedAt = result[1].publishedAt;
+                const local = result[0];
+                const remote = result [1];
+
+                if(local){
+                    p.localVersion = local.version;
+                }
+
+                if(remote) {
+                    p.availableVersion = remote.availableVersion;
+                    p.assetDownloadUrl = remote.downloadUrl;
+                    p.publishedAt = remote.publishedAt;
+                }
+
+                p.state = this.getState(p, local, remote);                
             });
     }
 
@@ -78,13 +87,13 @@ export class DomainService {
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
         if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
 
-        if (local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
-        if (!local.folderFound) return InstallStatusEnum.notFound;
-        if (local.version && info.availableVersion) {
+        if (local && local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
+        if (local && !local.folderFound) return InstallStatusEnum.notFound;
+        if (local && local.version && info && info.availableVersion) {
             if (local.version === info.availableVersion) return InstallStatusEnum.installed;
             if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
         }
-        return InstallStatusEnum.notFound;
+        return InstallStatusEnum.unknown;
     }
 
     private processDownloadedFile(r: FileDownloadInfo): void {

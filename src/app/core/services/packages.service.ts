@@ -49,6 +49,21 @@ export class PackagesService {
         wtg3000.summary = "Fixes and enhancements for the stock G3000 avionics package";
         wtg3000.webpageUrl = "https://www.workingtitle.aero/packages/g3000/";
 
+        const wtg3x = new Package();
+        wtg3x.id = "wt-g3x";
+        wtg3x.name = "WT G3X";
+        wtg3x.description = "Working Title G3X Touch";
+        wtg3x.githubOwner = "Working-Title-MSFS-Mods";
+        wtg3x.githubRepo = "fspackages";
+        wtg3x.illustration = "assets/illustrations/g3x.jpg";
+        wtg3x.folderName = "workingtitle-gx";
+        wtg3x.assetName = "workingtitle-gx-v";
+        wtg3x.versionPatternToRemove = "gx-";
+        wtg3x.state = InstallStatusEnum.unknown;
+        wtg3x.summary = "This is an early release of what is intended to eventually be the reworking of several of the smaller Garmin units in the game.<br/><br/>At the moment the only thing that has been updated is the G3X Touch, but future modifications to the non-touch G3X, and to the touch-based Aera which uses much of the same code, are possible.";
+        wtg3x.webpageUrl = "https://www.workingtitle.aero/packages/g3x/";
+        wtg3x.isPrerelease = true;
+
         const a32nx = new Package();
         a32nx.id = "a32nx";
         a32nx.name = "FBW A32NX";
@@ -61,17 +76,6 @@ export class PackagesService {
         a32nx.state = InstallStatusEnum.unknown;
         a32nx.summary = "The A32NX Project is a community-driven open source project to create a free Airbus A320neo in Microsoft Flight Simulator that is as close to reality as possible.<br/><br/>The following aircraft configuration is currently simulated:<br/><br/>Model&emsp;&emsp;A320-251N<br/>Engine&emsp;&emsp;CFM LEAP 1A-26<br/>FMGS&emsp;&emsp;Honeywell Pegasus II<br/>FWC Std.&emsp;&emsp;H2F9C<br/><br/>Please note that this configuration may change in the future as the A32NX project evolves and changes.";
         a32nx.webpageUrl = "https://flybywiresim.com/";
-
-        // const wtg3x = new Package();
-        // wtg3x.id = "wt-g3x";
-        // wtg3x.name = "WT G3X";
-        // wtg3x.description = "Working Title G3X Touch";
-        // wtg3x.githubOwner = "Working-Title-MSFS-Mods";
-        // wtg3x.githubRepo = "fspackages";
-        // wtg3x.illustration = "assets/illustrations/aa.jpg";
-        // wtg3x.folderName = "workingtitle-g3000";
-        // wtg3x.assetName = "workingtitle-g3000-v";
-        // wtg3x.state = InstallStatusEnum.unknown;
 
         const b787xe = new Package();
         b787xe.id = "b787xe";
@@ -134,7 +138,7 @@ export class PackagesService {
         jplc152.state = InstallStatusEnum.unknown; 
         jplc152.summary = "A MSFS Addon to improve the Cessna C152 ";
         
-        return Promise.resolve([wtcj4, wtg1000, wtg3000, a32nx, b787xe, salty747, aa, tfg36p, jplc152]);
+        return Promise.resolve([wtcj4, wtg1000, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152]);
 
         //     new Package();
         //         "aa-liv",
@@ -189,6 +193,7 @@ export class Package {
     public githubOwner: string;
     public githubRepo: string;
     public assetName: string;
+    public isPrerelease: boolean;
     public versionPatternToRemove: string;
     public folderName: string;
     public assetDownloadUrl: string;
@@ -201,7 +206,7 @@ export class Package {
 
     public summary: string;
     public webpageUrl: string;
-    public oldFolderNames: string[]; //TODO
+    public oldFolderNames: string[]; 
 }
 
 export enum InstallStatusEnum {

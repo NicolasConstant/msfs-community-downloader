@@ -11,7 +11,7 @@ export class GithubService {
     constructor(private http: HttpClient) { }
 
     retrievePackageInfo(p: Package): Promise<PackageInfo> {
-        const route = `https://api.github.com/repos/${p.githubOwner}/${p.githubRepo}/releases`;
+        const route = `https://api.github.com/repos/${p.githubOwner}/${p.githubRepo}/releases?per_page=100`;
         return this.http.get<GithubRelease[]>(route).toPromise()        
             .then((rel: GithubRelease[]) => {
                 const lastRelease = rel
@@ -19,6 +19,9 @@ export class GithubService {
                         return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
                     })
                     .find(x => this.isCandidate(x, p));
+
+                if(!lastRelease) return null;
+
                 const asset = lastRelease.assets.find(y => y.name.includes(p.assetName));
                 
                 let downloadUrl = lastRelease.zipball_url;
@@ -32,8 +35,13 @@ export class GithubService {
     }
 
     private isCandidate(rel: GithubRelease, p: Package): boolean {
+        let keepPrerelease = false;
+        if(p.isPrerelease) {
+            keepPrerelease = true;
+        }
+
         return  rel.draft === false 
-                && rel.prerelease === false
+                && rel.prerelease === keepPrerelease
                 && (!p.assetName || rel.assets.findIndex(y => y.name.includes(p.assetName)) !== -1);
     }
 }
