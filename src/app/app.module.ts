@@ -16,7 +16,12 @@ import { SettingsModule } from './settings/settings.module';
 
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AddPackageComponent } from './add-package/add-package.component';
+import { ImportModule } from './import/import.module';
+
+// import { AddPackageComponent } from './import/add-package.component';
+// import { CreatePackageComponent } from './import/create-package/create-package.component';
+// import { ImportPackageComponent } from './import/import-package/import-package.component';
+// import { ExportPackageComponent } from './import/export-package/export-package.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, AddPackageComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -32,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreModule,
     SharedModule,
     HomeModule,
+    ImportModule,
     SettingsModule,
     AppRoutingModule,
     FontAwesomeModule,
