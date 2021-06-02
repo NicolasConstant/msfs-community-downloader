@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit {
     version = version;
 
     communityPath: string;
-    isCommunity: boolean = true;
+    isCommunity = true;
 
     constructor(
         private router: Router,

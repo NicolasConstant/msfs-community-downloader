@@ -120,9 +120,11 @@ export class DomainService {
         await this.filesystemService.deleteFolder(folderPath);
 
         if (p.oldFolderNames && p.oldFolderNames.length > 0) {
-            p.oldFolderNames.forEach(async o => {
-                const oldFolderPath = `${communityDir}\\${o}`;
-                await this.filesystemService.deleteFolder(oldFolderPath);
+            p.oldFolderNames.forEach(o => {
+                (async() => {
+                    const oldFolderPath = `${communityDir}\\${o}`;
+                    await this.filesystemService.deleteFolder(oldFolderPath);
+                })();
             });
         }
 
