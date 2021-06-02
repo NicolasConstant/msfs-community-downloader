@@ -195,6 +195,13 @@
     // border-radius: 2px;
 }
 
+.untracked {
+    position: relative;
+    top: -10px;
+    color: rgb(255, 166, 0);
+    padding-bottom: 10px;
+}
+
 .button {
     z-index: 99;
 
@@ -257,3 +264,4 @@
         background-image: linear-gradient(to right, #ba25ff, #7300a8);
     }
 }
+

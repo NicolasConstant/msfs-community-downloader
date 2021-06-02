@@ -17,7 +17,7 @@ export class CommunityfolderGuard implements CanActivate {
         state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
         const communityFolder = this.settingsService.getSettings().communityPath;
-        if (!communityFolder || !communityFolder.toLowerCase().endsWith('community')) {
+        if (!communityFolder || communityFolder === '') {
             this.router.navigateByUrl('/settings');
         }
         return true;

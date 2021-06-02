@@ -26,7 +26,7 @@ export class FilesystemService {
         const promise = new Promise<LocalState>((resolve, reject) => {
             try {
                 const communityPath = this.settingsService.getSettings().communityPath;
-                if (!communityPath) return resolve(new LocalState(false, null));
+                if (!communityPath) return resolve(new LocalState(false, false, null));
 
                 const path = `${communityPath}\\${p.folderName}`;
                 const folderFound = this.electronService.fs.existsSync(path);
@@ -39,7 +39,9 @@ export class FilesystemService {
                     version = this.electronService.fs.readFileSync(versionPath, 'utf-8');
                 }
 
-                resolve(new LocalState(folderFound, version));
+                const untrackedFolderFound = folderFound && !versionFound;
+
+                resolve(new LocalState(folderFound, untrackedFolderFound, version));
             } catch (error) {
                 reject(error);
             }
@@ -154,6 +156,7 @@ export class FilesystemService {
 export class LocalState {
     constructor(
         public folderFound: boolean,
+        public untrackedFolderFound: boolean,
         public version: string) { }
 }
 

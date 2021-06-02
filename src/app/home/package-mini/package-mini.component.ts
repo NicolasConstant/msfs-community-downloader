@@ -39,6 +39,8 @@ export class PackageMiniComponent implements OnInit {
                 return "Extracting...";
             case InstallStatusEnum.installing:
                 return "Installing...";
+            case InstallStatusEnum.untrackedPackageFound:
+                return "Untracked";
         }
     }
 }

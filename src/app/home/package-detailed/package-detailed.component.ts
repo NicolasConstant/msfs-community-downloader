@@ -55,6 +55,8 @@ export class PackageDetailedComponent implements OnInit {
     }
 
     cleanUpVersion(version: string): string {
+        if(!version && this.package.state === InstallStatusEnum.untrackedPackageFound) return "Unknown";
+
         const pattern = this.package.versionPatternToRemove;
         if(!pattern || !version) return version;
         return version.replace(pattern, '');

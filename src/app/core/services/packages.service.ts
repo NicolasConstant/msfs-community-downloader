@@ -75,15 +75,16 @@ export class PackagesService {
 
         const b787xe = new Package();
         b787xe.id = "b787xe";
-        b787xe.name = "B787-XE";
-        b787xe.description = "Boeing 787-XE";
-        b787xe.githubOwner = "lmk02";
-        b787xe.githubRepo = "B787-XE";
+        b787xe.name = "HD B78XH";
+        b787xe.description = "Heavy Division B78XH";
+        b787xe.githubOwner = "Heavy-Division";
+        b787xe.githubRepo = "B78XH";
         b787xe.illustration = "assets/illustrations/b787xe.jpg";
-        b787xe.folderName = "B787-XE";
+        b787xe.folderName = "B78XH";
+        b787xe.oldFolderNames = ["B787-XE"];
         // b787xe.assetName = "A32NX-stable.zip";
         b787xe.state = InstallStatusEnum.unknown;
-        b787xe.summary = "We have just started working on a mod for the Boeing 787-10. There is a lot of effort going into this mod. We are currently working on implementing all MFS Pages and improving the FMC.<br/><br/>There is a lot more to come.<br/>We can't wait to improve the 787-10.";
+        b787xe.summary = "B78XH is an open source and free modification of default Boeing 787-10 in Microsoft Flight Simulator.";
 
         const salty747 = new Package();
         salty747.id = "salty747";
@@ -109,18 +110,31 @@ export class PackagesService {
         aa.summary = "Liveries of Azgharie Airlines";
         aa.webpageUrl = "https://www.azgharie.net";
      
-        // const test = new Package();
-        // test.id = "aa-liv-test";
-        // test.name = "Test Livs";
-        // test.description = "TEST Liveries";
-        // test.githubOwner = "nicolasconstant";
-        // test.githubRepo = "test-msfs-package";
-        // test.illustration = "assets/illustrations/aa.jpg";
-        // test.folderName = "AATEST";
-        // test.assetName = "release.zip";
-        // test.state = InstallStatusEnum.unknown; 
+        const tfg36p = new Package();
+        tfg36p.id = "tfg36";
+        tfg36p.name = "TF G36";
+        tfg36p.description = "TheFrett G36 Project";
+        tfg36p.githubOwner = "TheFrett";
+        tfg36p.githubRepo = "msfs_g36_project";
+        tfg36p.illustration = "assets/illustrations/tfg36.jpg";
+        tfg36p.folderName = "z-bonanza-g36-improvement-project";
+        tfg36p.assetName = "z-bonanza-g36-improvement-project.zip";
+        tfg36p.state = InstallStatusEnum.unknown; 
+        tfg36p.summary = "This is the improvement project for the MSFS default G36. It all started as a simple edit of some configuration files but it has since grown into a fully-fledged modification that improves all aspects of the default G36 and introduces new features.<br/><br/>This was made possible with the help of the community consisting of both enthusiasts and G36 pilots.";
+
+        const jplc152 = new Package();
+        jplc152.id = "jplc152";
+        jplc152.name = "JPL C152";
+        jplc152.description = "JPLogistics C152";
+        jplc152.githubOwner = "JPLogistics";
+        jplc152.githubRepo = "JPLogistics_C152";
+        jplc152.illustration = "assets/illustrations/jplc152.jpg";
+        jplc152.folderName = "jplogistics-c152";
+        jplc152.assetName = "jplogistics-c152-";
+        jplc152.state = InstallStatusEnum.unknown; 
+        jplc152.summary = "A MSFS Addon to improve the Cessna C152 ";
         
-        return Promise.resolve([wtcj4, wtg1000, wtg3000, a32nx, b787xe, salty747, aa]);
+        return Promise.resolve([wtcj4, wtg1000, wtg3000, a32nx, b787xe, salty747, aa, tfg36p, jplc152]);
 
         //     new Package();
         //         "aa-liv",
@@ -187,6 +201,7 @@ export class Package {
 
     public summary: string;
     public webpageUrl: string;
+    public oldFolderNames: string[]; //TODO
 }
 
 export enum InstallStatusEnum {
@@ -197,5 +212,6 @@ export enum InstallStatusEnum {
     notFound = 4,
     downloading = 5,
     extracting = 6,
-    installing = 7
+    installing = 7,
+    untrackedPackageFound = 8
 }

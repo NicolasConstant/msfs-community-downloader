@@ -5,7 +5,7 @@
                 <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
                 <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
                 <span *ngIf="package.state === 3">Error</span>
-                <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
+                <a href *ngIf="package.state === 4 || package.state === 8" class="button button--install" (click)="install()">Install</a>
                 <a *ngIf="package.state === 5 || package.state === 6 || package.state === 7"
                     class="button button--working">{{getWorkingInfo()}}</a>
             </div>
@@ -43,6 +43,10 @@
                 <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
                 <a href *ngIf="package.state === 4" class="button button--install" (click)="install()">Install</a>
             </div> -->
+        </div>
+        
+        <div *ngIf="package.state === 8" class="untracked">
+            An old package was found but wasn't installed with this tool, please reinstall the mod to get proper version tracking.<br/>
         </div>
 
         <h3>Summary</h3>
