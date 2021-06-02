@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 
 import { Package } from '../core/services/packages.service';
 import { DomainService } from '../core/services/domain.service';
@@ -13,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
     faSyncAlt = faSyncAlt;
+    faPlusSquare = faPlusSquare;
 
     packages: Package[] = [];
     selectedPackage: Package;
