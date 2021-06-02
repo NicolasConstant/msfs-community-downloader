@@ -137,6 +137,19 @@ export class PackagesService {
         jplc152.assetName = "jplogistics-c152-";
         jplc152.state = InstallStatusEnum.unknown; 
         jplc152.summary = "A MSFS Addon to improve the Cessna C152 ";
+
+        // const pms50gns530 = new Package();
+        // pms50gns530.id = "pms50gns530";
+        // pms50gns530.name = "PMS50 GNS530";
+        // pms50gns530.description = "Pimarc PMS50 GNS530";
+        // pms50gns530.githubOwner = "pimarc";
+        // pms50gns530.githubRepo = "pms50-gns530";
+        // pms50gns530.illustration = "assets/illustrations/pms50gns530.jpg";
+        // pms50gns530.folderName = "pms50-gns530";
+        // pms50gns530.assetName = "pms50-gns530.zip";
+        // pms50gns530.state = InstallStatusEnum.unknown; 
+        // pms50gns530.summary = "This package is an enhancement of the built-in GNS530 GPS. The goal is to offer an instrument that comes as close as possible to the original.";
+        // pms50gns530.webpageUrl = "https://pms50.com/msfs/";
         
         return Promise.resolve([wtcj4, wtg1000, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152]);
 
