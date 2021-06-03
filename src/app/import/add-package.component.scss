@@ -5,48 +5,29 @@
 
     &__content {
         width: 700px;
+        padding-top: 50px;
         margin: auto;
-        // padding: 20px;
-        // position: relative;
-    }
-
-    
-    &__header {
-        outline: 1px dotted purple;
-
-        height: 60px;
-        width: calc(100%);
-
-        &__title {
-            font-size: 1.2em;
-        }    
-    }
-
-    &__new-package {
-        outline: 1px dotted greenyellow;
-
-        // height: calc(100% - 60px);
-        width: 700px;
-
-        position: absolute;
-        top: 60px;
-        bottom: 60px;
-    }
-
-    &__footer {
-        outline: 1px dotted yellow;
-
-        position: absolute;
-        bottom: 0;
-        height: 60px;
-        width: 700px;
-    }
+        overflow: hidden;
+    }   
 }
 
-.test {
-    display: inline-block; 
-    width: calc(100%);
-    height: calc(100%);
+.button {
+    color: whitesmoke;
+    display: block;
+    margin: auto;
+    width: 250px;
+    text-align: center;
+    // height: 50px;
+    border-radius: 5px;
+    border: 1px solid white;
+    margin-bottom: 30px;
+    padding: 10px;
+    text-decoration: none;
 
-    outline: 1px dashed white;
+    &--cancel {
+        margin-bottom: 50px;
+        color: #ca0000;
+        border-color: #ca0000;
+        margin-top: 70px;
+    }
 }

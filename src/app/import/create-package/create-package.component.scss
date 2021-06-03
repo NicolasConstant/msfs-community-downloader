@@ -1,0 +1,52 @@
+.add-package {
+    color: whitesmoke;
+    height: 100%;
+    // position: relative;
+
+    &__content {
+        width: 700px;
+        margin: auto;
+        // padding: 20px;
+        // position: relative;
+    }
+
+    
+    &__header {
+        outline: 1px dotted purple;
+
+        height: 60px;
+        width: calc(100%);
+
+        &__title {
+            font-size: 1.2em;
+        }    
+    }
+
+    &__new-package {
+        outline: 1px dotted greenyellow;
+
+        // height: calc(100% - 60px);
+        width: 700px;
+
+        position: absolute;
+        top: 60px;
+        bottom: 60px;
+    }
+
+    &__footer {
+        outline: 1px dotted yellow;
+
+        position: absolute;
+        bottom: 0;
+        height: 60px;
+        width: 700px;
+    }
+}
+
+.test {
+    display: inline-block; 
+    width: calc(100%);
+    height: calc(100%);
+
+    outline: 1px dashed white;
+}
