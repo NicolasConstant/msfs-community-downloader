@@ -12,41 +12,120 @@
 
     
     &__header {
-        outline: 1px dotted purple;
+        // outline: 1px dotted purple;
 
         height: 60px;
         width: calc(100%);
 
         &__title {
+            padding: 15px 0 0 210px;
             font-size: 1.2em;
         }    
     }
 
     &__new-package {
-        outline: 1px dotted greenyellow;
+        // outline: 1px dotted greenyellow;
 
         // height: calc(100% - 60px);
         width: 700px;
 
         position: absolute;
         top: 60px;
-        bottom: 60px;
+        bottom: 80px;
+
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 12px;
+            /* width of the entire scrollbar */
+        }
+        
+        &::-webkit-scrollbar-track {
+            background: rgba(36, 39, 46, 0);
+            /* color of the tracking area */
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background-color: rgb(74, 74, 95);
+            /* color of the scroll thumb */
+            border-radius: 20px;
+            /* roundness of the scroll thumb */
+            border: 3px solid #1a1a1a;
+            /* creates padding around scroll thumb */
+        }
     }
 
+   
+
     &__footer {
-        outline: 1px dotted yellow;
+        // outline: 1px dotted yellow;
 
         position: absolute;
         bottom: 0;
-        height: 60px;
+        height: 80px;
         width: 700px;
     }
 }
 
-.test {
-    display: inline-block; 
-    width: calc(100%);
-    height: calc(100%);
+.entry {
+    padding: 10px;
+    font-size: 1.1em;
 
-    outline: 1px dashed white;
+    &__label {
+        display: inline-block;
+        width: 200px;
+        text-align: right;
+        padding-right: 20px;
+        // position: relative;
+        // top: 2px;
+    }
+
+    &__input {
+        padding: 5px;
+        height: 30px;
+        width: 240px;
+        font-size: 1em;
+
+        &--long {
+            width: 460px;
+        }
+    }
+
+    &__description {
+        display: inline-block;
+        margin-left: 200px;
+        padding-top: 5px;
+        font-size: .8em;
+    }
+}
+
+.button {    
+    color: whitesmoke;
+    display: block;
+    margin: auto;
+    width: 150px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 10px;
+    text-decoration: none;
+
+    &--cancel {        
+        color: #ca0000;
+        border-color: #ca0000;
+
+        float: left;
+
+        position: relative;
+        top: 20px;
+        left: 20px;
+    }
+
+    &--save {
+        float: right;
+
+        position: relative;
+        top: 20px;
+        right: 20px;
+    }
 }

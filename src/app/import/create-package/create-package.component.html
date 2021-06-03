@@ -1,13 +1,77 @@
 <div class="add-package">
     <div class="add-package__content">
         <div class="add-package__header">
-            <h1 class="add-package__header__title">Add a new package</h1>
+            <h1 class="add-package__header__title">Create a new package</h1>
         </div>
         <div class="add-package__new-package">
-
+            <div class="entry">
+                <label class="entry__label">Id</label>
+                <input class="entry__input" type="text" />
+                <p class="entry__description">The id must be unique among all packages.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Name</label>
+                <input class="entry__input" type="text" />
+                <p class="entry__description">The name displayed in the left panel.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Description</label>
+                <input class="entry__input entry__input--long" type="text" />
+                <p class="entry__description">The full name displayed under the name in the right panel.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Summary</label>
+                <input class="entry__input entry__input--long" type="text" />
+                <p class="entry__description">Short (or long) description of the package.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Github Owner</label>
+                <input class="entry__input" type="text" />
+                <p class="entry__description">The name of the github owner.<br/>If the URL is https://github.com/my-name/my-package the owner is "my-name".</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Github Repository</label>
+                <input class="entry__input" type="text" />
+                <p class="entry__description">The name of the github repository.<br/>If the URL is https://github.com/my-name/my-package the repository is "my-package".</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Zip package name</label>
+                <input class="entry__input" type="text" />
+                <p class="entry__description">The name of the zip file of the package.<br/>If it changes every version, just enter the first part that is common. For example if a package is released via a zip called "my-package-v0.5.0.zip" enter "my-package-v" in this field.<br/>If the package isn't released via a zip, leave empty.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Is Prerelease</label>
+                
+            </div>
+            <div class="entry">
+                <label class="entry__label">Version Clean-up</label>
+                <input class="entry__input" type="text" />
+                <p class="entry__description">Optionnal.<br/>If the version is messed up, you can clean-up for display purposes. If the version is released like "data-v0.5.0", enter "data-" to remove this part in the interface.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Folder Name</label>
+                <input class="entry__input" type="text" />
+                <p class="entry__description">The name of the package's folder. Must be unique amongs all other packages. Usually the name of the folder inside the zip package.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Illustration URL</label>
+                <input class="entry__input entry__input--long" type="text" />
+                <p class="entry__description">The URL of the illustration. The recommended size is 1500x530px.</p>
+            </div>
+            <div class="entry">
+                <label class="entry__label">Webpage URL</label>
+                <input class="entry__input entry__input--long" type="text" />
+                <p class="entry__description">Optionnal.<br/>If the package has a landing page, official website, etc, enter the URL here.</p>
+            </div>
+         
         </div>
         <div class="add-package__footer">
-
+            <a href class="button button--cancel" routerLink="/add-package">
+                Cancel
+            </a>
+            <a href class="button button--save" (click)="save()">
+                Save
+            </a>
         </div>
     </div>
 </div>
