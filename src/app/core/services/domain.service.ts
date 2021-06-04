@@ -171,6 +171,8 @@ export class DomainService {
             this.getPackages();
         }
 
+        this.packages.forEach(x => x.isSelected = false);
+
         const settings = this.settingsService.getSettings();
         settings.customPackages.push(p);
         this.settingsService.saveSettings(settings);
@@ -178,7 +180,18 @@ export class DomainService {
         this.packages.unshift(p);
         p.state = InstallStatusEnum.unknown;
         p.isCustomPackage = true;
+        p.isSelected = true;
         this.analysePackage(p);
+    }
+
+    removeCustomPackage(p: Package){
+        if(!p) return;
+
+        const settings = this.settingsService.getSettings();
+        settings.customPackages = settings.customPackages.filter(x => x.id !== p.id);        
+        this.settingsService.saveSettings(settings);
+
+        this.packages = this.packages.filter(x => x.id !== p.id);
     }
 
     install(p: Package): void {

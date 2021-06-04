@@ -25,7 +25,9 @@
 </div>
 
 <div class="package-content">  
-    <app-package-detailed *ngIf="selectedPackage" [package]="selectedPackage"></app-package-detailed>
+    <app-package-detailed *ngIf="selectedPackage" 
+        [package]="selectedPackage"
+        (deletedEvent)="removePackage($event)"></app-package-detailed>
 </div>
 
 <div *ngIf="isGithubRateLimited" class="is-github-rate-limited">

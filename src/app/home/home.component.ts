@@ -64,6 +64,15 @@ export class HomeComponent implements OnInit {
         return false;
     }
 
+    removePackage(p: Package){
+        this.packages = this.packages.filter(x => x.id !== p.id);
+        
+        if(this.packages.length > 0){
+            this.packages[0].isSelected = true;
+            this.selectedPackage = this.packages[0];
+        }
+    }
+
     private analyseHttpError(err: HttpErrorResponse) {
         this.isGithubRateLimited = err.error.message.includes('API rate limit exceeded');
     }
