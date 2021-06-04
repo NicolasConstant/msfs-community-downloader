@@ -40,17 +40,10 @@ export class CreatePackageComponent implements OnInit {
             this.error = true;
             this.errorMessage = "A package has already this Folder Name";
             return false;
-        }
-
-        //TODO
-        // const settings = this.settingsService.getSettings();
-        // settings.customPackages.push(this.package);
-        // this.settingsService.saveSettings(settings);
+        }       
 
         this.domainService.addCustomPackage(this.package);
-
         this.router.navigate(['/']);
-
         return false;
     }
 }

@@ -24,7 +24,7 @@ export class DomainService {
         private githubService: GithubService,
         private downloaderService: DownloaderService,
         private extractorService: ExtractorService,
-        private settingsService: SettingsService
+        private settingsService: SettingsService        
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
             if (r) {
@@ -88,7 +88,7 @@ export class DomainService {
     private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
         if (p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
-        if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
+        if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;        
 
         if (local && local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
         if (local && !local.folderFound) return InstallStatusEnum.notFound;
@@ -96,6 +96,8 @@ export class DomainService {
             if (local.version === info.availableVersion) return InstallStatusEnum.installed;
             if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
         }
+
+        if (p.state === InstallStatusEnum.error) return InstallStatusEnum.error;
         return InstallStatusEnum.unknown;
     }
 
@@ -164,10 +166,14 @@ export class DomainService {
         return this.packages;
     }
 
-    async addCustomPackage(p: Package) {
+    addCustomPackage(p: Package) {
         if(!this.packages) {
-            await this.getPackages();
+            this.getPackages();
         }
+
+        const settings = this.settingsService.getSettings();
+        settings.customPackages.push(p);
+        this.settingsService.saveSettings(settings);
 
         this.packages.unshift(p);
         p.state = InstallStatusEnum.unknown;
