@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron/electron.service';
+import { Package } from './packages.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +18,10 @@ export class SettingsService {
             if(settings.communityPath) { 
                 this.saveSettings(settings);
             }
+        }
+        if(!settings.customPackages){
+            settings.customPackages = [];
+            this.saveSettings(settings);
         }
         return settings;
     }
@@ -95,7 +100,7 @@ export class SettingsService {
         }
     }
 
-    private saveSettings(settings: SettingsData) {
+    saveSettings(settings: SettingsData): void {
         const json = JSON.stringify(settings);
         localStorage.setItem('settings', json);
     }
@@ -103,4 +108,5 @@ export class SettingsService {
 
 class SettingsData {
     communityPath: string;
+    customPackages: Package[];
 }

@@ -1,8 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { Subject } from 'rxjs';
+import { faArrowDown, faTrash, faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { Package, InstallStatusEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
+
 
 @Component({
     selector: 'app-package-detailed',
@@ -11,9 +14,16 @@ import { DomainService } from '../../core/services/domain.service';
 })
 export class PackageDetailedComponent implements OnInit {
     faGithub = faGithub;
+    faArrowDown = faArrowDown;
+    faTrash = faTrash;
+    faTrashAlt = faTrashAlt;
+    faPencilAlt = faPencilAlt;
 
     @Input() package: Package;
     updatingStatus: string;
+
+    @Output()
+    deletedEvent = new Subject<Package>();
 
     constructor(
         private domainService: DomainService,
@@ -60,5 +70,13 @@ export class PackageDetailedComponent implements OnInit {
         const pattern = this.package.versionPatternToRemove;
         if(!pattern || !version) return version;
         return version.replace(pattern, '');
+    }
+
+    removePackage(): boolean {
+        if(!this.package.isCustomPackage) return false;
+
+        this.domainService.removeCustomPackage(this.package);
+        this.deletedEvent.next(this.package);
+        return false;
     }
 }

@@ -8,7 +8,7 @@
     left: 0;
     bottom: 0;
     width: 250px;
-    
+
     // border-right: 1px solid #3f4d68;
 
     background-color: #090c10;
@@ -41,7 +41,7 @@
 
 .packages {
     position: fixed;
-    top: 35px;
+    top: calc(35px + 42px);
     left: 0;
     bottom: 42px;
     width: 250px;
@@ -73,8 +73,37 @@
     /* creates padding around scroll thumb */
 }
 
+.column-header {
+    position: fixed;
+    top: 35px;
+    left: 0;
+    height: 42px;
+    width: 250px;
+    border-bottom: 1px solid #424e58;
 
-.column-footer{
+    &__add-package {
+        display: inline-block;
+        width: 250px;
+        padding: 10px 20px;
+
+        color: #838fa3;
+        color: whitesmoke;
+        color: #a4acb8;
+
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+            color: white;
+        }
+
+        &__icon {
+            padding-right: 5px;
+        }
+    }
+}
+
+.column-footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -82,7 +111,7 @@
     border-top: 1px solid #424e58;
 }
 
-.settings {  
+.settings {
     display: inline-block;
     width: calc(250px - 42px - 2px);
     padding: 10px 20px;
@@ -95,14 +124,14 @@
     // border-right: 1px solid #424e58;
 
     // border-top: 1px solid #131922;
-   
+
 
     &:hover {
         color: white;
     }
 }
 
-.refresh{
+.refresh {
     display: inline-block;
     padding: 10px 0 0 9px;
     width: 39px;
@@ -114,19 +143,19 @@
 }
 
 .is-github-rate-limited {
-    z-index: 9999;    
+    z-index: 9999;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 75px;
+    right: 30px;
     padding: 10px 20px;
 
-    background-color: rgb(141, 14, 14);    
+    background-color: rgb(141, 14, 14);
     color: white;
 
     border: 1px solid white;
-    border-radius:3px;
+    border-radius: 3px;
 
     &__title {
-        font-weight: bold;    
+        font-weight: bold;
     }
 }
