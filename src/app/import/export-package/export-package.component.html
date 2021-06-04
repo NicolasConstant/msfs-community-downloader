@@ -1,1 +1,20 @@
-<p>export-package works!</p>
+<div class="export-package">
+    <div class="export-package__content">
+        <a href class="close" routerLink="/">
+            <fa-icon [icon]="faTimes"></fa-icon>
+        </a>
+
+        <div class="export-package__header">
+            <h1 class="export-package__header__title">Export package</h1>
+        </div>
+
+        <div class="export-package__export">
+            <textarea class="text-package"></textarea>
+
+            <div class="separator">OR</div>
+
+            <a href class="button" (click)="saveFile()">Save as file</a>
+
+        </div>
+    </div>
+</div>
