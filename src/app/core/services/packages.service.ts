@@ -21,6 +21,8 @@ export class PackagesService {
         wtcj4.summary = "OPEN BETA<br/>Performance and avionics improvements for the Citation CJ4";
         wtcj4.webpageUrl = "https://www.workingtitle.aero/packages/cj4/";
 
+        //wtcj4.isCustomPackage = true;
+
         const wtg1000 = new Package();
         wtg1000.id = "wt-g1000";
         wtg1000.name = "WT G1000";
@@ -138,20 +140,19 @@ export class PackagesService {
         jplc152.state = InstallStatusEnum.unknown; 
         jplc152.summary = "A MSFS Addon to improve the Cessna C152 ";
 
-        // const pms50gns530 = new Package();
-        // pms50gns530.id = "pms50gns530";
-        // pms50gns530.name = "PMS50 GNS530";
-        // pms50gns530.description = "Pimarc PMS50 GNS530";
-        // pms50gns530.githubOwner = "pimarc";
-        // pms50gns530.githubRepo = "pms50-gns530";
-        // pms50gns530.illustration = "assets/illustrations/pms50gns530.jpg";
-        // pms50gns530.folderName = "pms50-gns530";
-        // pms50gns530.assetName = "pms50-gns530.zip";
-        // pms50gns530.state = InstallStatusEnum.unknown; 
-        // pms50gns530.summary = "This package is an enhancement of the built-in GNS530 GPS. The goal is to offer an instrument that comes as close as possible to the original.";
-        // pms50gns530.webpageUrl = "https://pms50.com/msfs/";
+        const pms50gns530 = new Package();
+        pms50gns530.id = "pms50gns530";
+        pms50gns530.name = "PMS50 GNS530";
+        pms50gns530.description = "Pimarc PMS50 GNS530";
+        pms50gns530.githubOwner = "pimarc";
+        pms50gns530.githubRepo = "pms50-gns530";
+        pms50gns530.illustration = "assets/illustrations/pms50gns530.jpg";
+        pms50gns530.folderName = "pms50-gns530";
+        pms50gns530.assetName = "pms50-gns530.zip";
+        pms50gns530.state = InstallStatusEnum.unknown; 
+        pms50gns530.summary = "This package is an enhancement of the built-in GNS530 GPS. The goal is to offer an instrument that comes as close as possible to the original.";
         
-        return Promise.resolve([wtcj4, wtg1000, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152]);
+        return Promise.resolve([wtcj4, wtg1000, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152, pms50gns530]);
 
         //     new Package();
         //         "aa-liv",
@@ -219,7 +220,9 @@ export class Package {
 
     public summary: string;
     public webpageUrl: string;
-    public oldFolderNames: string[]; 
+    public oldFolderNames: string[];
+
+    public isCustomPackage: boolean;
 }
 
 export enum InstallStatusEnum {
