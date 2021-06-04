@@ -80,6 +80,53 @@
     }
 }
 
+.edit-buttons {
+    // outline: 1px dotted greenyellow;
+
+    float: right;
+    margin: 20px 20px 0 0;
+
+    &__button {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #dbdbdb;
+        color: #dbdbdb;
+        border-radius: 3px;
+        text-decoration: none;
+        margin-left: 15px;
+        opacity: .5;
+        padding: 7px 0 0 0;
+        font-size: 18px;
+        text-align: center;
+        transition: all .2s;
+        background-color: rgba(#000000, 0.15);
+
+        &:hover {
+            opacity: 1;
+            border: 1px solid white;
+            color: white;
+            background-color: rgba(#000000, 0.3);
+        }
+
+        &__export {
+            padding-right: 1px;
+        }
+
+        &__delete {
+            padding-right: 1px;
+
+            &:hover {
+                border: 1px solid #ff3232;
+                color: #ff3232;
+                // background-color: rgba(#ffffff, 0.3);
+            }
+        }
+
+    }
+    
+}
+
 .package-detailed::-webkit-scrollbar {
     width: 12px;
     /* width of the entire scrollbar */

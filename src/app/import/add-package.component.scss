@@ -1,0 +1,33 @@
+.add-package {
+    color: whitesmoke;
+    height: 100%;
+    // position: relative;
+
+    &__content {
+        width: 700px;
+        padding-top: 50px;
+        margin: auto;
+        overflow: hidden;
+    }   
+}
+
+.button {
+    color: whitesmoke;
+    display: block;
+    margin: auto;
+    width: 250px;
+    text-align: center;
+    // height: 50px;
+    border-radius: 5px;
+    border: 1px solid white;
+    margin-bottom: 30px;
+    padding: 10px;
+    text-decoration: none;
+
+    &--cancel {
+        margin-bottom: 50px;
+        color: #ca0000;
+        border-color: #ca0000;
+        margin-top: 70px;
+    }
+}

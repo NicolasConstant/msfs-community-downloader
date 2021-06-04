@@ -10,8 +10,7 @@ import { SettingsService } from './settings.service';
 @Injectable({
     providedIn: 'root'
 })
-export class DomainService {
-
+export class DomainService { 
     private packages: Package[];
     private downloadSub: Subscription;
     private downloadUpdateSub: Subscription;
@@ -25,7 +24,7 @@ export class DomainService {
         private githubService: GithubService,
         private downloaderService: DownloaderService,
         private extractorService: ExtractorService,
-        private settingsService: SettingsService
+        private settingsService: SettingsService        
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
             if (r) {
@@ -53,7 +52,11 @@ export class DomainService {
         let pipeline: Promise<any> = Promise.resolve(true);
         packages.forEach(x => {
             pipeline = pipeline.then(() => {
-                return this.analysePackage(x);
+                return this.analysePackage(x)
+                    .catch(err => {
+                        console.error(err);
+                        x.state = InstallStatusEnum.error;
+                    });
             });
         });
         return pipeline;
@@ -85,7 +88,7 @@ export class DomainService {
     private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
         if (p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
-        if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
+        if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;        
 
         if (local && local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
         if (local && !local.folderFound) return InstallStatusEnum.notFound;
@@ -93,6 +96,8 @@ export class DomainService {
             if (local.version === info.availableVersion) return InstallStatusEnum.installed;
             if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
         }
+
+        if (p.state === InstallStatusEnum.error) return InstallStatusEnum.error;
         return InstallStatusEnum.unknown;
     }
 
@@ -152,16 +157,78 @@ export class DomainService {
         this.app.tick();
     }
 
-    getPackages(): Promise<Package[]> {
+    getPackages(): Package[] {
         if (this.packages) {
-            return Promise.resolve(this.packages);
+            return this.packages;
         }
 
-        return this.packageService.getPackages()
-            .then(p => {
-                this.packages = p;
-                return p;
-            });
+        this.packages = this.packageService.getPackages();
+        return this.packages;
+    }
+
+    addCustomPackage(p: Package): void {
+        if(!this.packages) {
+            this.getPackages();
+        }
+
+        this.packages.forEach(x => x.isSelected = false);
+
+        const settings = this.settingsService.getSettings();
+        settings.customPackages.push(p);
+        this.settingsService.saveSettings(settings);
+
+        this.packages.unshift(p);
+        p.state = InstallStatusEnum.unknown;
+        p.isCustomPackage = true;
+        p.isSelected = true;
+        this.analysePackage(p);
+    }
+
+    updateCustomPackage(p: Package): void {
+        if(!p) return;
+
+        const settings = this.settingsService.getSettings();
+        const toUpdate = settings.customPackages.find(x => x.id === p.id);
+
+        toUpdate.id = p.id;
+        toUpdate.name = p.name;
+        toUpdate.description = p.description;
+        toUpdate.summary = p.summary;
+        toUpdate.githubOwner = p.githubOwner;
+        toUpdate.githubRepo = p.githubRepo;
+        toUpdate.assetName = p.assetName;
+        toUpdate.isPrerelease = p.isPrerelease;
+        toUpdate.folderName = p.folderName;
+        toUpdate.illustration = p.illustration;
+        toUpdate.webpageUrl = p.webpageUrl;
+        toUpdate.versionPatternToRemove = p.versionPatternToRemove;
+
+        this.settingsService.saveSettings(settings);
+
+        const localToUpdate = this.packages.find(x => x.id === p.id);
+
+        localToUpdate.id = p.id;
+        localToUpdate.name = p.name;
+        localToUpdate.description = p.description;
+        localToUpdate.summary = p.summary;
+        localToUpdate.githubOwner = p.githubOwner;
+        localToUpdate.githubRepo = p.githubRepo;
+        localToUpdate.assetName = p.assetName;
+        localToUpdate.isPrerelease = p.isPrerelease;
+        localToUpdate.folderName = p.folderName;
+        localToUpdate.illustration = p.illustration;
+        localToUpdate.webpageUrl = p.webpageUrl;
+        localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
+    }
+
+    removeCustomPackage(p: Package): void {
+        if(!p) return;
+
+        const settings = this.settingsService.getSettings();
+        settings.customPackages = settings.customPackages.filter(x => x.id !== p.id);        
+        this.settingsService.saveSettings(settings);
+
+        this.packages = this.packages.filter(x => x.id !== p.id);
     }
 
     install(p: Package): void {

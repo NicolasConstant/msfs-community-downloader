@@ -1,5 +1,11 @@
 <!-- <div class="container"> -->
 <div class="left-bar">
+    <div class="column-header">
+        <a class="column-header__add-package" routerLink="/add-package">
+            <fa-icon class="column-header__add-package__icon" [icon]="faPlusSquare"></fa-icon> Add Package
+        </a>
+    </div>
+
     <div class="packages">
         <ng-container *ngFor="let p of packages">
             <a href (click)="selectPackage(p)" class="packages__link">
@@ -19,13 +25,15 @@
 </div>
 
 <div class="package-content">  
-    <app-package-detailed *ngIf="selectedPackage" [package]="selectedPackage"></app-package-detailed>
+    <app-package-detailed *ngIf="selectedPackage" 
+        [package]="selectedPackage"
+        (deletedEvent)="removePackage($event)"></app-package-detailed>
 </div>
 
 <div *ngIf="isGithubRateLimited" class="is-github-rate-limited">
     <span class="is-github-rate-limited__title">Oh Noz!</span><br/>
     You're Github rate limited.<br/>
-    Please retry later.
+    Please refresh later.
 </div>
 
 <!-- <h1 class="title">
