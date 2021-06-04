@@ -100,7 +100,7 @@ export class SettingsService {
         }
     }
 
-    saveSettings(settings: SettingsData) {
+    saveSettings(settings: SettingsData): void {
         const json = JSON.stringify(settings);
         localStorage.setItem('settings', json);
     }

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 
 import { Package } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
-import { SettingsService } from '../../core/services/settings.service';
 
 @Component({
     selector: 'app-create-package',

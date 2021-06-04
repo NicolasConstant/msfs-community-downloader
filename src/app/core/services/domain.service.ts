@@ -166,7 +166,7 @@ export class DomainService {
         return this.packages;
     }
 
-    addCustomPackage(p: Package) {
+    addCustomPackage(p: Package): void {
         if(!this.packages) {
             this.getPackages();
         }
@@ -184,7 +184,7 @@ export class DomainService {
         this.analysePackage(p);
     }
 
-    updateCustomPackage(p: Package) {
+    updateCustomPackage(p: Package): void {
         if(!p) return;
 
         const settings = this.settingsService.getSettings();
@@ -221,7 +221,7 @@ export class DomainService {
         localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
     }
 
-    removeCustomPackage(p: Package){
+    removeCustomPackage(p: Package): void {
         if(!p) return;
 
         const settings = this.settingsService.getSettings();

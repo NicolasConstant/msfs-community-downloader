@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
         return false;
     }
 
-    removePackage(p: Package){
+    removePackage(p: Package): void {
         this.packages = this.packages.filter(x => x.id !== p.id);
         
         if(this.packages.length > 0){
