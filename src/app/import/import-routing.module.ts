@@ -20,12 +20,17 @@ const routes: Routes = [
         canActivate: [CommunityfolderGuard]
     },
     {
+        path: 'create-package/:id',
+        component: CreatePackageComponent,
+        canActivate: [CommunityfolderGuard]
+    },
+    {
         path: 'import-package',
         component: ImportPackageComponent,
         canActivate: [CommunityfolderGuard]
     },
     {
-        path: 'export-package',
+        path: 'export-package/:id',
         component: ExportPackageComponent,
         canActivate: [CommunityfolderGuard]
     }

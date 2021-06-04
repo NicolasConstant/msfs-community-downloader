@@ -1,13 +1,19 @@
 <div class="add-package">
     <div class="add-package__content">
         <div class="add-package__header">
-            <h1 class="add-package__header__title">Create a new package</h1>
+            <h1 *ngIf="!isEditing" class="add-package__header__title">Create a new package</h1>
+            <h1 *ngIf="isEditing" class="add-package__header__title">Edit package</h1>
         </div>
         <div class="add-package__new-package">
-            <div class="entry">
+            <div *ngIf="!isEditing" class="entry">
                 <label class="entry__label">Id</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.id" />
                 <p class="entry__description">The id must be unique among all packages.</p>
+            </div>
+            <div *ngIf="!isEditing" class="entry">
+                <label class="entry__label">Folder Name</label>
+                <input class="entry__input" type="text" [(ngModel)]="package.folderName" />
+                <p class="entry__description">The name of the package's folder. Must be unique amongs all other packages. Usually the name of the folder inside the zip package.</p>
             </div>
             <div class="entry">
                 <label class="entry__label">Name</label>
@@ -45,11 +51,6 @@
                 <p class="entry__description">If this package is released with the Github tag "Prerelease".</p>
             </div>           
             <div class="entry">
-                <label class="entry__label">Folder Name</label>
-                <input class="entry__input" type="text" [(ngModel)]="package.folderName" />
-                <p class="entry__description">The name of the package's folder. Must be unique amongs all other packages. Usually the name of the folder inside the zip package.</p>
-            </div>
-            <div class="entry">
                 <label class="entry__label">Illustration URL</label>
                 <input class="entry__input entry__input--long" type="text" [(ngModel)]="package.illustration" />
                 <p class="entry__description">The URL of the illustration. The recommended size is 1500x530px.</p>
@@ -66,13 +67,16 @@
             </div>         
         </div>
         <div class="add-package__footer">
-            <a href class="button button--cancel" routerLink="/add-package">
+            <a *ngIf="!isEditing" href class="button button--cancel" routerLink="/add-package">
+                Cancel
+            </a>
+            <a *ngIf="isEditing" href class="button button--cancel" routerLink="/">
                 Cancel
             </a>
             <div *ngIf="error" class="error">
                 {{ errorMessage }}
             </div>
-            <a class="button button--save" (click)="save()">
+            <a href class="button button--save" (click)="save()">
                 Save
             </a>
         </div>

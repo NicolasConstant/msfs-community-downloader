@@ -2,7 +2,8 @@
     <div class="package-detailed__banner" [ngStyle]="{'background-image':'url('+package.illustration+')'}">
 
         <div *ngIf="package.isCustomPackage" class="edit-buttons">
-            <a href class="edit-buttons__button edit-buttons__button__edit">
+            <a href class="edit-buttons__button edit-buttons__button__edit"
+                [routerLink]="['/create-package', package.id]">
                 <fa-icon [icon]="faPencilAlt"></fa-icon>
             </a>
             <!-- <a href class="edit-buttons__button edit-buttons__button__export">

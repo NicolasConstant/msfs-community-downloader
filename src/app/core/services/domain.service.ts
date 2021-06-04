@@ -10,7 +10,7 @@ import { SettingsService } from './settings.service';
 @Injectable({
     providedIn: 'root'
 })
-export class DomainService {
+export class DomainService { 
     private packages: Package[];
     private downloadSub: Subscription;
     private downloadUpdateSub: Subscription;
@@ -182,6 +182,43 @@ export class DomainService {
         p.isCustomPackage = true;
         p.isSelected = true;
         this.analysePackage(p);
+    }
+
+    updateCustomPackage(p: Package) {
+        if(!p) return;
+
+        const settings = this.settingsService.getSettings();
+        const toUpdate = settings.customPackages.find(x => x.id === p.id);
+
+        toUpdate.id = p.id;
+        toUpdate.name = p.name;
+        toUpdate.description = p.description;
+        toUpdate.summary = p.summary;
+        toUpdate.githubOwner = p.githubOwner;
+        toUpdate.githubRepo = p.githubRepo;
+        toUpdate.assetName = p.assetName;
+        toUpdate.isPrerelease = p.isPrerelease;
+        toUpdate.folderName = p.folderName;
+        toUpdate.illustration = p.illustration;
+        toUpdate.webpageUrl = p.webpageUrl;
+        toUpdate.versionPatternToRemove = p.versionPatternToRemove;
+
+        this.settingsService.saveSettings(settings);
+
+        const localToUpdate = this.packages.find(x => x.id === p.id);
+
+        localToUpdate.id = p.id;
+        localToUpdate.name = p.name;
+        localToUpdate.description = p.description;
+        localToUpdate.summary = p.summary;
+        localToUpdate.githubOwner = p.githubOwner;
+        localToUpdate.githubRepo = p.githubRepo;
+        localToUpdate.assetName = p.assetName;
+        localToUpdate.isPrerelease = p.isPrerelease;
+        localToUpdate.folderName = p.folderName;
+        localToUpdate.illustration = p.illustration;
+        localToUpdate.webpageUrl = p.webpageUrl;
+        localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
     }
 
     removeCustomPackage(p: Package){
