@@ -25,31 +25,22 @@ export class HomeComponent implements OnInit {
         private domainService: DomainService) { }
 
     ngOnInit(): void {
-        this.domainService.getPackages()
-            .then((packages: Package[]) => {
-                this.packages = [];
-                packages.forEach(p => {
-                    this.packages.push(p);
+        this.packages = this.domainService.getPackages();
+        
+        if (this.packages.length > 0) {
+            let selected = this.packages.find(x => x.isSelected);
+
+            if (!selected) {
+                selected = this.packages[0];
+                selected.isSelected = true;
+            }
+
+            this.selectedPackage = selected;
+            this.domainService.analysePackages(this.packages)
+                .catch((err: HttpErrorResponse) => {
+                    this.analyseHttpError(err);
                 });
-
-                if (this.packages.length > 0) {
-                    let selected = this.packages.find(x => x.isSelected);
-
-                    if (!selected) {
-                        selected = this.packages[0];
-                        selected.isSelected = true;
-                    }
-
-                    this.selectedPackage = selected;
-                    this.domainService.analysePackages(this.packages)
-                        .catch((err: HttpErrorResponse) => {
-                            this.analyseHttpError(err);
-                        });
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        }
     }
 
     selectPackage(p: Package): boolean {
@@ -73,7 +64,7 @@ export class HomeComponent implements OnInit {
         return false;
     }
 
-    private analyseHttpError(err: HttpErrorResponse){
+    private analyseHttpError(err: HttpErrorResponse) {
         this.isGithubRateLimited = err.error.message.includes('API rate limit exceeded');
     }
 }

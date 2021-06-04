@@ -52,7 +52,11 @@ export class DomainService {
         let pipeline: Promise<any> = Promise.resolve(true);
         packages.forEach(x => {
             pipeline = pipeline.then(() => {
-                return this.analysePackage(x);
+                return this.analysePackage(x)
+                    .catch(err => {
+                        console.error(err);
+                        x.state = InstallStatusEnum.error;
+                    });
             });
         });
         return pipeline;
@@ -151,16 +155,13 @@ export class DomainService {
         this.app.tick();
     }
 
-    getPackages(): Promise<Package[]> {
+    getPackages(): Package[] {
         if (this.packages) {
-            return Promise.resolve(this.packages);
+            return this.packages;
         }
 
-        return this.packageService.getPackages()
-            .then(p => {
-                this.packages = p;
-                return p;
-            });
+        this.packages = this.packageService.getPackages();
+        return this.packages;
     }
 
     async addCustomPackage(p: Package) {
