@@ -1,5 +1,18 @@
 <div class="package-detailed">
     <div class="package-detailed__banner" [ngStyle]="{'background-image':'url('+package.illustration+')'}">
+
+        <div *ngIf="package.isCustomPackage" class="edit-buttons">
+            <a href class="edit-buttons__button edit-buttons__button__edit">
+                <fa-icon [icon]="faPencilAlt"></fa-icon>
+            </a>
+            <a href class="edit-buttons__button edit-buttons__button__export">
+                <fa-icon [icon]="faArrowDown"></fa-icon>
+            </a>
+            <a href class="edit-buttons__button edit-buttons__button__delete">
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </a>
+        </div>
+
         <div class="package-detailed__banner__inner">
             <div class="install-button">
                 <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
@@ -8,7 +21,7 @@
                 <a href *ngIf="package.state === 4 || package.state === 8" class="button button--install" (click)="install()">Install</a>
                 <a *ngIf="package.state === 5 || package.state === 6 || package.state === 7"
                     class="button button--working">{{getWorkingInfo()}}</a>
-            </div>
+            </div>         
 
             <h1 class="package-detailed__banner__inner--name">{{package.name}}</h1>
             <h2 class="package-detailed__banner__inner--description">{{package.description}}</h2>

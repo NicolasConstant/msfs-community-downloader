@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faArrowDown, faTrash, faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { Package, InstallStatusEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
@@ -11,6 +12,10 @@ import { DomainService } from '../../core/services/domain.service';
 })
 export class PackageDetailedComponent implements OnInit {
     faGithub = faGithub;
+    faArrowDown = faArrowDown;
+    faTrash = faTrash;
+    faTrashAlt = faTrashAlt;
+    faPencilAlt = faPencilAlt;
 
     @Input() package: Package;
     updatingStatus: string;

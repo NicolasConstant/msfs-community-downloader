@@ -47,6 +47,7 @@
         
         &::-webkit-scrollbar-thumb {
             background-color: rgb(74, 74, 95);
+            background-color: rgb(104, 104, 104);
             /* color of the scroll thumb */
             border-radius: 20px;
             /* roundness of the scroll thumb */
@@ -127,5 +128,20 @@
         position: relative;
         top: 20px;
         right: 20px;
+
+        cursor: pointer;
+        -webkit-user-select: none;
+
     }
+}
+
+.error {
+    float: left;
+    color: red;
+
+    // position: relative;
+    // top: 10px;
+
+    margin-top: 30px;
+    margin-left: 50px;
 }

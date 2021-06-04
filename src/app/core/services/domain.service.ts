@@ -11,7 +11,6 @@ import { SettingsService } from './settings.service';
     providedIn: 'root'
 })
 export class DomainService {
-
     private packages: Package[];
     private downloadSub: Subscription;
     private downloadUpdateSub: Subscription;
@@ -162,6 +161,17 @@ export class DomainService {
                 this.packages = p;
                 return p;
             });
+    }
+
+    async addCustomPackage(p: Package) {
+        if(!this.packages) {
+            await this.getPackages();
+        }
+
+        this.packages.unshift(p);
+        p.state = InstallStatusEnum.unknown;
+        p.isCustomPackage = true;
+        this.analysePackage(p);
     }
 
     install(p: Package): void {
