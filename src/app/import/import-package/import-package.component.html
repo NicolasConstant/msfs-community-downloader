@@ -5,16 +5,21 @@
         </a>
 
         <div class="import-package__header">
-            <h1 class="import-package__header__title">Import <span *ngIf="isJsonImport">json file</span><span  *ngIf="!isJsonImport">text</span> package</h1>
+            <h1 class="import-package__header__title">Import <span *ngIf="isJsonImport">json file</span><span
+                    *ngIf="!isJsonImport">text</span> package</h1>
         </div>
 
-        <div class="warning"><span class="warning__title">WARNING: Only import packages from trusted sources.</span><br/>
-            Downloading blindly files from the web can lead to installing viruses, getting cryptolocked, seeing your computer dansing the Macarena and being bullied for being stupid.<br/>
+        <div class="warning"><span class="warning__title">WARNING: Only import packages from trusted
+                sources.</span><br />
+            Downloading blindly files from the web can lead to installing viruses, getting cryptolocked, seeing your
+            computer dansing the Macarena and being bullied for being stupid.<br />
             Don't do that.</div>
 
         <div *ngIf="isJsonImport" class="import-package__json">
-            JSON
-        </div> 
+            <h2 class="import-package__json__title">Sure of the source? Paste the package here:</h2>
+            <textarea class="import-package__json__text-package" onFocus="this.select()">{{json}}</textarea>
+            <a href class="button" (click)="importJson()">Load</a>
+        </div>
         <div *ngIf="!isJsonImport" class="import-package__file">
             FILE
         </div>

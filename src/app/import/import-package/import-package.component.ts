@@ -14,6 +14,8 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
     isJsonImport = false;
     sub: Subscription;
 
+    json: string;
+
     constructor(
         private activatedRoute: ActivatedRoute
     ) { }
@@ -29,5 +31,10 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.sub) this.sub.unsubscribe();
+    }
+
+    importJson(): boolean {
+
+        return false;
     }
 }
