@@ -1,1 +1,22 @@
-<p>import-package works!</p>
+<div class="import-package">
+    <div class="import-package__content">
+        <a href class="close" routerLink="/add-package">
+            <fa-icon [icon]="faTimes"></fa-icon>
+        </a>
+
+        <div class="import-package__header">
+            <h1 class="import-package__header__title">Import <span *ngIf="isJsonImport">json file</span><span  *ngIf="!isJsonImport">text</span> package</h1>
+        </div>
+
+        <div class="warning"><span class="warning__title">WARNING: Only import packages from trusted sources.</span><br/>
+            Downloading blindly files from the web can lead to installing viruses, getting cryptolocked, seeing your computer dansing the Macarena and being bullied for being stupid.<br/>
+            Don't do that.</div>
+
+        <div *ngIf="isJsonImport" class="import-package__json">
+            JSON
+        </div> 
+        <div *ngIf="!isJsonImport" class="import-package__file">
+            FILE
+        </div>
+    </div>
+</div>

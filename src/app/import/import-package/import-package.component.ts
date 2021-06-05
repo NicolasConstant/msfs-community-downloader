@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-import-package',
-  templateUrl: './import-package.component.html',
-  styleUrls: ['./import-package.component.scss']
+    selector: 'app-import-package',
+    templateUrl: './import-package.component.html',
+    styleUrls: ['./import-package.component.scss']
 })
-export class ImportPackageComponent implements OnInit {
+export class ImportPackageComponent implements OnInit, OnDestroy {
+    faTimes = faTimes;
+    
+    isJsonImport = false;
+    sub: Subscription;
 
-  constructor() { }
+    constructor(
+        private activatedRoute: ActivatedRoute
+    ) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        this.sub = this.activatedRoute.params.subscribe(params => {
+            const type = params['type'];
+            if (!type || type === 'json') {
+                this.isJsonImport = true;
+            }
+        });
+    }
 
+    ngOnDestroy(): void {
+        if (this.sub) this.sub.unsubscribe();
+    }
 }

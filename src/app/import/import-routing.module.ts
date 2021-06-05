@@ -25,7 +25,7 @@ const routes: Routes = [
         canActivate: [CommunityfolderGuard]
     },
     {
-        path: 'import-package',
+        path: 'import-package/:type',
         component: ImportPackageComponent,
         canActivate: [CommunityfolderGuard]
     },
