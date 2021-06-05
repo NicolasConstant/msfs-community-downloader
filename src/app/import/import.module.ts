@@ -13,6 +13,5 @@ import { ExportPackageComponent } from './export-package/export-package.componen
 @NgModule({
     declarations: [AddPackageComponent, CreatePackageComponent, ImportPackageComponent, ExportPackageComponent],
     imports: [CommonModule, SharedModule, ImportRoutingModule, FontAwesomeModule]
-  })
-  export class ImportModule {}
-  
+})
+export class ImportModule { }
