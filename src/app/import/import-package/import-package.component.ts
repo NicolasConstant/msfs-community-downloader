@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ElectronService } from '../../core/services/electron/electron.service';
+import { ExportablePackage } from '../export-package/export-package.component';
 
 @Component({
     selector: 'app-import-package',
@@ -15,8 +17,10 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
     sub: Subscription;
 
     json: string;
+    loadedPackage: ExportablePackage;
 
     constructor(
+        private electronService: ElectronService,
         private activatedRoute: ActivatedRoute
     ) { }
 
@@ -34,7 +38,29 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
     }
 
     importJson(): boolean {
+        this.loadJson(this.json);
+        return false;
+    }
+
+    importFile(): boolean {
+        const res = this.electronService.remote.dialog.showOpenDialogSync(
+            {
+                title: 'Select the package file',
+                filters: [{ name: 'Json', extensions: ['json'] }],
+                properties: ['openFile']
+            });
+
+        if(res && res.length > 0){
+            const path = res[0];
+            const jsonData = this.electronService.fs.readFileSync(path, 'utf-8');
+            this.loadJson(jsonData);
+        }
 
         return false;
+    }
+
+    private loadJson(json: string): void{
+        if(!json) return;
+        this.loadedPackage = <ExportablePackage> JSON.parse(json);
     }
 }

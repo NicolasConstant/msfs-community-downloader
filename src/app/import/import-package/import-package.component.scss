@@ -56,6 +56,29 @@
     }
 }
 
+.imported-package {
+    margin: 20px 0 0 40px;
+    
+    &__title {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    &__link {
+        color: gray;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+.validate {
+    &__title {
+        font-size: 1.1em;
+    }
+}
+
 .warning {
     &__title {
         color: orange;        

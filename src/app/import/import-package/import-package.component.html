@@ -5,8 +5,8 @@
         </a>
 
         <div class="import-package__header">
-            <h1 class="import-package__header__title">Import <span *ngIf="isJsonImport">json file</span><span
-                    *ngIf="!isJsonImport">text</span> package</h1>
+            <h1 class="import-package__header__title">Import <span *ngIf="isJsonImport">text</span><span
+                    *ngIf="!isJsonImport">json file</span> package</h1>
         </div>
 
         <div class="warning"><span class="warning__title">WARNING: Only import packages from trusted
@@ -15,13 +15,40 @@
             computer dansing the Macarena and being bullied for being stupid.<br />
             Don't do that.</div>
 
-        <div *ngIf="isJsonImport" class="import-package__json">
+        <div *ngIf="isJsonImport && !loadedPackage" class="import-package__json">
             <h2 class="import-package__json__title">Sure of the source? Paste the package here:</h2>
             <textarea class="import-package__json__text-package" onFocus="this.select()">{{json}}</textarea>
             <a href class="button" (click)="importJson()">Load</a>
         </div>
-        <div *ngIf="!isJsonImport" class="import-package__file">
-            FILE
+        <div *ngIf="!isJsonImport && !loadedPackage" class="import-package__file">
+            <h2 class="import-package__json__title">Sure of the source? Import the file here:</h2>
+            <a href class="button" (click)="importFile()">Load</a>
+        </div>
+
+        <div *ngIf="loadedPackage">
+
+            <div class="imported-package">
+                <h2 class="imported-package__title">Loaded Package:</h2>
+                <p>
+                    {{loadedPackage.name}}<br />
+                    {{loadedPackage.description}}<br />
+                    <a href="https://github.com/{{loadedPackage.githubOwner}}/{{loadedPackage.githubRepo}}"
+                        class="imported-package__link" target="_blank">
+                        https://github.com/{{loadedPackage.githubOwner}}/{{loadedPackage.githubRepo}}
+                    </a><br />
+                    <br />
+                </p>
+            </div>
+
+            <div class="validate">
+                <h2 class="validate__title">Is it the package you wanted to add?</h2>
+
+                <div class="validate__buttons">
+                    <a href class="validate__buttons__button" (click)="cancel()">No</a> <a href class="validate__buttons__button" (click)="val()">Yes</a>
+                </div>
+            </div>
+            
+
         </div>
     </div>
 </div>
