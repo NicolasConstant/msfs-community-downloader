@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { ExportablePackage } from '../export-package/export-package.component';
+import { DomainService } from '../../core/services/domain.service';
+import { Package } from '../../core/services/packages.service';
 
 @Component({
     selector: 'app-import-package',
@@ -20,6 +22,8 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
     loadedPackage: ExportablePackage;
 
     constructor(
+        private domainService: DomainService,
+        private router: Router,
         private electronService: ElectronService,
         private activatedRoute: ActivatedRoute
     ) { }
@@ -62,5 +66,31 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
     private loadJson(json: string): void{
         if(!json) return;
         this.loadedPackage = <ExportablePackage> JSON.parse(json);
+    }
+
+    cancel(): boolean {
+        this.loadedPackage = null;
+        return false;
+    }
+
+    validate(): boolean {
+        const p = new Package();
+        p.id = this.loadedPackage.id;
+        p.name = this.loadedPackage.name;
+        p.description = this.loadedPackage.description;
+        p.githubOwner = this.loadedPackage.githubOwner;
+        p.githubRepo = this.loadedPackage.githubRepo;
+        p.assetName = this.loadedPackage.assetName;
+        p.isPrerelease = this.loadedPackage.isPrerelease;
+        p.versionPatternToRemove = this.loadedPackage.versionPatternToRemove;
+        p.folderName = this.loadedPackage.folderName;
+        p.illustration = this.loadedPackage.illustration;
+        p.summary = this.loadedPackage.summary;
+        p.webpageUrl = this.loadedPackage.webpageUrl;
+        p.oldFolderNames = this.loadedPackage.oldFolderNames;
+
+        this.domainService.addCustomPackage(p);
+        this.router.navigate(['/']);
+        return false;
     }
 }

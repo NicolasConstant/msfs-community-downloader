@@ -97,4 +97,15 @@
     border: 1px solid white;
     padding: 10px;
     text-decoration: none;
+
+    &__validate {
+        margin-left: 5px;
+        display: inline-block;
+        float: none;
+    }
+}
+
+.validate__buttons {
+    text-align: center;
+    margin: auto;
 }

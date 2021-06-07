@@ -17,7 +17,7 @@
 
         <div *ngIf="isJsonImport && !loadedPackage" class="import-package__json">
             <h2 class="import-package__json__title">Sure of the source? Paste the package here:</h2>
-            <textarea class="import-package__json__text-package" onFocus="this.select()">{{json}}</textarea>
+            <textarea class="import-package__json__text-package" [(ngModel)]="json"></textarea>
             <a href class="button" (click)="importJson()">Load</a>
         </div>
         <div *ngIf="!isJsonImport && !loadedPackage" class="import-package__file">
@@ -44,7 +44,7 @@
                 <h2 class="validate__title">Is it the package you wanted to add?</h2>
 
                 <div class="validate__buttons">
-                    <a href class="validate__buttons__button" (click)="cancel()">No</a> <a href class="validate__buttons__button" (click)="val()">Yes</a>
+                    <a href class="button button__validate" (click)="cancel()">No</a> <a href class="button button__validate" (click)="validate()">Yes</a>
                 </div>
             </div>
             
