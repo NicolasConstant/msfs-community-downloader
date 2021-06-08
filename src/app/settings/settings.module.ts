@@ -8,7 +8,7 @@ import { SettingsComponent } from './settings.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [SettingsComponent],
-  imports: [CommonModule, SharedModule, SettingsRoutingModule, FontAwesomeModule]
+    declarations: [SettingsComponent],
+    imports: [CommonModule, SharedModule, SettingsRoutingModule, FontAwesomeModule]
 })
-export class SettingsModule {}
+export class SettingsModule { }

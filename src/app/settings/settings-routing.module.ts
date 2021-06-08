@@ -4,15 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { SettingsComponent } from './settings.component';
 
 const routes: Routes = [
-  {
-    path: 'settings',
-    component: SettingsComponent
-  }
+    {
+        path: 'settings',
+        component: SettingsComponent
+    }
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    declarations: [],
+    imports: [CommonModule, RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class SettingsRoutingModule {}
+export class SettingsRoutingModule { }

@@ -10,7 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PackageDetailedComponent } from './package-detailed/package-detailed.component';
 
 @NgModule({
-  declarations: [HomeComponent, PackageMiniComponent, PackageDetailedComponent],
-  imports: [CommonModule, SharedModule, HomeRoutingModule, FontAwesomeModule]
+    declarations: [HomeComponent, PackageMiniComponent, PackageDetailedComponent],
+    imports: [CommonModule, SharedModule, HomeRoutingModule, FontAwesomeModule]
 })
-export class HomeModule {}
+export class HomeModule { }

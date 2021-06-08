@@ -35,22 +35,22 @@
         "@angular-eslint/eslint-plugin"
       ],
       "rules": {
-        // "@typescript-eslint/indent": [
-        //   "error",
-        //   2,
-        //   {
-        //     "SwitchCase": 1,
-        //     "CallExpression": {
-        //       "arguments": "first"
-        //     },
-        //     "FunctionExpression": {
-        //       "parameters": "first"
-        //     },
-        //     "FunctionDeclaration": {
-        //       "parameters": "first"
-        //     }
-        //   }
-        // ],
+        "@typescript-eslint/indent": [
+          "error",
+          4,
+          {
+            "SwitchCase": 1,
+            "CallExpression": {
+              "arguments": "first"
+            },
+            "FunctionExpression": {
+              "parameters": "first"
+            },
+            "FunctionDeclaration": {
+              "parameters": "first"
+            }
+          }
+        ],
         "@typescript-eslint/no-empty-function": 0,
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-var-requires": 0,
