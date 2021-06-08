@@ -79,13 +79,8 @@
 
 
     &__package {
-        height: 60px;
-        border: 1px solid white;
-        border-radius: 3px;
-
-        &:not(:last-child) {
-            margin-bottom: 10px;
-        }
+        display: block;
+        margin-bottom: 10px;
     }
 }
 

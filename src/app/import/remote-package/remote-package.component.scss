@@ -1,0 +1,11 @@
+.package {
+    height: 60px;
+    border: 1px solid white;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all .2s;
+
+    &__expanded {
+        height: 120px;
+    }
+}
