@@ -13,32 +13,6 @@
     }
 }
 
-
-.close {
-    float: right;
-
-    width: 33px;
-    height: 33px;
-
-    // display: inline-block;
-    color: whitesmoke;
-    border: 2px solid rgb(58, 58, 59);
-    border-radius: 100px;
-    // padding: 5px 5px;
-    text-decoration: none;
-    // margin-top: 30px;
-
-    & fa-icon {
-        position: relative;
-        top: 4px;
-        left: 9px;
-    }
-
-    &:hover {
-        background-color: rgb(58, 58, 59);
-    }
-}
-
 .folder-path {
     display: inline-block;
     margin-top: 5px;

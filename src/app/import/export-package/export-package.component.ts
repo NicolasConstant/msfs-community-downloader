@@ -9,7 +9,7 @@ import { ElectronService } from '../../core/services/electron/electron.service';
 @Component({
     selector: 'app-export-package',
     templateUrl: './export-package.component.html',
-    styleUrls: ['./export-package.component.scss']
+    styleUrls: ['../../core/common.scss', './export-package.component.scss']
 })
 export class ExportPackageComponent implements OnInit, OnDestroy {
     faTimes = faTimes;

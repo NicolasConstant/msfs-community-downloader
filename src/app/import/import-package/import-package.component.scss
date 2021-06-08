@@ -1,25 +1,3 @@
-.close {
-    float: right;
-
-    width: 33px;
-    height: 33px;
-
-    color: whitesmoke;
-    border: 2px solid rgb(58, 58, 59);
-    border-radius: 100px;
-    text-decoration: none;
-
-    & fa-icon {
-        position: relative;
-        top: 4px;
-        left: 9px;
-    }
-
-    &:hover {
-        background-color: rgb(58, 58, 59);
-    }
-}
-
 .import-package {
     color: whitesmoke;
     height: 100%;

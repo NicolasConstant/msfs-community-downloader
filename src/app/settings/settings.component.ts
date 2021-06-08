@@ -9,7 +9,7 @@ import { SettingsService } from '../core/services/settings.service';
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.scss']
+    styleUrls: ['../core/common.scss', './settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
     faTimes = faTimes;

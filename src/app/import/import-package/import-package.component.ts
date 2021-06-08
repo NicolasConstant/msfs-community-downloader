@@ -10,7 +10,7 @@ import { Package } from '../../core/services/packages.service';
 @Component({
     selector: 'app-import-package',
     templateUrl: './import-package.component.html',
-    styleUrls: ['./import-package.component.scss']
+    styleUrls: ['../../core/common.scss', './import-package.component.scss']
 })
 export class ImportPackageComponent implements OnInit, OnDestroy {
     faTimes = faTimes;
