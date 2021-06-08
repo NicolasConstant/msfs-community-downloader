@@ -14,7 +14,7 @@ import { Package } from '../../core/services/packages.service';
 })
 export class ImportPackageComponent implements OnInit, OnDestroy {
     faTimes = faTimes;
-    
+
     isJsonImport = false;
     sub: Subscription;
 
@@ -57,7 +57,7 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
                 properties: ['openFile']
             });
 
-        if(res && res.length > 0){
+        if (res && res.length > 0) {
             const path = res[0];
             const jsonData = this.electronService.fs.readFileSync(path, 'utf-8');
             this.loadJson(jsonData);
@@ -66,23 +66,33 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
         return false;
     }
 
-    private loadJson(json: string): void{
+    private loadJson(json: string): void {
         this.hasError = false;
         this.errorMessage = null;
 
-        if(!json) return;
-        const newPackage = <ExportablePackage> JSON.parse(json);
+        if (!json) return;
+
+        let newPackage: ExportablePackage;
+
+        try {
+            newPackage = <ExportablePackage>JSON.parse(json);
+        } catch (err) {
+            console.error(err);
+            this.hasError = true;
+            this.errorMessage = `Invalid JSON, the parsing has failed`;
+            return;
+        }
 
         const currentPackages = this.domainService.getPackages();
         const sameIdPackage = currentPackages.find(x => x.id === newPackage.id);
-        if(sameIdPackage){
+        if (sameIdPackage) {
             this.hasError = true;
             this.errorMessage = `Can't import the package: it has the same ID than ${sameIdPackage.name}`;
             return;
         }
 
         const sameFolderPackage = currentPackages.find(x => x.folderName === newPackage.folderName);
-        if(sameFolderPackage){
+        if (sameFolderPackage) {
             this.hasError = true;
             this.errorMessage = `Can't import the package: it use the same Folder than ${sameFolderPackage.name}`;
             return;
