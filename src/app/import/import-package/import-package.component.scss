@@ -39,7 +39,7 @@
         &__title {
             //padding: 15px 0 0 15px;
             font-size: 1.2em;
-        }    
+        }
     }
 
     &__json {
@@ -47,6 +47,7 @@
             font-size: 1.1em;
             margin: 30px 0 0 0;
         }
+
         &__text-package {
             display: block;
             width: 100%;
@@ -58,7 +59,7 @@
 
 .imported-package {
     margin: 20px 0 0 40px;
-    
+
     &__title {
         font-size: 1.1em;
         margin-bottom: 10px;
@@ -81,11 +82,11 @@
 
 .warning {
     &__title {
-        color: orange;        
+        color: orange;
     }
 }
 
-.button {    
+.button {
     color: whitesmoke;
     display: block;
     float: right;
@@ -108,4 +109,9 @@
 .validate__buttons {
     text-align: center;
     margin: auto;
+}
+
+.display-error {
+    color: red;
+    margin-top: 30px;
 }

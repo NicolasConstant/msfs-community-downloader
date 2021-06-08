@@ -11,8 +11,8 @@
 
         <div class="warning"><span class="warning__title">WARNING: Only import packages from trusted
                 sources.</span><br />
-            Downloading blindly files from the web can lead to installing viruses, getting cryptolocked, seeing your
-            computer dansing the Macarena and being bullied for being stupid.<br />
+            Downloading blindly files from the web can lead to installing viruses, getting cryptolocked or seeing your
+            computer dansing the Macarena.<br />
             Don't do that.</div>
 
         <div *ngIf="isJsonImport && !loadedPackage" class="import-package__json">
@@ -20,13 +20,17 @@
             <textarea class="import-package__json__text-package" [(ngModel)]="json"></textarea>
             <a href class="button" (click)="importJson()">Load</a>
         </div>
+        
         <div *ngIf="!isJsonImport && !loadedPackage" class="import-package__file">
             <h2 class="import-package__json__title">Sure of the source? Import the file here:</h2>
             <a href class="button" (click)="importFile()">Load</a>
         </div>
 
-        <div *ngIf="loadedPackage">
+        <div *ngIf="hasError" class="display-error">
+            {{errorMessage}}
+        </div>
 
+        <div *ngIf="loadedPackage">
             <div class="imported-package">
                 <h2 class="imported-package__title">Loaded Package:</h2>
                 <p>
@@ -47,8 +51,6 @@
                     <a href class="button button__validate" (click)="cancel()">No</a> <a href class="button button__validate" (click)="validate()">Yes</a>
                 </div>
             </div>
-            
-
         </div>
     </div>
 </div>

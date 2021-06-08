@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { ExportablePackage } from '../export-package/export-package.component';
@@ -20,6 +20,9 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
 
     json: string;
     loadedPackage: ExportablePackage;
+
+    hasError: boolean;
+    errorMessage: string;
 
     constructor(
         private domainService: DomainService,
@@ -64,8 +67,28 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
     }
 
     private loadJson(json: string): void{
+        this.hasError = false;
+        this.errorMessage = null;
+
         if(!json) return;
-        this.loadedPackage = <ExportablePackage> JSON.parse(json);
+        const newPackage = <ExportablePackage> JSON.parse(json);
+
+        const currentPackages = this.domainService.getPackages();
+        const sameIdPackage = currentPackages.find(x => x.id === newPackage.id);
+        if(sameIdPackage){
+            this.hasError = true;
+            this.errorMessage = `Can't import the package: it has the same ID than ${sameIdPackage.name}`;
+            return;
+        }
+
+        const sameFolderPackage = currentPackages.find(x => x.folderName === newPackage.folderName);
+        if(sameFolderPackage){
+            this.hasError = true;
+            this.errorMessage = `Can't import the package: it use the same Folder than ${sameFolderPackage.name}`;
+            return;
+        }
+
+        this.loadedPackage = newPackage;
     }
 
     cancel(): boolean {
