@@ -1,0 +1,14 @@
+{
+    "id": "test1",
+    "name": "Test 1",
+    "description": "Test 1 Desc",
+    "githubOwner": "nicolasconstant",
+    "githubRepo": "test1",
+    "assetName": "test1-v",
+    "isPrerelease": false,
+    "versionPatternToRemove": "",
+    "folderName": "test1",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/test1/illustration.jpg",
+    "summary": "Test 1 Summary",
+    "webpageUrl": "https://www.test1.com"
+}
