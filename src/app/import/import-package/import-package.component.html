@@ -1,1 +1,56 @@
-<p>import-package works!</p>
+<div class="import-package">
+    <div class="import-package__content">
+        <a href class="close" routerLink="/add-package">
+            <fa-icon [icon]="faTimes"></fa-icon>
+        </a>
+
+        <div class="import-package__header">
+            <h1 class="import-package__header__title">Import <span *ngIf="isJsonImport">text</span><span
+                    *ngIf="!isJsonImport">json file</span> package</h1>
+        </div>
+
+        <div class="warning"><span class="warning__title">WARNING: Only import packages from trusted
+                sources.</span><br />
+            Downloading blindly files from the web can lead to installing viruses, getting cryptolocked or seeing your
+            computer dancing the Macarena.<br />
+            Don't do that.</div>
+
+        <div *ngIf="isJsonImport && !loadedPackage" class="import-package__json">
+            <h2 class="import-package__json__title">Sure of the source? Paste the package here:</h2>
+            <textarea class="import-package__json__text-package" [(ngModel)]="json"></textarea>
+            <a href class="button" (click)="importJson()">Load</a>
+        </div>
+        
+        <div *ngIf="!isJsonImport && !loadedPackage" class="import-package__file">
+            <h2 class="import-package__json__title">Sure of the source? Import the file here:</h2>
+            <a href class="button" (click)="importFile()">Load</a>
+        </div>
+
+        <div *ngIf="hasError" class="display-error">
+            {{errorMessage}}
+        </div>
+
+        <div *ngIf="loadedPackage">
+            <div class="imported-package">
+                <h2 class="imported-package__title">Loaded Package:</h2>
+                <p>
+                    {{loadedPackage.name}}<br />
+                    {{loadedPackage.description}}<br />
+                    <a href="https://github.com/{{loadedPackage.githubOwner}}/{{loadedPackage.githubRepo}}"
+                        class="imported-package__link" target="_blank">
+                        https://github.com/{{loadedPackage.githubOwner}}/{{loadedPackage.githubRepo}}
+                    </a><br />
+                    <br />
+                </p>
+            </div>
+
+            <div class="validate">
+                <h2 class="validate__title">Is it the package you wanted to add?</h2>
+
+                <div class="validate__buttons">
+                    <a href class="button button__validate" (click)="cancel()">No</a> <a href class="button button__validate" (click)="validate()">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
