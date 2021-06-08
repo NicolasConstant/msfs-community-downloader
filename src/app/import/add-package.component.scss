@@ -11,7 +11,7 @@
     // position: relative;
 
     &__content {
-        outline: 1px dotted greenyellow;
+        // outline: 1px dotted greenyellow;
 
         min-width: 700px;
         max-width: 900px;
@@ -26,23 +26,67 @@
 
 .left-column {
     display: inline-block;
-    outline: 1px dotted pink;
+    // outline: 1px dotted pink;
     width: calc(100% - 300px);
     height: 100%;
-    
+
     &__title {
         font-size: 1.2em;
-        margin: 0 0 0 40px;
+        margin: 0 0 30px 60px;
     }
 
 }
 
 .right-column {
-    outline: 1px dotted yellow;
+    // outline: 1px dotted yellow;
+
     width: calc(300px);
     float: right;
     margin-top: 40px;
     padding-top: 40px;
+}
+
+.package-list {
+    // outline: 1px dotted cyan;
+
+    width: calc(80%);
+    height: calc(100% - 60px);
+    margin: auto;
+    padding-right: 10px;
+
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 12px;
+        /* width of the entire scrollbar */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #1a1a1a;
+        /* color of the tracking area */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(74, 74, 95);
+        /* color of the scroll thumb */
+        border-radius: 20px;
+        /* roundness of the scroll thumb */
+        border: 3px solid #24272e;
+        border: 3px solid #1a1a1a;
+
+        /* creates padding around scroll thumb */
+    }
+
+
+    &__package {
+        height: 60px;
+        border: 1px solid white;
+        border-radius: 3px;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
 }
 
 .button {
