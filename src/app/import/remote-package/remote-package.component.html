@@ -1,5 +1,15 @@
-<div class="package" *ngIf="!expanded" (click)="expand()">
-    {{remotePackageInfo.name}} {{remotePackageInfo.version}}
+<div class="package package__minimized" *ngIf="!expanded" (click)="expand()">
+    <div class="package__minimized__logo">
+        <fa-icon *ngIf="false" class="package__minimized__logo--info package__minimized__logo--available" [icon]="faArrowDown"></fa-icon>
+        <fa-icon *ngIf="false" class="package__minimized__logo--info package__minimized__logo--update" [icon]="faArrowDown"></fa-icon>
+        <fa-icon *ngIf="true" class="package__minimized__logo--info package__minimized__logo--check" [icon]="faCheck"></fa-icon>
+    </div>
+    <div class="package__minimized__version">
+        {{remotePackageInfo.version}}
+    </div>
+    <div class="package__minimized__name">
+        {{remotePackageInfo.name}}
+    </div>
 </div>
 
 <div class="package package__expanded" *ngIf="expanded">

@@ -5,6 +5,46 @@
     cursor: pointer;
     transition: all .2s;
 
+    &__minimized {
+        &__name {
+            padding: 15px 10px 0 25px;
+            font-size: 1.1em;
+        }
+        &__version {
+            // outline: 1px dotted pink;
+
+            float: right;            
+            height: 60px;
+            padding: 17px 20px 0 20px;
+            vertical-align: center;
+            color: gray;
+        }
+        &__logo {
+            float: right;
+            // outline: 1px dotted greenyellow;
+            width: 60px;
+            height: 60px;
+
+            &--info {
+                display: block;
+                margin: 14px 0 0 23px;
+                font-size: 20px;
+            }            
+
+            &--available {
+                color: gray;
+            }
+            
+            &--update {
+                color: orange;
+            }
+
+            &--check {
+                color: greenyellow;
+            }
+        }
+    }
+
     &__expanded {
         cursor: default;
         height: 160px;

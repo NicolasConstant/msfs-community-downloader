@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { faArrowDown, faCheck } from '@fortawesome/free-solid-svg-icons';
+
 import { OnlinePackageInfo, OnlineRepoService, ExportablePackage } from '../../core/services/online-repo.service';
 
 @Component({
@@ -7,6 +9,9 @@ import { OnlinePackageInfo, OnlineRepoService, ExportablePackage } from '../../c
     styleUrls: ['./remote-package.component.scss']
 })
 export class RemotePackageComponent implements OnInit {
+    faArrowDown = faArrowDown;
+    faCheck = faCheck;
+
     expanded: boolean;
     exportablePackage: ExportablePackage;
 
