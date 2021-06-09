@@ -25,9 +25,10 @@
 }
 
 .left-column {
-    display: inline-block;
     // outline: 1px dotted pink;
-    width: calc(100% - 300px);
+
+    display: inline-block;    
+    width: calc(100% - 400px);
     height: 100%;
 
     &__title {
@@ -40,19 +41,21 @@
 .right-column {
     // outline: 1px dotted yellow;
 
-    width: calc(300px);
+    width: calc(400px);
     float: right;
     margin-top: 60px;
     padding-top: 40px;
+    padding-left: 60px;
 }
 
 .package-list {
     // outline: 1px dotted cyan;
 
-    width: calc(80%);
+    width: calc(100%);
     height: calc(100% - 60px);
     margin: auto;
     padding-right: 10px;
+    padding-left: 60px;
 
     overflow: auto;
 
@@ -87,7 +90,7 @@
 .button {
     color: whitesmoke;
     display: block;
-    margin: auto;
+    // margin-right: 100px;
     width: 250px;
     text-align: center;
     // height: 50px;
@@ -96,11 +99,4 @@
     margin-bottom: 30px;
     padding: 10px;
     text-decoration: none;
-
-    &--cancel {
-        margin-bottom: 50px;
-        color: #ca0000;
-        border-color: #ca0000;
-        margin-top: 70px;
-    }
 }
