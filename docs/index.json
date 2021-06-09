@@ -1,10 +1,12 @@
 [
   {
-    "name":"test1",
+    "id":"test1",
+    "name":"Test 2",
     "version":"1.0.0"
   },  
   {
-    "name":"test2",
+    "id":"test2",
+    "name":"Test 2",
     "version":"1.0.0"
   }
 ]
