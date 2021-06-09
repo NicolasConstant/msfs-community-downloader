@@ -194,6 +194,8 @@ export class Package {
     public oldFolderNames: string[];
 
     public isCustomPackage: boolean;
+
+    public onlineVersion: string;
 }
 
 export enum InstallStatusEnum {

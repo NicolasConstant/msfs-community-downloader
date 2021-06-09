@@ -23,6 +23,10 @@ export class SettingsService {
             settings.customPackages = [];
             this.saveSettings(settings);
         }
+        if(!settings.onlinePackages){
+            settings.onlinePackages = [];
+            this.saveSettings(settings);
+        }
         return settings;
     }
 
@@ -109,4 +113,5 @@ export class SettingsService {
 class SettingsData {
     communityPath: string;
     customPackages: Package[];
+    onlinePackages: Package[];
 }

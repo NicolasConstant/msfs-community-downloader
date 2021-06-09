@@ -1,8 +1,8 @@
 <div class="package package__minimized" *ngIf="!expanded" (click)="expand()">
     <div class="package__minimized__logo">
-        <fa-icon *ngIf="false" class="package__minimized__logo--info package__minimized__logo--available" [icon]="faArrowDown"></fa-icon>
-        <fa-icon *ngIf="false" class="package__minimized__logo--info package__minimized__logo--update" [icon]="faArrowDown"></fa-icon>
-        <fa-icon *ngIf="true" class="package__minimized__logo--info package__minimized__logo--check" [icon]="faCheck"></fa-icon>
+        <fa-icon *ngIf="status === 0 || status === 1" class="package__minimized__logo--info package__minimized__logo--available" [icon]="faArrowDown"></fa-icon>
+        <fa-icon *ngIf="status === 3" class="package__minimized__logo--info package__minimized__logo--update" [icon]="faArrowDown"></fa-icon>
+        <fa-icon *ngIf="status === 2" class="package__minimized__logo--info package__minimized__logo--check" [icon]="faCheck"></fa-icon>
     </div>
     <div class="package__minimized__version">
         {{remotePackageInfo.version}}
@@ -16,7 +16,7 @@
     <div *ngIf="exportablePackage" class="package__expanded__banner"
         [ngStyle]="{'background-image':'url('+exportablePackage.illustration+')'}">
         <div class="package__expanded__banner__inner">
-            <a href *ngIf="exportablePackage" class="package__expanded__button">INSTALL</a>
+            <a href *ngIf="exportablePackage" (click)="process()" class="package__expanded__button"><span *ngIf="status === 0 || status === 1">INSTALL</span><span *ngIf="status === 3">UPDATE</span></a>
         </div>
     </div>
 

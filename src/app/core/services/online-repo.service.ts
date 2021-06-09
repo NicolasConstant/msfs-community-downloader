@@ -42,4 +42,5 @@ export class ExportablePackage {
 export class OnlinePackageInfo {
     public name: string;
     public version: string;
+    public id: string;
 }
