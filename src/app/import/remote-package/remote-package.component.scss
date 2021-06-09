@@ -6,6 +6,61 @@
     transition: all .2s;
 
     &__expanded {
-        height: 120px;
+        cursor: default;
+        height: 160px;
+
+        &__banner {
+            position: relative;
+
+            height: 70px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            &__inner {
+                position: relative;
+                // outline: 1px dotted greenyellow;
+    
+                height: calc(100%);
+                width: calc(100%);
+    
+                background-color: rgba(53, 57, 68, 0.65);
+                backdrop-filter: blur(2px);
+            }           
+        }
+
+        &__button {
+            position: absolute;
+            // display: block;
+            // float: right;
+            top: 17px;
+            right: 20px;
+            color: white;
+            text-decoration: none;
+            border: 1px solid white;
+            border-radius: 3px;
+            padding: 5px 10px;
+            width: 120px;
+            text-align: center;
+        }
+
+        &__name {
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+
+        &__description {
+            padding-left: 15px;
+        }
+
+        &__github {
+            color: gray;
+            padding-left: 15px;
+            padding-bottom: 10px;
+
+            &:hover { 
+                color:white;
+            }
+        }
     }
 }

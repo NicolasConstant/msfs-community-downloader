@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { OnlinePackageInfo, OnlineRepoService, ExportablePackage } from '../../core/services/online-repo.service';
 
 @Component({
     selector: 'app-remote-package',
@@ -7,14 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RemotePackageComponent implements OnInit {
     expanded: boolean;
+    exportablePackage: ExportablePackage;
 
-    constructor() { }
+    @Input() remotePackageInfo: OnlinePackageInfo;
+
+    constructor(
+        private onlineRepoService: OnlineRepoService
+    ) { }
 
     ngOnInit(): void {
     }
     
     expand(): boolean {
         this.expanded = true;
+        this.onlineRepoService.retrievePackage(this.remotePackageInfo.name)
+            .then((p: ExportablePackage) => {
+                this.exportablePackage = p;
+            })
+            .catch(err => {
+                console.error(err);
+            });
         return false;
     }
 }

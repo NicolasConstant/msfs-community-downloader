@@ -8,6 +8,9 @@
             <h1 class="left-column__title">Community Packages</h1>
 
             <div class="package-list">
+
+                <app-remote-package *ngFor="let p of list" class="package-list__package" [remotePackageInfo]="p"></app-remote-package>             
+<!-- 
                 <app-remote-package class="package-list__package"></app-remote-package>             
                 <app-remote-package class="package-list__package"></app-remote-package>             
                 <app-remote-package class="package-list__package"></app-remote-package>             
@@ -20,8 +23,7 @@
                 <app-remote-package class="package-list__package"></app-remote-package>             
                 <app-remote-package class="package-list__package"></app-remote-package>             
                 <app-remote-package class="package-list__package"></app-remote-package>             
-                <app-remote-package class="package-list__package"></app-remote-package>             
-                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>              -->
             </div>
         </div>
 

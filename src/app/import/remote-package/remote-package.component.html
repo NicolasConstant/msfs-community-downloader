@@ -1,7 +1,20 @@
 <div class="package" *ngIf="!expanded" (click)="expand()">
-
+    {{remotePackageInfo.name}} {{remotePackageInfo.version}}
 </div>
 
 <div class="package package__expanded" *ngIf="expanded">
+    <div *ngIf="exportablePackage" class="package__expanded__banner"
+        [ngStyle]="{'background-image':'url('+exportablePackage.illustration+')'}">
+        <div class="package__expanded__banner__inner">
+            <a href *ngIf="exportablePackage" class="package__expanded__button">INSTALL</a>
+        </div>
+    </div>
+
+    <div *ngIf="exportablePackage" class="package__expanded__name">{{exportablePackage.name}}</div>
+    <div *ngIf="exportablePackage" class="package__expanded__description">{{exportablePackage.description}}</div>
+    <a *ngIf="exportablePackage"
+        href="https://github.com/{{exportablePackage.githubOwner}}/{{exportablePackage.githubRepo}}" target="_blank"
+        class="package__expanded__github">https://github.com/{{exportablePackage.githubOwner}}/{{exportablePackage.githubRepo}}</a>
+
 
 </div>

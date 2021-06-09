@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of } from 'rxjs';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ElectronService } from '../../core/services/electron/electron.service';
-import { ExportablePackage } from '../export-package/export-package.component';
 import { DomainService } from '../../core/services/domain.service';
 import { Package } from '../../core/services/packages.service';
+import { ExportablePackage } from '../../core/services/online-repo.service';
 
 @Component({
     selector: 'app-import-package',

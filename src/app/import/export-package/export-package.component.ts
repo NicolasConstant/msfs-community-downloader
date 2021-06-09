@@ -5,6 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { DomainService } from '../../core/services/domain.service';
 import { ElectronService } from '../../core/services/electron/electron.service';
+import { ExportablePackage } from '../../core/services/online-repo.service';
 
 @Component({
     selector: 'app-export-package',
@@ -69,20 +70,4 @@ export class ExportPackageComponent implements OnInit, OnDestroy {
         }
         return false;
     }
-}
-
-export class ExportablePackage {
-    public id: string;
-    public name: string;
-    public description: string;
-    public githubOwner: string;
-    public githubRepo: string;
-    public assetName: string;
-    public isPrerelease: boolean;
-    public versionPatternToRemove: string;
-    public folderName: string;
-    public illustration: string;
-    public summary: string;
-    public webpageUrl: string;
-    public oldFolderNames: string[];
 }
