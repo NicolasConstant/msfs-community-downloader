@@ -121,7 +121,7 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
         p.summary = this.loadedPackage.summary;
         p.webpageUrl = this.loadedPackage.webpageUrl;
         p.oldFolderNames = this.loadedPackage.oldFolderNames;
-
+        
         this.domainService.addCustomPackage(p);
         this.router.navigate(['/']);
         return false;

@@ -10,7 +10,7 @@ import { SettingsService } from './settings.service';
 @Injectable({
     providedIn: 'root'
 })
-export class DomainService { 
+export class DomainService {
     private packages: Package[];
     private downloadSub: Subscription;
     private downloadUpdateSub: Subscription;
@@ -24,7 +24,7 @@ export class DomainService {
         private githubService: GithubService,
         private downloaderService: DownloaderService,
         private extractorService: ExtractorService,
-        private settingsService: SettingsService        
+        private settingsService: SettingsService
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
             if (r) {
@@ -69,26 +69,26 @@ export class DomainService {
         return Promise.all([localPromise, githubPromise])
             .then(result => {
                 const local = result[0];
-                const remote = result [1];
+                const remote = result[1];
 
-                if(local){
+                if (local) {
                     p.localVersion = local.version;
                 }
 
-                if(remote) {
+                if (remote) {
                     p.availableVersion = remote.availableVersion;
                     p.assetDownloadUrl = remote.downloadUrl;
                     p.publishedAt = remote.publishedAt;
                 }
 
-                p.state = this.getState(p, local, remote);                
+                p.state = this.getState(p, local, remote);
             });
     }
 
     private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
         if (p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
-        if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;        
+        if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
 
         if (local && local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
         if (local && !local.folderFound) return InstallStatusEnum.notFound;
@@ -135,7 +135,7 @@ export class DomainService {
 
         if (p.oldFolderNames && p.oldFolderNames.length > 0) {
             p.oldFolderNames.forEach(o => {
-                (async() => {
+                (async () => {
                     const oldFolderPath = `${communityDir}\\${o}`;
                     await this.filesystemService.deleteFolder(oldFolderPath);
                 })();
@@ -167,7 +167,7 @@ export class DomainService {
     }
 
     addCustomPackage(p: Package): void {
-        if(!this.packages) {
+        if (!this.packages) {
             this.getPackages();
         }
 
@@ -181,11 +181,36 @@ export class DomainService {
         p.state = InstallStatusEnum.unknown;
         p.isCustomPackage = true;
         p.isSelected = true;
-        this.analysePackage(p);
+        this.analysePackage(p)
+            .catch(err => {
+                console.error(err);
+            });
+    }
+
+    addOnlinePackage(p: Package): void {
+        if (!this.packages) {
+            this.getPackages();
+        }
+
+        this.packages.forEach(x => x.isSelected = false);
+
+        const settings = this.settingsService.getSettings();
+        settings.onlinePackages.push(p);
+        this.settingsService.saveSettings(settings);
+
+        this.packages.unshift(p);
+        p.state = InstallStatusEnum.unknown;
+        p.isOnlinePackage = true;
+        p.isSelected = true;
+
+        this.analysePackage(p)
+            .catch(err => {
+                console.error(err);
+            });
     }
 
     updateCustomPackage(p: Package): void {
-        if(!p) return;
+        if (!p) return;
 
         const settings = this.settingsService.getSettings();
         const toUpdate = settings.customPackages.find(x => x.id === p.id);
@@ -222,10 +247,10 @@ export class DomainService {
     }
 
     removeCustomPackage(p: Package): void {
-        if(!p) return;
+        if (!p) return;
 
         const settings = this.settingsService.getSettings();
-        settings.customPackages = settings.customPackages.filter(x => x.id !== p.id);        
+        settings.customPackages = settings.customPackages.filter(x => x.id !== p.id);
         this.settingsService.saveSettings(settings);
 
         this.packages = this.packages.filter(x => x.id !== p.id);

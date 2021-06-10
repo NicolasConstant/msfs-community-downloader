@@ -3,6 +3,8 @@ import { faArrowDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { OnlinePackageInfo, OnlineRepoService, ExportablePackage } from '../../core/services/online-repo.service';
 import { SettingsService } from '../../core/services/settings.service';
+import { Package } from '../../core/services/packages.service';
+import { DomainService } from '../../core/services/domain.service';
 
 @Component({
     selector: 'app-remote-package',
@@ -21,6 +23,7 @@ export class RemotePackageComponent implements OnInit {
     @Input() remotePackageInfo: OnlinePackageInfo;
 
     constructor(
+        private domainService: DomainService,
         private onlineRepoService: OnlineRepoService,
         private settingsService: SettingsService
     ) { }
@@ -53,7 +56,32 @@ export class RemotePackageComponent implements OnInit {
     }
 
     process(): boolean {
-        
+        const p = new Package();
+        p.id = this.exportablePackage.id;
+        p.name = this.exportablePackage.name;
+        p.description = this.exportablePackage.description;
+        p.summary = this.exportablePackage.summary;
+        p.githubOwner = this.exportablePackage.githubOwner;
+        p.githubRepo = this.exportablePackage.githubRepo;
+        p.assetName = this.exportablePackage.assetName;
+        p.isPrerelease = this.exportablePackage.isPrerelease;
+        p.folderName = this.exportablePackage.folderName;
+        p.illustration = this.exportablePackage.illustration;
+        p.webpageUrl = this.exportablePackage.webpageUrl;
+        p.versionPatternToRemove = this.exportablePackage.versionPatternToRemove;
+
+        p.onlineVersion = this.remotePackageInfo.version;
+        p.isOnlinePackage = true;
+
+        if(this.status === RemotePackageStatusEnum.notFound || this.status === RemotePackageStatusEnum.unknown){
+            this.domainService.addOnlinePackage(p);
+            this.status = RemotePackageStatusEnum.installed;
+        } else if(this.status === RemotePackageStatusEnum.notUpToDate){
+            //TODO
+        } else if(this.status === RemotePackageStatusEnum.installed){
+            //TODO
+        }
+
         return false;
     }
 }

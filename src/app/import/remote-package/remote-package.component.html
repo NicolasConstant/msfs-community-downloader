@@ -16,7 +16,7 @@
     <div *ngIf="exportablePackage" class="package__expanded__banner"
         [ngStyle]="{'background-image':'url('+exportablePackage.illustration+')'}">
         <div class="package__expanded__banner__inner">
-            <a href *ngIf="exportablePackage" (click)="process()" class="package__expanded__button"><span *ngIf="status === 0 || status === 1">INSTALL</span><span *ngIf="status === 3">UPDATE</span></a>
+            <a href *ngIf="exportablePackage" (click)="process()" class="package__expanded__button"><span *ngIf="status === 0 || status === 1">INSTALL</span><span *ngIf="status === 2">REMOVE</span><span *ngIf="status === 3">UPDATE</span></a>
         </div>
     </div>
 
