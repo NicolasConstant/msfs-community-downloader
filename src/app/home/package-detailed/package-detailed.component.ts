@@ -73,9 +73,14 @@ export class PackageDetailedComponent implements OnInit {
     }
 
     removePackage(): boolean {
-        if(!this.package.isCustomPackage) return false;
+        if(!this.package.isCustomPackage && !this.package.isOnlinePackage) return false;
 
-        this.domainService.removeCustomPackage(this.package);
+        if(this.package.isCustomPackage){
+            this.domainService.removeCustomPackage(this.package);
+        } else {
+            this.domainService.removeOnlinePackage(this.package);
+        }
+        
         this.deletedEvent.next(this.package);
         return false;
     }
