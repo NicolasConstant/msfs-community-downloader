@@ -171,6 +171,8 @@ export class DomainService {
             this.getPackages();
         }
 
+        if (!p) return;
+
         this.packages.forEach(x => x.isSelected = false);
 
         const settings = this.settingsService.getSettings();
@@ -191,6 +193,8 @@ export class DomainService {
         if (!this.packages) {
             this.getPackages();
         }
+
+        if (!p) return;
 
         this.packages.forEach(x => x.isSelected = false);
 
@@ -246,11 +250,61 @@ export class DomainService {
         localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
     }
 
+    
+    updateOnlinePackage(p: Package): void {
+        if (!p) return;
+
+        const settings = this.settingsService.getSettings();
+        const toUpdate = settings.onlinePackages.find(x => x.id === p.id);
+
+        toUpdate.id = p.id;
+        toUpdate.name = p.name;
+        toUpdate.description = p.description;
+        toUpdate.summary = p.summary;
+        toUpdate.githubOwner = p.githubOwner;
+        toUpdate.githubRepo = p.githubRepo;
+        toUpdate.assetName = p.assetName;
+        toUpdate.isPrerelease = p.isPrerelease;
+        toUpdate.folderName = p.folderName;
+        toUpdate.illustration = p.illustration;
+        toUpdate.webpageUrl = p.webpageUrl;
+        toUpdate.versionPatternToRemove = p.versionPatternToRemove;
+        toUpdate.onlineVersion = p.onlineVersion;
+
+        this.settingsService.saveSettings(settings);
+
+        const localToUpdate = this.packages.find(x => x.id === p.id);
+
+        localToUpdate.id = p.id;
+        localToUpdate.name = p.name;
+        localToUpdate.description = p.description;
+        localToUpdate.summary = p.summary;
+        localToUpdate.githubOwner = p.githubOwner;
+        localToUpdate.githubRepo = p.githubRepo;
+        localToUpdate.assetName = p.assetName;
+        localToUpdate.isPrerelease = p.isPrerelease;
+        localToUpdate.folderName = p.folderName;
+        localToUpdate.illustration = p.illustration;
+        localToUpdate.webpageUrl = p.webpageUrl;
+        localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
+        localToUpdate.onlineVersion = p.onlineVersion;
+    }
+
     removeCustomPackage(p: Package): void {
         if (!p) return;
 
         const settings = this.settingsService.getSettings();
         settings.customPackages = settings.customPackages.filter(x => x.id !== p.id);
+        this.settingsService.saveSettings(settings);
+
+        this.packages = this.packages.filter(x => x.id !== p.id);
+    }
+
+    removeOnlinePackage(p: Package): void {
+        if (!p) return;
+
+        const settings = this.settingsService.getSettings();
+        settings.onlinePackages = settings.onlinePackages.filter(x => x.id !== p.id);
         this.settingsService.saveSettings(settings);
 
         this.packages = this.packages.filter(x => x.id !== p.id);

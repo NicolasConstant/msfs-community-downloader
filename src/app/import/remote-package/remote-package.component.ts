@@ -77,9 +77,11 @@ export class RemotePackageComponent implements OnInit {
             this.domainService.addOnlinePackage(p);
             this.status = RemotePackageStatusEnum.installed;
         } else if(this.status === RemotePackageStatusEnum.notUpToDate){
-            //TODO
+            this.domainService.updateOnlinePackage(p);
+            this.status = RemotePackageStatusEnum.installed;
         } else if(this.status === RemotePackageStatusEnum.installed){
-            //TODO
+            this.domainService.removeOnlinePackage(p);
+            this.status = RemotePackageStatusEnum.notFound;
         }
 
         return false;
