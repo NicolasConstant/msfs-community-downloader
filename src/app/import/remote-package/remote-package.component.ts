@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { faArrowDown, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faCheck, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 import { OnlinePackageInfo, OnlineRepoService, ExportablePackage } from '../../core/services/online-repo.service';
 import { SettingsService } from '../../core/services/settings.service';
@@ -14,6 +14,7 @@ import { DomainService } from '../../core/services/domain.service';
 export class RemotePackageComponent implements OnInit {
     faArrowDown = faArrowDown;
     faCheck = faCheck;
+    faChevronUp = faChevronUp;
 
     expanded: boolean;
     exportablePackage: ExportablePackage;
@@ -52,6 +53,11 @@ export class RemotePackageComponent implements OnInit {
             .catch(err => {
                 console.error(err);
             });
+        return false;
+    }
+
+    reduce(): boolean {
+        this.expanded = false;
         return false;
     }
 

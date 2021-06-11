@@ -69,6 +69,22 @@
             }           
         }
 
+        &__reduce {
+            // outline: 1px dotted greenyellow;
+            
+            position: absolute;
+            top: 14px;
+            left: 15px;
+            color: gray;
+            text-decoration: none;
+            padding: 9px 13px;
+
+
+            &:hover {
+                color: white;
+            }
+        }
+
         &__button {
             position: absolute;
             // display: block;
