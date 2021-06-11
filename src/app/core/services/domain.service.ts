@@ -49,16 +49,23 @@ export class DomainService {
     }
 
     analysePackages(packages: Package[]): Promise<any> {
+        let error: any = null;
         let pipeline: Promise<any> = Promise.resolve(true);
         packages.forEach(x => {
             pipeline = pipeline.then(() => {
                 return this.analysePackage(x)
                     .catch(err => {
                         console.error(err);
-                        x.state = InstallStatusEnum.error;
+                        error = err;
+                        x.state = InstallStatusEnum.error;                      
                     });
             });
         });
+        pipeline = pipeline.then(() => {
+            if(error){
+                throw(error);
+            }
+        })
         return pipeline;
     }
 
