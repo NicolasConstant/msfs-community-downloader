@@ -19,7 +19,8 @@
             <a href class="package__expanded__reduce" (click)="reduce()">
                 <fa-icon [icon]="faChevronUp"></fa-icon>
             </a>
-            <a href *ngIf="exportablePackage" (click)="process()" class="package__expanded__button"><span *ngIf="status === 0 || status === 1">INSTALL</span><span *ngIf="status === 2">REMOVE</span><span *ngIf="status === 3">UPDATE</span></a>
+            <a href *ngIf="exportablePackage && status != 4" (click)="process()" class="package__expanded__button"><span *ngIf="status === 0 || status === 1">INSTALL</span><span *ngIf="status === 2">REMOVE</span><span *ngIf="status === 3">UPDATE</span></a>
+            <span *ngIf="status === 4" class="too-old">Software too old, you need v{{exportablePackage.minSoftwareVersion}} or higher</span>
         </div>
     </div>
 

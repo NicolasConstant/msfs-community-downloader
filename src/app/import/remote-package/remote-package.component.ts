@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import * as semver from 'semver';
 import { faArrowDown, faCheck, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 import { OnlinePackageInfo, OnlineRepoService, ExportablePackage } from '../../core/services/online-repo.service';
@@ -29,7 +30,7 @@ export class RemotePackageComponent implements OnInit {
         private settingsService: SettingsService
     ) { }
 
-    ngOnInit(): void {
+    ngOnInit(): void {        
         const onlinePackages = this.settingsService.getSettings().onlinePackages;
         const onlinePackage = onlinePackages.find(x => x.id === this.remotePackageInfo.id);
         if(onlinePackage){
@@ -40,15 +41,21 @@ export class RemotePackageComponent implements OnInit {
             }
         } else {
             this.status = RemotePackageStatusEnum.notFound;
-        }
+        }       
     }
     
     expand(): boolean {
+        const softwareVersion = this.settingsService.getVersion();
+
         this.expanded = true;
         this.onlineRepoService.retrievePackage(this.remotePackageInfo.id)
             .then((p: ExportablePackage) => {
                 console.log(this.status);
                 this.exportablePackage = p;
+                
+                if(semver.ltr(softwareVersion,  p.minSoftwareVersion)){
+                    this.status = RemotePackageStatusEnum.softwareTooOld;
+                }
             })
             .catch(err => {
                 console.error(err);
@@ -62,6 +69,8 @@ export class RemotePackageComponent implements OnInit {
     }
 
     process(): boolean {
+        if(!this.exportablePackage || this.status === RemotePackageStatusEnum.softwareTooOld) return false;
+
         const p = new Package();
         p.id = this.exportablePackage.id;
         p.name = this.exportablePackage.name;
@@ -98,5 +107,6 @@ enum RemotePackageStatusEnum {
     unknown = 0,
     notFound = 1,
     installed = 2,
-    notUpToDate = 3
+    notUpToDate = 3,
+    softwareTooOld = 4
 }
