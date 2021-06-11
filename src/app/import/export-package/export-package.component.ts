@@ -6,6 +6,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { DomainService } from '../../core/services/domain.service';
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { ExportablePackage } from '../../core/services/online-repo.service';
+import { SettingsService } from '../../core/services/settings.service';
 
 @Component({
     selector: 'app-export-package',
@@ -21,6 +22,7 @@ export class ExportPackageComponent implements OnInit, OnDestroy {
     json: string;
 
     constructor(
+        private settingsService: SettingsService,
         private electronService: ElectronService,
         private activatedRoute: ActivatedRoute,
         private domainService: DomainService
@@ -46,6 +48,9 @@ export class ExportPackageComponent implements OnInit, OnDestroy {
                 this.exportablePackage.summary = p.summary;
                 this.exportablePackage.webpageUrl = p.webpageUrl;
                 this.exportablePackage.oldFolderNames = p.oldFolderNames;
+                this.exportablePackage.minSoftwareVersion = p.minSoftwareVersion;
+
+                if(!this.exportablePackage.minSoftwareVersion) this.exportablePackage.minSoftwareVersion = this.settingsService.getVersion();
 
                 this.json = JSON.stringify(this.exportablePackage);
             }

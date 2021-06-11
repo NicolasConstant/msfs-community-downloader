@@ -37,6 +37,7 @@ export class ExportablePackage {
     public summary: string;
     public webpageUrl: string;
     public oldFolderNames: string[];
+    public minSoftwareVersion: string;
 }
 
 export class OnlinePackageInfo {

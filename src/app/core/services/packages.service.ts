@@ -206,6 +206,8 @@ export class Package {
     public isOnlinePackage: boolean;
 
     public onlineVersion: string;    
+
+    public minSoftwareVersion: string;
 }
 
 export enum InstallStatusEnum {

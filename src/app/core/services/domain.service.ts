@@ -179,10 +179,11 @@ export class DomainService {
         }
 
         if (!p) return;
+        p.minSoftwareVersion = this.settingsService.getVersion();
 
         this.packages.forEach(x => x.isSelected = false);
 
-        const settings = this.settingsService.getSettings();
+        const settings = this.settingsService.getSettings();        
         settings.customPackages.push(p);
         this.settingsService.saveSettings(settings);
 
