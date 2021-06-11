@@ -21,6 +21,7 @@ export class RemotePackageComponent implements OnInit {
     exportablePackage: ExportablePackage;
 
     status: RemotePackageStatusEnum;
+    incompatibleMessage: string;
 
     @Input() remotePackageInfo: OnlinePackageInfo;
 
@@ -45,22 +46,42 @@ export class RemotePackageComponent implements OnInit {
     }
     
     expand(): boolean {
-        const softwareVersion = this.settingsService.getVersion();
-
         this.expanded = true;
         this.onlineRepoService.retrievePackage(this.remotePackageInfo.id)
             .then((p: ExportablePackage) => {
                 console.log(this.status);
                 this.exportablePackage = p;
                 
-                if(semver.ltr(softwareVersion,  p.minSoftwareVersion)){
-                    this.status = RemotePackageStatusEnum.softwareTooOld;
-                }
+                this.validatePackageCompatibility(this.exportablePackage);
             })
             .catch(err => {
                 console.error(err);
             });
         return false;
+    }
+    
+    private validatePackageCompatibility(p: ExportablePackage){
+        const softwareVersion = this.settingsService.getVersion();
+        if(semver.ltr(softwareVersion,  p.minSoftwareVersion)){
+            this.status = RemotePackageStatusEnum.incompatible;
+            this.incompatibleMessage = `Software too old, you need v${p.minSoftwareVersion} or higher`;
+            return;
+        }
+
+        const packages = this.domainService.getPackages();
+        const sameIdPackage = packages.find(x => x.id === p.id && x.isCustomPackage);
+        if(sameIdPackage){
+            this.status = RemotePackageStatusEnum.incompatible;
+            this.incompatibleMessage = `Conflict: Package ${sameIdPackage.name} has same ID`;
+            return;
+        }
+
+        const sameFolderPackage = packages.find(x => x.folderName === p.folderName && x.isCustomPackage);
+        if(sameFolderPackage){
+            this.status = RemotePackageStatusEnum.incompatible;
+            this.incompatibleMessage = `Conflict: Package ${sameFolderPackage.name} has same Folder`;
+            return;
+        }
     }
 
     reduce(): boolean {
@@ -69,7 +90,7 @@ export class RemotePackageComponent implements OnInit {
     }
 
     process(): boolean {
-        if(!this.exportablePackage || this.status === RemotePackageStatusEnum.softwareTooOld) return false;
+        if(!this.exportablePackage || this.status === RemotePackageStatusEnum.incompatible) return false;
 
         const p = new Package();
         p.id = this.exportablePackage.id;
@@ -108,5 +129,5 @@ enum RemotePackageStatusEnum {
     notFound = 1,
     installed = 2,
     notUpToDate = 3,
-    softwareTooOld = 4
+    incompatible = 4
 }
