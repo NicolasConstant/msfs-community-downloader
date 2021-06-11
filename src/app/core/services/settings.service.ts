@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+
+import { version } from '../../.././../package.json';
+
 import { ElectronService } from './electron/electron.service';
 import { Package } from './packages.service';
 
@@ -9,6 +12,10 @@ export class SettingsService {
     constructor(
         private electronService: ElectronService
     ) {
+    }
+
+    getVersion(): string {
+        return version;
     }
 
     getSettings(): SettingsData {

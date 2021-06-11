@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { version } from '../../../package.json';
 
 import { SettingsService } from '../core/services/settings.service';
 
@@ -13,7 +12,7 @@ import { SettingsService } from '../core/services/settings.service';
 })
 export class SettingsComponent implements OnInit {
     faTimes = faTimes;
-    version = version;
+    version: string;
 
     communityPath: string;
     isCommunity = true;
@@ -24,6 +23,7 @@ export class SettingsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.version = this.settingsService.getVersion();
         this.communityPath = this.settingsService.getSettings().communityPath;
     }
 
