@@ -1,0 +1,12 @@
+{
+    "id": "aircraft-tbm930-improvement",
+    "name": "MM TBM930",
+    "description": "MixMugz TBM 930 Project",
+    "githubOwner": "mixMugz",
+    "githubRepo": "msfs_tbm930_project",
+    "assetName": "aircraft-tbm930-improvement.zip",
+    "folderName": "aircraft-tbm930-improvement",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/aircraft-tbm930-improvement/illustration.jpg",
+    "summary": "This is the continue improvement project for the MSFS default TBM 930.<br/><br/>I highly recommend using Working-Title G3000.",
+    "minSoftwareVersion": "0.7.0"
+}

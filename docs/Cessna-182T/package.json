@@ -1,0 +1,12 @@
+{
+    "id": "Cessna-182T",
+    "name": "G C182T",
+    "description": "Geoffda Cessna-182T",
+    "githubOwner": "geoffda",
+    "githubRepo": "Cessna-182T",
+    "assetName": "Cessna-182T",
+    "folderName": "Cessna-182T",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/Cessna-182T/illustration.jpg",
+    "summary": "This is a modification of the Cessna-182T Skylane G1000 aircraft created by Carenado for Microsoft Flight Simulator 2020.<br/><br/>Currently, this modification adds the normal procedure checklists from the supplied pdf operating manuals which were included by Carenado.<br/><br/>All items for the normal operating procedure checklists are available.<br/><br/>I intend to add the short field takeoff, maximum performance climb and emergency procedures at a later date.",    
+    "minSoftwareVersion": "0.7.0"
+}
