@@ -1,16 +1,42 @@
 <div class="add-package">
     <div class="add-package__content">
-        <a href class="button" routerLink="/create-package">
-            Create a new Package
+        <a href class="close" routerLink="/">
+            <fa-icon [icon]="faTimes"></fa-icon>
         </a>
-        <a href class="button" [routerLink]="['/import-package', 'file']">
-            Import Json file Package
-        </a>
-        <a href class="button" [routerLink]="['/import-package', 'json']">
-            Import Text Package
-        </a>
-        <a href class="button button--cancel"routerLink="/home">
-            Cancel
-        </a>
+       
+        <div class="left-column">
+            <h1 class="left-column__title">Community Packages</h1>
+
+            <div class="package-list">
+
+                <app-remote-package *ngFor="let p of list" class="package-list__package" [remotePackageInfo]="p"></app-remote-package>             
+<!-- 
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>             
+                <app-remote-package class="package-list__package"></app-remote-package>              -->
+            </div>
+        </div>
+
+        <div class="right-column">
+            <a href class="button" routerLink="/create-package">
+                Create a new Package
+            </a>
+            <a href class="button" [routerLink]="['/import-package', 'file']">
+                Import Json file Package
+            </a>
+            <a href class="button" [routerLink]="['/import-package', 'json']">
+                Import Text Package
+            </a>     
+        </div>
     </div>
 </div>

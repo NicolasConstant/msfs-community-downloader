@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+
+import { version } from '../../.././../package.json';
+
 import { ElectronService } from './electron/electron.service';
 import { Package } from './packages.service';
 
@@ -11,6 +14,10 @@ export class SettingsService {
     ) {
     }
 
+    getVersion(): string {
+        return version;
+    }
+
     getSettings(): SettingsData {
         const settings = this.getSavedSettings();
         if (!settings.communityPath) {
@@ -21,6 +28,10 @@ export class SettingsService {
         }
         if(!settings.customPackages){
             settings.customPackages = [];
+            this.saveSettings(settings);
+        }
+        if(!settings.onlinePackages){
+            settings.onlinePackages = [];
             this.saveSettings(settings);
         }
         return settings;
@@ -109,4 +120,5 @@ export class SettingsService {
 class SettingsData {
     communityPath: string;
     customPackages: Package[];
+    onlinePackages: Package[];
 }

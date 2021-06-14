@@ -75,5 +75,6 @@ export class HomeComponent implements OnInit {
 
     private analyseHttpError(err: HttpErrorResponse) {
         this.isGithubRateLimited = err.error.message.includes('API rate limit exceeded');
+        console.warn(`API rate limit exceeded ${this.isGithubRateLimited}`);
     }
 }
