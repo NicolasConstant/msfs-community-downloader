@@ -10,5 +10,6 @@
     "folderName": "test1",
     "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/test1/illustration.jpg",
     "summary": "Test 1 Summary",
-    "webpageUrl": "https://www.test1.com"
+    "webpageUrl": "https://www.test1.com/2",
+    "minSoftwareVersion": "0.6.0"
 }
