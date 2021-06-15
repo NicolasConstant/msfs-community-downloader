@@ -159,3 +159,15 @@
         font-weight: bold;
     }
 }
+
+.package-not-found {
+    color: #838fa3;
+    display: block;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+
+    &:hover {
+        color: white;
+    }
+}
