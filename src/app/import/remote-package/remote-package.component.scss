@@ -101,18 +101,37 @@
         }
 
         &__name {
+            display: block;
             padding-left: 15px;
+            padding-right: 15px;
             padding-top: 10px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         &__description {
+            display: block;
             padding-left: 15px;
+            padding-right: 15px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         &__github {
+            display: block;
+
             color: gray;
             padding-left: 15px;
+            padding-right: 15px;
             padding-bottom: 10px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &:hover { 
                 color:white;
