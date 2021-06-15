@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { OnlineRepoService, OnlinePackageInfo } from '../core/services/online-repo.service'
+import { OnlineRepoService, OnlinePackageInfo } from '../core/services/online-repo.service';
 
 @Component({
     selector: 'app-add-package',

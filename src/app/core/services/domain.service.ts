@@ -65,7 +65,7 @@ export class DomainService {
             if(error){
                 throw(error);
             }
-        })
+        });
         return pipeline;
     }
 

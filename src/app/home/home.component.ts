@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.packages = this.domainService.getPackages();
-        
+
         if (this.packages.length > 0) {
             let selected = this.packages.find(x => x.isSelected);
 
@@ -66,8 +66,8 @@ export class HomeComponent implements OnInit {
 
     removePackage(p: Package): void {
         this.packages = this.packages.filter(x => x.id !== p.id);
-        
-        if(this.packages.length > 0){
+
+        if (this.packages.length > 0) {
             this.packages[0].isSelected = true;
             this.selectedPackage = this.packages[0];
         }
@@ -75,6 +75,8 @@ export class HomeComponent implements OnInit {
 
     private analyseHttpError(err: HttpErrorResponse) {
         this.isGithubRateLimited = err.error.message.includes('API rate limit exceeded');
-        console.warn(`API rate limit exceeded ${this.isGithubRateLimited}`);
+        if (this.isGithubRateLimited) {
+            console.warn(`API rate limit exceeded`);
+        }
     }
 }

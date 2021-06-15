@@ -153,7 +153,7 @@ export class PackagesService {
         pms50gns530.state = InstallStatusEnum.unknown; 
         pms50gns530.summary = "This package is an enhancement of the built-in GNS530 GPS. The goal is to offer an instrument that comes as close as possible to the original.";
         
-        let packages = [wtcj4, wtg1000, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152, pms50gns530];
+        const packages = [wtcj4, wtg1000, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152, pms50gns530];
         
         const customPackages = this.settingsService.getSettings().customPackages;
         for (const p of customPackages) {
