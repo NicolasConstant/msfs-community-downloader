@@ -1,20 +1,96 @@
+.close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 99;
+}
+
 .add-package {
     color: whitesmoke;
     height: 100%;
     // position: relative;
 
     &__content {
-        width: 700px;
-        padding-top: 50px;
+        // outline: 1px dotted greenyellow;
+
+        min-width: 700px;
+        max-width: 900px;
+        height: 100%;
+        padding-top: 30px;
         margin: auto;
         overflow: hidden;
-    }   
+
+        position: relative;
+    }
+}
+
+.left-column {
+    // outline: 1px dotted pink;
+
+    display: inline-block;    
+    width: calc(100% - 400px);
+    height: 100%;
+
+    &__title {
+        font-size: 1.2em;
+        margin: 0 0 30px 60px;
+    }
+
+}
+
+.right-column {
+    // outline: 1px dotted yellow;
+
+    width: calc(400px);
+    float: right;
+    margin-top: 60px;
+    padding-top: 40px;
+    padding-left: 60px;
+}
+
+.package-list {
+    // outline: 1px dotted cyan;
+
+    width: calc(100%);
+    height: calc(100% - 60px);
+    margin: auto;
+    padding-right: 10px;
+    padding-left: 60px;
+
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 12px;
+        /* width of the entire scrollbar */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #1a1a1a;
+        /* color of the tracking area */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(74, 74, 95);
+        /* color of the scroll thumb */
+        border-radius: 20px;
+        /* roundness of the scroll thumb */
+        border: 3px solid #24272e;
+        border: 3px solid #1a1a1a;
+
+        /* creates padding around scroll thumb */
+    }
+
+
+    &__package {
+        display: block;
+        margin-bottom: 10px;
+    }
 }
 
 .button {
     color: whitesmoke;
     display: block;
-    margin: auto;
+    // margin-right: 100px;
     width: 250px;
     text-align: center;
     // height: 50px;
@@ -23,11 +99,16 @@
     margin-bottom: 30px;
     padding: 10px;
     text-decoration: none;
+}
 
-    &--cancel {
-        margin-bottom: 50px;
-        color: #ca0000;
-        border-color: #ca0000;
-        margin-top: 70px;
+.add-to-list {
+    color: gray;
+    text-align: center;
+    display: block;
+    margin: auto;
+    padding-bottom: 10px;    
+
+    &:hover {
+        color: white;
     }
 }

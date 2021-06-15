@@ -1,0 +1,130 @@
+.package {
+    height: 60px;
+    border: 1px solid white;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all .2s;
+
+    &__minimized {
+        &__name {
+            padding: 15px 10px 0 25px;
+            font-size: 1.1em;
+        }
+        &__version {
+            // outline: 1px dotted pink;
+
+            float: right;            
+            height: 60px;
+            padding: 17px 20px 0 20px;
+            vertical-align: center;
+            color: gray;
+        }
+        &__logo {
+            float: right;
+            // outline: 1px dotted greenyellow;
+            width: 60px;
+            height: 60px;
+
+            &--info {
+                display: block;
+                margin: 14px 0 0 23px;
+                font-size: 20px;
+            }            
+
+            &--available {
+                color: gray;
+            }
+            
+            &--update {
+                color: orange;
+            }
+
+            &--check {
+                color: greenyellow;
+            }
+        }
+    }
+
+    &__expanded {
+        cursor: default;
+        height: 160px;
+
+        &__banner {
+            position: relative;
+
+            height: 70px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            &__inner {
+                position: relative;
+                // outline: 1px dotted greenyellow;
+    
+                height: calc(100%);
+                width: calc(100%);
+    
+                background-color: rgba(53, 57, 68, 0.65);
+                backdrop-filter: blur(2px);
+            }           
+        }
+
+        &__reduce {
+            // outline: 1px dotted greenyellow;
+            
+            position: absolute;
+            top: 14px;
+            left: 15px;
+            color: gray;
+            text-decoration: none;
+            padding: 9px 13px;
+
+
+            &:hover {
+                color: white;
+            }
+        }
+
+        &__button {
+            position: absolute;
+            // display: block;
+            // float: right;
+            top: 17px;
+            right: 20px;
+            color: white;
+            text-decoration: none;
+            border: 1px solid white;
+            border-radius: 3px;
+            padding: 5px 10px;
+            width: 120px;
+            text-align: center;
+        }
+
+        &__name {
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+
+        &__description {
+            padding-left: 15px;
+        }
+
+        &__github {
+            color: gray;
+            padding-left: 15px;
+            padding-bottom: 10px;
+
+            &:hover { 
+                color:white;
+            }
+        }
+    }
+}
+
+.incompatible {
+    float: right;
+    padding: 23px 25px 0 0;
+    color: rgb(255, 44, 255);
+    font-style: italic;
+    font-size: bolder;
+}

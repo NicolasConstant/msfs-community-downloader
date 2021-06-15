@@ -5,11 +5,13 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { DomainService } from '../../core/services/domain.service';
 import { ElectronService } from '../../core/services/electron/electron.service';
+import { ExportablePackage } from '../../core/services/online-repo.service';
+import { SettingsService } from '../../core/services/settings.service';
 
 @Component({
     selector: 'app-export-package',
     templateUrl: './export-package.component.html',
-    styleUrls: ['./export-package.component.scss']
+    styleUrls: ['../../core/common.scss', './export-package.component.scss']
 })
 export class ExportPackageComponent implements OnInit, OnDestroy {
     faTimes = faTimes;
@@ -20,6 +22,7 @@ export class ExportPackageComponent implements OnInit, OnDestroy {
     json: string;
 
     constructor(
+        private settingsService: SettingsService,
         private electronService: ElectronService,
         private activatedRoute: ActivatedRoute,
         private domainService: DomainService
@@ -45,6 +48,9 @@ export class ExportPackageComponent implements OnInit, OnDestroy {
                 this.exportablePackage.summary = p.summary;
                 this.exportablePackage.webpageUrl = p.webpageUrl;
                 this.exportablePackage.oldFolderNames = p.oldFolderNames;
+                this.exportablePackage.minSoftwareVersion = p.minSoftwareVersion;
+
+                if(!this.exportablePackage.minSoftwareVersion) this.exportablePackage.minSoftwareVersion = this.settingsService.getVersion();
 
                 this.json = JSON.stringify(this.exportablePackage);
             }
@@ -69,20 +75,4 @@ export class ExportPackageComponent implements OnInit, OnDestroy {
         }
         return false;
     }
-}
-
-export class ExportablePackage {
-    public id: string;
-    public name: string;
-    public description: string;
-    public githubOwner: string;
-    public githubRepo: string;
-    public assetName: string;
-    public isPrerelease: boolean;
-    public versionPatternToRemove: string;
-    public folderName: string;
-    public illustration: string;
-    public summary: string;
-    public webpageUrl: string;
-    public oldFolderNames: string[];
 }

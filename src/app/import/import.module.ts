@@ -9,9 +9,10 @@ import { AddPackageComponent } from './add-package.component';
 import { CreatePackageComponent } from './create-package/create-package.component';
 import { ImportPackageComponent } from './import-package/import-package.component';
 import { ExportPackageComponent } from './export-package/export-package.component';
+import { RemotePackageComponent } from './remote-package/remote-package.component';
 
 @NgModule({
-    declarations: [AddPackageComponent, CreatePackageComponent, ImportPackageComponent, ExportPackageComponent],
+    declarations: [AddPackageComponent, CreatePackageComponent, ImportPackageComponent, ExportPackageComponent, RemotePackageComponent],
     imports: [CommonModule, SharedModule, ImportRoutingModule, FontAwesomeModule]
 })
 export class ImportModule { }

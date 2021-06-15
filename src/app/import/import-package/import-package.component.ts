@@ -1,16 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of } from 'rxjs';
+import * as semver from 'semver';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import { ElectronService } from '../../core/services/electron/electron.service';
-import { ExportablePackage } from '../export-package/export-package.component';
 import { DomainService } from '../../core/services/domain.service';
 import { Package } from '../../core/services/packages.service';
+import { ExportablePackage } from '../../core/services/online-repo.service';
+import { SettingsService } from '../../core/services/settings.service';
 
 @Component({
     selector: 'app-import-package',
     templateUrl: './import-package.component.html',
-    styleUrls: ['./import-package.component.scss']
+    styleUrls: ['../../core/common.scss', './import-package.component.scss']
 })
 export class ImportPackageComponent implements OnInit, OnDestroy {
     faTimes = faTimes;
@@ -25,6 +28,7 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
     errorMessage: string;
 
     constructor(
+        private settingService: SettingsService,
         private domainService: DomainService,
         private router: Router,
         private electronService: ElectronService,
@@ -83,6 +87,13 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
             return;
         }
 
+        const softwareVersion = this.settingService.getVersion();
+        if(newPackage.minSoftwareVersion && semver.ltr(softwareVersion, newPackage.minSoftwareVersion)){
+            this.hasError = true;
+            this.errorMessage = `Incompatible software. You must have v${newPackage.minSoftwareVersion} or higher`;
+            return;
+        }
+
         const currentPackages = this.domainService.getPackages();
         const sameIdPackage = currentPackages.find(x => x.id === newPackage.id);
         if (sameIdPackage) {
@@ -121,7 +132,7 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
         p.summary = this.loadedPackage.summary;
         p.webpageUrl = this.loadedPackage.webpageUrl;
         p.oldFolderNames = this.loadedPackage.oldFolderNames;
-
+        
         this.domainService.addCustomPackage(p);
         this.router.navigate(['/']);
         return false;

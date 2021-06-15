@@ -1,12 +1,17 @@
 [
   {
-    "id":"test1",
-    "name":"Test 1",
-    "version":"1.0.3"
-  },  
+    "id":"aircraft-tbm930-improvement",
+    "name":"MixMugz TBM 930 Project",
+    "version":"1.0.0"
+  },
   {
-    "id":"test2",
-    "name":"Test 2",
-    "version":"1.0.1"
+    "id":"C208B-mod",
+    "name":"SCS Cessna 208B Improvement Mod",
+    "version":"1.0.0"
+  },
+  {
+    "id":"Cessna-182T",
+    "name":"Geoffda Cessna-182T",
+    "version":"1.0.0"
   }
 ]

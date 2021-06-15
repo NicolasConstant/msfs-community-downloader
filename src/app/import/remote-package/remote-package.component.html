@@ -1,0 +1,34 @@
+<div class="package package__minimized" *ngIf="!expanded" (click)="expand()">
+    <div class="package__minimized__logo">
+        <fa-icon *ngIf="status === 0 || status === 1" class="package__minimized__logo--info package__minimized__logo--available" [icon]="faArrowDown"></fa-icon>
+        <fa-icon *ngIf="status === 3" class="package__minimized__logo--info package__minimized__logo--update" [icon]="faArrowDown"></fa-icon>
+        <fa-icon *ngIf="status === 2" class="package__minimized__logo--info package__minimized__logo--check" [icon]="faCheck"></fa-icon>
+    </div>
+    <div class="package__minimized__version">
+        {{remotePackageInfo.version}}
+    </div>
+    <div class="package__minimized__name">
+        {{remotePackageInfo.name}}
+    </div>
+</div>
+
+<div class="package package__expanded" *ngIf="expanded">
+    <div *ngIf="exportablePackage" class="package__expanded__banner"
+        [ngStyle]="{'background-image':'url('+exportablePackage.illustration+')'}">
+        <div class="package__expanded__banner__inner">
+            <a href class="package__expanded__reduce" (click)="reduce()">
+                <fa-icon [icon]="faChevronUp"></fa-icon>
+            </a>
+            <a href *ngIf="exportablePackage && status != 4" (click)="process()" class="package__expanded__button"><span *ngIf="status === 0 || status === 1">INSTALL</span><span *ngIf="status === 2">REMOVE</span><span *ngIf="status === 3">UPDATE</span></a>
+            <span *ngIf="status === 4" class="incompatible">{{incompatibleMessage}}</span>
+        </div>
+    </div>
+
+    <div *ngIf="exportablePackage" class="package__expanded__name">{{exportablePackage.name}}</div>
+    <div *ngIf="exportablePackage" class="package__expanded__description">{{exportablePackage.description}}</div>
+    <a *ngIf="exportablePackage"
+        href="https://github.com/{{exportablePackage.githubOwner}}/{{exportablePackage.githubRepo}}" target="_blank"
+        class="package__expanded__github">https://github.com/{{exportablePackage.githubOwner}}/{{exportablePackage.githubRepo}}</a>
+
+
+</div>

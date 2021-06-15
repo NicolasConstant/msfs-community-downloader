@@ -1,0 +1,12 @@
+{
+    "id": "C208B-mod",
+    "name": "SCS C208B",
+    "description": "SCS Cessna 208B Improvement Mod",
+    "githubOwner": "SheepCreativeSoftware",
+    "githubRepo": "msfs2020-C208-Improvment-Mod",
+    "assetName": "msfs2020-C208-Improvment-Mod.v",
+    "folderName": "C208B-mod",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/C208B-mod/illustration.jpg",
+    "summary": " SheepCreativeSoftware Cessna 208B Improvement Mod for Microsoft Flight Simulator.<br/><br/>A community mod for the Cessna 208B Grand Caravan, which aims to fix many of the issues present in the stock version. Since Sim Update 4 lots of Things are even better by default.",
+    "minSoftwareVersion": "0.7.0"
+}

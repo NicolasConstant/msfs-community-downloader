@@ -49,6 +49,7 @@ export class CreatePackageComponent implements OnInit, OnDestroy {
                 this.package.illustration = p.illustration;
                 this.package.webpageUrl = p.webpageUrl;
                 this.package.versionPatternToRemove = p.versionPatternToRemove;
+                this.package.minSoftwareVersion = p.minSoftwareVersion;
             } else {
                 this.isEditing = false;               
             }
