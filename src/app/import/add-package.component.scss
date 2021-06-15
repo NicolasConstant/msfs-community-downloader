@@ -100,3 +100,15 @@
     padding: 10px;
     text-decoration: none;
 }
+
+.add-to-list {
+    color: gray;
+    text-align: center;
+    display: block;
+    margin: auto;
+    padding-bottom: 10px;    
+
+    &:hover {
+        color: white;
+    }
+}
