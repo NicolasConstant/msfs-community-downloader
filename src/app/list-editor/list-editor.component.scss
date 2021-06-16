@@ -14,16 +14,50 @@
     }
 }
 
-.caption {
-    outline: 1px dashed greenyellow;
+.captions {
+    // outline: 1px dashed greenyellow;
     
-    height: 100px;
+    height: 60px;
     margin-bottom: 10px;
+
+    &__icon {
+        font-size: 18px;
+        position: relative;
+        top: 1px;
+    }
+
+    &__entry {
+
+    }
 }
 
 .package-list {
-    outline: 1px dashed yellow;
+    // outline: 1px dashed yellow;
     
-    height: calc(100% - 110px);
+    height: calc(100% - 70px);
     overflow: auto;
+    padding-right: 5px;
+
+    &::-webkit-scrollbar {
+        width: 12px;
+        /* width of the entire scrollbar */
+
+        &-track {
+            background: #1a1a1a;
+            /* color of the tracking area */
+        }
+    
+        &-thumb {
+            background-color: rgb(74, 74, 95);
+            /* color of the scroll thumb */
+            border-radius: 20px;
+            /* roundness of the scroll thumb */
+            border: 3px solid #24272e;
+            border: 3px solid #1a1a1a;
+    
+            /* creates padding around scroll thumb */
+        }
+    }
+
+    
 }

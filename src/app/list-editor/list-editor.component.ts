@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faTimes, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faFolder } from '@fortawesome/free-regular-svg-icons';
 
 import { DomainService } from '../core/services/domain.service';
 import { Package } from '../core/services/packages.service';
@@ -12,6 +13,7 @@ import { Package } from '../core/services/packages.service';
 export class ListEditorComponent implements OnInit {
     faTimes = faTimes;
     faBan = faBan;
+    faFolder = faFolder;
 
     packages: Package[];
 
