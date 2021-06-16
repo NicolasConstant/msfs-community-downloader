@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { faTimes, faBan } from '@fortawesome/free-solid-svg-icons';
+
+import { DomainService } from '../core/services/domain.service';
+import { Package } from '../core/services/packages.service';
 
 @Component({
     selector: 'app-list-editor',
@@ -11,9 +13,14 @@ export class ListEditorComponent implements OnInit {
     faTimes = faTimes;
     faBan = faBan;
 
-    constructor() { }
+    packages: Package[];
+
+    constructor(
+        private domainService: DomainService
+    ) { }
 
     ngOnInit(): void {
+        this.packages = this.domainService.getPackages();
     }
 
 }

@@ -1,12 +1,29 @@
 .list-editor {
+    position: relative;
+
     color: whitesmoke;
     // background-color: #0d1117;
-    // background-color: #0d1117;
+    //background-color: red;
     height: 100%;
 
     &__content {
+        height: 100%;
         max-width: 600px;
         margin: auto;
         padding: 20px;
     }
+}
+
+.caption {
+    outline: 1px dashed greenyellow;
+    
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.package-list {
+    outline: 1px dashed yellow;
+    
+    height: calc(100% - 110px);
+    overflow: auto;
 }

@@ -5,10 +5,10 @@
         </a>
 
         <div class="caption">
-            
+
         </div>
         <div class="package-list">
-
+            <app-package-edition *ngFor="let p of packages" class="package-list__package" [packageInfo]="p"></app-package-edition>    
         </div>
     </div>
 </div>
