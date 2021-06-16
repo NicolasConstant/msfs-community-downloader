@@ -1,0 +1,12 @@
+.list-editor {
+    color: whitesmoke;
+    // background-color: #0d1117;
+    // background-color: #0d1117;
+    height: 100%;
+
+    &__content {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+    }
+}

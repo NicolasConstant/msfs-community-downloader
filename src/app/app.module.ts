@@ -17,6 +17,7 @@ import { SettingsModule } from './settings/settings.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ImportModule } from './import/import.module';
+import { ListEditorComponent } from './list-editor/list-editor.component';
 
 // import { AddPackageComponent } from './import/add-package.component';
 // import { CreatePackageComponent } from './import/create-package/create-package.component';
@@ -29,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, ListEditorComponent],
     imports: [
         BrowserModule,
         FormsModule,
