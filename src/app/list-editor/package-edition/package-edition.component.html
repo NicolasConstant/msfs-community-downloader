@@ -1,3 +1,13 @@
-<div class="package">
-    
+<div class="package"> 
+    <a href class="link">
+        <fa-icon class="link__icon" [icon]="faFolder"></fa-icon>
+    </a>
+    <a href class="link" [ngClass]="{'link__removed': isRemoved}">
+        <fa-icon class="link__icon" [icon]="faBan"></fa-icon>
+    </a>
+
+    <div class="package__name">{{packageInfo.name}}</div>
+    <div class="package__description">{{packageInfo.description}}</div>
+
+  
 </div>
