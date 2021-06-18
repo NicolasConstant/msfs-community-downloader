@@ -34,6 +34,14 @@ export class SettingsService {
             settings.onlinePackages = [];
             this.saveSettings(settings);
         }
+        if(!settings.removedPackageIds){
+            settings.removedPackageIds = [];
+            this.saveSettings(settings);
+        }
+        if(!settings.customPackageFolders){
+            settings.customPackageFolders = [];
+            this.saveSettings(settings);
+        }
         return settings;
     }
 
@@ -117,8 +125,15 @@ export class SettingsService {
     }
 }
 
-class SettingsData {
+export class SettingsData {
     communityPath: string;
     customPackages: Package[];
     onlinePackages: Package[];
+    removedPackageIds: string[];
+    customPackageFolders: CustomFolder[];
+}
+
+export class CustomFolder {
+    packageId: string;
+    customFolder: string;
 }
