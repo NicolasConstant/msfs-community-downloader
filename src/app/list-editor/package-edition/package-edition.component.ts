@@ -13,7 +13,10 @@ export class PackageEditionComponent implements OnInit {
     faBan = faBan;
     faFolder = faFolder;
 
-    isRemoved: boolean = true;
+    isRemoved: boolean;
+    displayCustomFolder: boolean;
+
+    customFolder: string;
 
     @Input()
     packageInfo: Package;
@@ -23,4 +26,18 @@ export class PackageEditionComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    toggleSetFolder(): boolean {
+        this.displayCustomFolder = !this.displayCustomFolder;
+        return false;
+    }
+
+    toggleRemove(): boolean {
+        this.isRemoved = !this.isRemoved;
+        return false;
+    }
+
+    findCustomFolder(): boolean {
+
+        return false;
+    }
 }
