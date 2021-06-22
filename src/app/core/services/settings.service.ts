@@ -45,6 +45,17 @@ export class SettingsService {
         return settings;
     }
 
+    getCustomPackageDirectory(packageId: string): string {
+        if(!packageId) return null;
+
+        const settings = this.getSettings();
+        if(settings.customPackageFolders.length === 0) return null;
+
+        const customPackage = settings.customPackageFolders.find(x => x.packageId === packageId);
+        if(!customPackage) return null;
+        return customPackage.customFolder;        
+    }
+
     private findCommunityFolder(): string {
         console.log('find community folder');
         try {

@@ -28,7 +28,13 @@ export class FilesystemService {
                 const communityPath = this.settingsService.getSettings().communityPath;
                 if (!communityPath) return resolve(new LocalState(false, false, null));
 
-                const path = `${communityPath}\\${p.folderName}`;
+                let path = `${communityPath}\\${p.folderName}`;
+
+                const customPackageFolder = this.settingsService.getCustomPackageDirectory(p.id);
+                if(customPackageFolder){
+                    path = `${customPackageFolder}\\${p.folderName}`;
+                }
+
                 const folderFound = this.electronService.fs.existsSync(path);
 
                 const versionPath = `${path}\\msfs-downloader-updater.json`;
@@ -114,7 +120,12 @@ export class FilesystemService {
 
     copyToCommunity(packageId: string, addinFolderPath: string, packageFolderName: string): void {
         const communityDir = this.settingsService.getSettings().communityPath;
-        const target = `${communityDir}\\${packageFolderName}`;
+        let target = `${communityDir}\\${packageFolderName}`;
+
+        const customPackageFolder = this.settingsService.getCustomPackageDirectory(packageId);
+        if(customPackageFolder){
+            target = `${customPackageFolder}\\${packageFolderName}`;
+        }
 
         const info = new CopyFolderInfo();
         info.packageId = packageId;

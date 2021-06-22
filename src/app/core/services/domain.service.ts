@@ -258,7 +258,6 @@ export class DomainService {
         localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
     }
 
-    
     updateOnlinePackage(p: Package): void {
         if (!p) return;
 
@@ -335,9 +334,14 @@ export class DomainService {
     }
 
     remove(p: Package): void {
-
         const communityDir = this.settingsService.getSettings().communityPath;
-        const folderPath = `${communityDir}\\${p.folderName}`;
+        
+        let folderPath = `${communityDir}\\${p.folderName}`;
+
+        const customPackageFolder = this.settingsService.getCustomPackageDirectory(p.id);
+        if(customPackageFolder){
+            folderPath = `${customPackageFolder}\\${p.folderName}`;
+        }
 
         this.filesystemService.deleteFolder(folderPath)
             .then(() => {
