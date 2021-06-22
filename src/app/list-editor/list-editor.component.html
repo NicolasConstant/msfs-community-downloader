@@ -1,0 +1,21 @@
+<div class="list-editor">
+    <div class="list-editor__content">
+        <a href class="close" routerLink="/">
+            <fa-icon [icon]="faTimes"></fa-icon>
+        </a>
+
+        <div class="captions">
+            <div class="captions__entry">
+                <fa-icon class="captions__icon" [icon]="faBan"></fa-icon> Remove package from listing
+            </div>
+            <div class="captions__entry">
+                <fa-icon class="captions__icon" [icon]="faFolder"></fa-icon> Set custom installation folder
+            </div>
+
+        </div>
+        <div class="package-list">
+            <app-package-edition *ngFor="let p of packages" class="package-list__package" [packageInfo]="p">
+            </app-package-edition>
+        </div>
+    </div>
+</div>
