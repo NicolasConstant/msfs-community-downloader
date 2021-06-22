@@ -64,7 +64,7 @@ export class PackageEditionComponent implements OnInit {
         let removedPackageIds = settings.removedPackageIds;
         if (this.isRemoved) {
             if (!removedPackageIds.find(x => x === packageId)) {
-                removedPackageIds.push(packageId)
+                removedPackageIds.push(packageId);
             }
         } else {
             if (removedPackageIds.find(x => x === packageId)) {
