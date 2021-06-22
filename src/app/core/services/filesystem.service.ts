@@ -20,6 +20,27 @@ export class FilesystemService {
                 this.folderCopied.next(arg);
             }
         });
+
+        this.checkCleanUpCommunity();
+    }
+
+    private checkCleanUpCommunity() {
+        const communityPath = this.settingsService.getSettings().communityPath;
+        if (!communityPath) return;
+
+        this.getDirectories(communityPath)
+            .then((dirs: string[]) => {
+                return dirs.filter(x => x.includes('msfs-downloader___'));
+            })
+            .then((filDirs: string[]) => {                
+                for (const d of filDirs) {
+                    const fullPath = `${communityPath}\\${d}`;
+                    this.deleteFolder(fullPath);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 
     retrievePackageInfo(p: Package): Promise<LocalState> {
@@ -31,7 +52,7 @@ export class FilesystemService {
                 let path = `${communityPath}\\${p.folderName}`;
 
                 const customPackageFolder = this.settingsService.getCustomPackageDirectory(p.id);
-                if(customPackageFolder){
+                if (customPackageFolder) {
                     path = `${customPackageFolder}\\${p.folderName}`;
                 }
 
@@ -61,11 +82,11 @@ export class FilesystemService {
             try {
                 const communityPath = this.settingsService.getSettings().communityPath;
 
-                if(!communityPath) reject(communityPath);
+                if (!communityPath) reject(communityPath);
 
                 let tempDir = `${communityPath}\\msfs-downloader___`;
                 tempDir = this.electronService.fs.mkdtempSync(tempDir);
-                
+
                 if (this.electronService.fs.existsSync(tempDir)) {
                     this.electronService.fs.rmdirSync(tempDir, { recursive: true });
                 }
@@ -123,7 +144,7 @@ export class FilesystemService {
         let target = `${communityDir}\\${packageFolderName}`;
 
         const customPackageFolder = this.settingsService.getCustomPackageDirectory(packageId);
-        if(customPackageFolder){
+        if (customPackageFolder) {
             target = `${customPackageFolder}\\${packageFolderName}`;
         }
 
