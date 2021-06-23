@@ -1,0 +1,22 @@
+<div class="package"> 
+    <a href class="link" [ngClass]="{'link__display-folder': displayCustomFolder}"
+        (click)="toggleSetFolder()">
+        <fa-icon class="link__icon" [icon]="faFolder"></fa-icon>
+    </a>
+    <a href class="link" [ngClass]="{'link__removed': isRemoved}"
+        (click)="toggleRemove()">
+        <fa-icon class="link__icon" [icon]="faBan"></fa-icon>
+    </a>
+
+    <div class="package__name">{{packageInfo.name}}</div>
+    <div class="package__description">{{packageInfo.description}}</div>
+
+  
+    <div *ngIf="displayCustomFolder" class="display-custom-folder">
+        <span>Folder: </span>
+        <input [(ngModel)]="customFolder" type="text" autocomplete="off" class="folder-path" readonly />
+        <a href class="folder-path__button" (click)="findCustomFolder()">
+            Select
+        </a>
+    </div>
+</div>

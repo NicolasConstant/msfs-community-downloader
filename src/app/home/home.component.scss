@@ -113,7 +113,7 @@
 
 .settings {
     display: inline-block;
-    width: calc(250px - 42px - 2px);
+    width: calc(250px - 42px - 42px - 2px + 5px);
     padding: 10px 20px;
 
     color: #626c7c;
@@ -131,10 +131,13 @@
     }
 }
 
-.refresh {
+.refresh, .edit {
+    //outline: 1px dashed greenyellow;
+
     display: inline-block;
     padding: 10px 0 0 9px;
     width: 39px;
+    height: 39px;
     color: #838fa3;
 
     &:hover {

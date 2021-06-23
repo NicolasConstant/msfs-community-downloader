@@ -1,0 +1,58 @@
+.package {
+    min-height: 75px;
+    border: 1px solid gray;
+    margin-bottom: 5px;
+    padding: 15px;
+}
+
+.link {
+    float: right;
+    display: block;
+    padding: 5px;
+    margin-left: 10px;
+    color: #bbbbbb;
+
+    &__icon {
+        font-size: 25px;
+    }
+
+    &:hover {
+        color: white;
+    }
+
+    &__removed {
+        color: #ff7575;
+
+        &:hover {
+            color: red;
+        }
+    }
+
+    &__display-folder {
+        color: #7bb0ff;
+
+        &:hover {
+            color: #3e8bff;
+        }
+    }
+}
+
+.display-custom-folder {
+    margin-top: 10px;
+}
+
+.folder-path {
+    padding: 5px;
+    width: 390px;
+
+    &__button {
+        position: relative;
+        left: -1px;
+        display: inline-block; 
+        border: 1px solid #767676;
+        border-left: none;
+        color: white;
+        text-decoration: none;
+        padding: 2px 10px 3px 10px;
+    }
+}

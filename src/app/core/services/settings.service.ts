@@ -34,7 +34,26 @@ export class SettingsService {
             settings.onlinePackages = [];
             this.saveSettings(settings);
         }
+        if(!settings.removedPackageIds){
+            settings.removedPackageIds = [];
+            this.saveSettings(settings);
+        }
+        if(!settings.customPackageFolders){
+            settings.customPackageFolders = [];
+            this.saveSettings(settings);
+        }
         return settings;
+    }
+
+    getCustomPackageDirectory(packageId: string): string {
+        if(!packageId) return null;
+
+        const settings = this.getSettings();
+        if(settings.customPackageFolders.length === 0) return null;
+
+        const customPackage = settings.customPackageFolders.find(x => x.packageId === packageId);
+        if(!customPackage) return null;
+        return customPackage.customFolder;        
     }
 
     private findCommunityFolder(): string {
@@ -117,8 +136,15 @@ export class SettingsService {
     }
 }
 
-class SettingsData {
+export class SettingsData {
     communityPath: string;
     customPackages: Package[];
     onlinePackages: Package[];
+    removedPackageIds: string[];
+    customPackageFolders: CustomFolder[];
+}
+
+export class CustomFolder {
+    packageId: string;
+    customFolder: string;
 }

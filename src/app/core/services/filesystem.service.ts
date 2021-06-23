@@ -20,6 +20,27 @@ export class FilesystemService {
                 this.folderCopied.next(arg);
             }
         });
+
+        this.checkCleanUpCommunity();
+    }
+
+    private checkCleanUpCommunity() {
+        const communityPath = this.settingsService.getSettings().communityPath;
+        if (!communityPath) return;
+
+        this.getDirectories(communityPath)
+            .then((dirs: string[]) => {
+                return dirs.filter(x => x.includes('msfs-downloader___'));
+            })
+            .then((filDirs: string[]) => {                
+                for (const d of filDirs) {
+                    const fullPath = `${communityPath}\\${d}`;
+                    this.deleteFolder(fullPath);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 
     retrievePackageInfo(p: Package): Promise<LocalState> {
@@ -28,7 +49,13 @@ export class FilesystemService {
                 const communityPath = this.settingsService.getSettings().communityPath;
                 if (!communityPath) return resolve(new LocalState(false, false, null));
 
-                const path = `${communityPath}\\${p.folderName}`;
+                let path = `${communityPath}\\${p.folderName}`;
+
+                const customPackageFolder = this.settingsService.getCustomPackageDirectory(p.id);
+                if (customPackageFolder) {
+                    path = `${customPackageFolder}\\${p.folderName}`;
+                }
+
                 const folderFound = this.electronService.fs.existsSync(path);
 
                 const versionPath = `${path}\\msfs-downloader-updater.json`;
@@ -55,11 +82,11 @@ export class FilesystemService {
             try {
                 const communityPath = this.settingsService.getSettings().communityPath;
 
-                if(!communityPath) reject(communityPath);
+                if (!communityPath) reject(communityPath);
 
                 let tempDir = `${communityPath}\\msfs-downloader___`;
                 tempDir = this.electronService.fs.mkdtempSync(tempDir);
-                
+
                 if (this.electronService.fs.existsSync(tempDir)) {
                     this.electronService.fs.rmdirSync(tempDir, { recursive: true });
                 }
@@ -114,7 +141,12 @@ export class FilesystemService {
 
     copyToCommunity(packageId: string, addinFolderPath: string, packageFolderName: string): void {
         const communityDir = this.settingsService.getSettings().communityPath;
-        const target = `${communityDir}\\${packageFolderName}`;
+        let target = `${communityDir}\\${packageFolderName}`;
+
+        const customPackageFolder = this.settingsService.getCustomPackageDirectory(packageId);
+        if (customPackageFolder) {
+            target = `${customPackageFolder}\\${packageFolderName}`;
+        }
 
         const info = new CopyFolderInfo();
         info.packageId = packageId;
