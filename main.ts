@@ -89,7 +89,7 @@ try {
                         .then(dl => event.sender.send('download-success', dl.getSavePath()));
                 } catch (err) {
                     event.sender.send('log-error', err);
-                };
+                }
             })();
         });
 
@@ -107,7 +107,7 @@ try {
                     event.sender.send('extract-success', info);
                 } catch (err) {
                     event.sender.send('log-error', err);
-                };
+                }
             })();
         });
 
@@ -124,7 +124,7 @@ try {
                     event.sender.send('copy-folder-success', info);
                 } catch (err) {
                     event.sender.send('log-error', err);
-                };
+                }
             })();
         });
     });
