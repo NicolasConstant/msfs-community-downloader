@@ -21,6 +21,13 @@ export class FilesystemService {
             }
         });
 
+        this.electronService.ipcRenderer.on('log-error', (event, arg) => {
+            if (arg) {
+                console.error('Node error');
+                console.error(arg);
+            }
+        });
+
         this.checkCleanUpCommunity();
     }
 
@@ -32,7 +39,7 @@ export class FilesystemService {
             .then((dirs: string[]) => {
                 return dirs.filter(x => x.includes('msfs-downloader___'));
             })
-            .then((filDirs: string[]) => {                
+            .then((filDirs: string[]) => {
                 for (const d of filDirs) {
                     const fullPath = `${communityPath}\\${d}`;
                     this.deleteFolder(fullPath);

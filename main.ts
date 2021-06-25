@@ -81,38 +81,50 @@ try {
 
         ipcMain.on('download-item', (event, info) => {
             (async () => {
-                info.properties.onProgress = status => event.sender.send("download-progress", { packageId: info.packageId, status: status});
+                try {
+                    info.properties.onProgress = status => event.sender.send("download-progress", { packageId: info.packageId, status: status });
 
-                const win = BrowserWindow.getFocusedWindow();
-                await download(win, info.url, info.properties)
-                    .then(dl => event.sender.send('download-success', dl.getSavePath()));
+                    const win = BrowserWindow.getFocusedWindow();
+                    await download(win, info.url, info.properties)
+                        .then(dl => event.sender.send('download-success', dl.getSavePath()));
+                } catch (err) {
+                    event.sender.send('log-error', err);
+                };
             })();
         });
 
         ipcMain.on('extract-item', (event, info) => {
             (async () => {
-                const pro = new Promise((resolve, reject) => {
-                    const zip = new AdmZip(info.filePath);
-                    zip.extractAllToAsync(info.extractFolder, true, (err) => {
-                        if (err) reject();
-                        resolve();
+                try {
+                    const pro = new Promise((resolve, reject) => {
+                        const zip = new AdmZip(info.filePath);
+                        zip.extractAllToAsync(info.extractFolder, true, (err) => {
+                            if (err) reject();
+                            resolve();
+                        });
                     });
-                });
-                await pro;
-                event.sender.send('extract-success', info);
+                    await pro;
+                    event.sender.send('extract-success', info);
+                } catch (err) {
+                    event.sender.send('log-error', err);
+                };
             })();
         });
 
         ipcMain.on('copy-folder', (event, info) => {
             (async () => {
-                const pro = new Promise((resolve, reject) => {
-                    fse.copy(info.source, info.target, { overwrite: true }, (err) => {
-                        if (err) reject(err);
-                        resolve();
+                try {
+                    const pro = new Promise((resolve, reject) => {
+                        fse.copy(info.source, info.target, { overwrite: true }, (err) => {
+                            if (err) reject(err);
+                            resolve();
+                        });
                     });
-                });
-                await pro;
-                event.sender.send('copy-folder-success', info);
+                    await pro;
+                    event.sender.send('copy-folder-success', info);
+                } catch (err) {
+                    event.sender.send('log-error', err);
+                };
             })();
         });
     });
