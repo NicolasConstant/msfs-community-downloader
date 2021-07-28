@@ -183,6 +183,7 @@ export class Package {
     public localVersion: string;
     public availableVersion: string;
     public publishedAt: Date;
+    public html_url: string;
 
     public githubOwner: string;
     public githubRepo: string;

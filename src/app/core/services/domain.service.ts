@@ -86,6 +86,7 @@ export class DomainService {
                     p.availableVersion = remote.availableVersion;
                     p.assetDownloadUrl = remote.downloadUrl;
                     p.publishedAt = remote.publishedAt;
+                    p.html_url = remote.html_url;
                 }
 
                 p.state = this.getState(p, local, remote);
