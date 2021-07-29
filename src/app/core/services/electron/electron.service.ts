@@ -35,7 +35,7 @@ export class ElectronService {
         }
     }
 
-    openWindSailorWindow() {
+    openWindSailorWindow(): void {
         const BrowserWindow = this.remote.BrowserWindow;
         const win = new BrowserWindow({
             height: 500,
