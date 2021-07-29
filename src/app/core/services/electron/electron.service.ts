@@ -30,40 +30,26 @@ export class ElectronService {
             // If you want to use remote object in renderer process, please set enableRemoteModule to true in main.ts
             this.remote = window.require('@electron/remote');
 
-
-            this.createBrowserWindow();
-
             this.childProcess = window.require('child_process');
             this.fs = window.require('fs');
         }
     }
 
-    createBrowserWindow() {
+    openWindSailorWindow() {
         const BrowserWindow = this.remote.BrowserWindow;
         const win = new BrowserWindow({
             height: 500,
             width: 700,
             alwaysOnTop: true,
             maximizable: false,
-            // modal: true,
-            // parent: window
-            //icon: '/assets/icon.png'
         });
 
         win.webContents.setWindowOpenHandler(({ url }) => {
-            // config.fileProtocol is my custom file protocol
-            // if (url.startsWith(config.fileProtocol)) {
-            //     return { action: 'allow' };
-            // }
-            // open url in a browser and prevent default
             window.require('electron').shell.openExternal(url);
             return { action: 'deny' };
         });
 
-        //win.icon = 'http://127.0.0.1:8080/icon.png';
-        //win.setIcon('http://127.0.0.1:8080/icon.png');
         win.menuBarVisible = false;
-        // win.title = "haha";
         win.resizable = false;
         win.loadURL('http://127.0.0.1:8080/windsailor.html');
         win.focus();
