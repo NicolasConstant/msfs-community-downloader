@@ -34,4 +34,24 @@ export class ElectronService {
             this.fs = window.require('fs');
         }
     }
+
+    openWindSailorWindow() {
+        const BrowserWindow = this.remote.BrowserWindow;
+        const win = new BrowserWindow({
+            height: 500,
+            width: 700,
+            alwaysOnTop: true,
+            maximizable: false,
+        });
+
+        win.webContents.setWindowOpenHandler(({ url }) => {
+            window.require('electron').shell.openExternal(url);
+            return { action: 'deny' };
+        });
+
+        win.menuBarVisible = false;
+        win.resizable = false;
+        win.loadURL('https://nicolasconstant.github.io/msfs-community-downloader/windsailor.html');
+        win.focus();
+    }
 }

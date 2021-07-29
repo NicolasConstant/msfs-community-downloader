@@ -206,8 +206,17 @@
     &__title {
         color: #b3bfcc;
     }
-    // &__date {
-    // }
+    &__date {
+        &--link {
+            color: white;
+            text-decoration: underline;
+
+            &:hover {
+                color: gray;
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 .version__github {
