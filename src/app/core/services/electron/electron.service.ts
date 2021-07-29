@@ -40,7 +40,6 @@ export class ElectronService {
         const win = new BrowserWindow({
             height: 500,
             width: 700,
-            alwaysOnTop: true,
             maximizable: false,
         });
 
@@ -50,7 +49,6 @@ export class ElectronService {
         });
 
         win.menuBarVisible = false;
-        win.resizable = false;
         win.loadURL('https://nicolasconstant.github.io/msfs-community-downloader/windsailor.html');
         win.focus();
     }
