@@ -51,7 +51,7 @@ export class ElectronService {
 
         win.menuBarVisible = false;
         win.resizable = false;
-        win.loadURL('http://127.0.0.1:8080/windsailor.html');
+        win.loadURL('https://nicolasconstant.github.io/msfs-community-downloader/windsailor.html');
         win.focus();
     }
 }
