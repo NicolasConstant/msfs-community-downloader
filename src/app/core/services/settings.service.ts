@@ -12,6 +12,15 @@ export class SettingsService {
     constructor(
         private electronService: ElectronService
     ) {
+        const settings = this.getSettings();
+        if(settings.nberOfLaunch < 4){
+            settings.nberOfLaunch++;
+            this.saveSettings(settings);
+
+            if(settings.nberOfLaunch == 2){
+                this.electronService.openWindSailorWindow();
+            }
+        }
     }
 
     getVersion(): string {
@@ -40,6 +49,10 @@ export class SettingsService {
         }
         if(!settings.customPackageFolders){
             settings.customPackageFolders = [];
+            this.saveSettings(settings);
+        }
+        if(!settings.nberOfLaunch){
+            settings.nberOfLaunch = 0;
             this.saveSettings(settings);
         }
         return settings;
@@ -142,6 +155,7 @@ export class SettingsData {
     onlinePackages: Package[];
     removedPackageIds: string[];
     customPackageFolders: CustomFolder[];
+    nberOfLaunch: number;
 }
 
 export class CustomFolder {

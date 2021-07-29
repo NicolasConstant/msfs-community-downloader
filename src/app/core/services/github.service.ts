@@ -29,7 +29,7 @@ export class GithubService {
                     downloadUrl = asset.browser_download_url;
                 }
 
-                const res = new PackageInfo(lastRelease.tag_name, downloadUrl, lastRelease.published_at);
+                const res = new PackageInfo(lastRelease.tag_name, downloadUrl, lastRelease.published_at, lastRelease.html_url);
                 return res;
             });
     }
@@ -50,7 +50,8 @@ export class PackageInfo {
     constructor(
         public availableVersion: string,
         public downloadUrl: string,
-        public publishedAt: Date) { }
+        public publishedAt: Date,
+        public html_url: string) { }
 }
 
 interface GithubRelease {
@@ -61,6 +62,7 @@ interface GithubRelease {
     assets: GithubAsset[];
     zipball_url: string;
     published_at: Date;
+    html_url: string;
 }
 
 interface GithubAsset {

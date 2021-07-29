@@ -57,13 +57,13 @@ export class DomainService {
                     .catch(err => {
                         console.error(err);
                         error = err;
-                        x.state = InstallStatusEnum.error;                      
+                        x.state = InstallStatusEnum.error;
                     });
             });
         });
         pipeline = pipeline.then(() => {
-            if(error){
-                throw(error);
+            if (error) {
+                throw (error);
             }
         });
         return pipeline;
@@ -86,6 +86,7 @@ export class DomainService {
                     p.availableVersion = remote.availableVersion;
                     p.assetDownloadUrl = remote.downloadUrl;
                     p.publishedAt = remote.publishedAt;
+                    p.html_url = remote.html_url;
                 }
 
                 p.state = this.getState(p, local, remote);
@@ -124,44 +125,52 @@ export class DomainService {
     }
 
     async processExtractedFolder(r: FileExtractedInfo): Promise<any> {
-        const extractedFolder = r.extractFolder;
-        const addinFolderPath = await this.filesystemService.findAddinFolder(extractedFolder);
+        try {
+            const extractedFolder = r.extractFolder;
+            const addinFolderPath = await this.filesystemService.findAddinFolder(extractedFolder);
 
-        if (!addinFolderPath) return;
+            if (!addinFolderPath) return;
 
-        const p = this.packages.find(x => x.id === r.packageId);
+            const p = this.packages.find(x => x.id === r.packageId);
 
-        const communityDir = this.settingsService.getSettings().communityPath;
-        const folderPath = `${communityDir}\\${p.folderName}`;
+            const communityDir = this.settingsService.getSettings().communityPath;
+            const folderPath = `${communityDir}\\${p.folderName}`;
 
-        p.state = InstallStatusEnum.installing;
-        this.app.tick();
+            p.state = InstallStatusEnum.installing;
+            this.app.tick();
 
-        // Clean up
-        await this.filesystemService.deleteFolder(folderPath);
+            // Clean up
+            await this.filesystemService.deleteFolder(folderPath);
 
-        if (p.oldFolderNames && p.oldFolderNames.length > 0) {
-            p.oldFolderNames.forEach(o => {
-                (async () => {
-                    const oldFolderPath = `${communityDir}\\${o}`;
-                    await this.filesystemService.deleteFolder(oldFolderPath);
-                })();
-            });
+            if (p.oldFolderNames && p.oldFolderNames.length > 0) {
+                p.oldFolderNames.forEach(o => {
+                    (async () => {
+                        const oldFolderPath = `${communityDir}\\${o}`;
+                        await this.filesystemService.deleteFolder(oldFolderPath);
+                    })();
+                });
+            }
+
+            this.filesystemService.copyToCommunity(p.id, addinFolderPath, p.folderName);
+        } catch (err) {
+            console.error(err);
         }
-
-        this.filesystemService.copyToCommunity(p.id, addinFolderPath, p.folderName);
     }
 
     processCopiedFolder(r: CopyFolderInfo): void {
-        const p = this.packages.find(x => x.id === r.packageId);
-        if (p.tempWorkingDir) {
-            this.filesystemService.deleteFolder(p.tempWorkingDir);
-            p.tempWorkingDir = null;
+        try {
+            const p = this.packages.find(x => x.id === r.packageId);
+            if (p.tempWorkingDir) {
+                this.filesystemService.deleteFolder(p.tempWorkingDir);
+                p.tempWorkingDir = null;
+            }
+            this.filesystemService.writeVersionFile(r.target, p.availableVersion);
+            p.localVersion = p.availableVersion;
+            p.state = InstallStatusEnum.installed;
+            this.app.tick();
+        } catch (err) {
+            console.error(err);
         }
-        this.filesystemService.writeVersionFile(r.target, p.availableVersion);
-        p.localVersion = p.availableVersion;
-        p.state = InstallStatusEnum.installed;
-        this.app.tick();
     }
 
     getPackages(): Package[] {
@@ -183,7 +192,7 @@ export class DomainService {
 
         this.packages.forEach(x => x.isSelected = false);
 
-        const settings = this.settingsService.getSettings();        
+        const settings = this.settingsService.getSettings();
         settings.customPackages.push(p);
         this.settingsService.saveSettings(settings);
 
@@ -335,11 +344,11 @@ export class DomainService {
 
     remove(p: Package): void {
         const communityDir = this.settingsService.getSettings().communityPath;
-        
+
         let folderPath = `${communityDir}\\${p.folderName}`;
 
         const customPackageFolder = this.settingsService.getCustomPackageDirectory(p.id);
-        if(customPackageFolder){
+        if (customPackageFolder) {
             folderPath = `${customPackageFolder}\\${p.folderName}`;
         }
 
