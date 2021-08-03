@@ -13,5 +13,10 @@
     "id":"Cessna-182T",
     "name":"Geoffda Cessna-182T",
     "version":"1.0.0"
+  },
+  {
+    "id":"community-vl3rotax915",
+    "name":"VL-3 Rotax 915",
+    "version":"1.0.0"
   }
 ]
