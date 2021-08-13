@@ -18,5 +18,10 @@
     "id":"community-vl3rotax915",
     "name":"VL-3 Rotax 915",
     "version":"1.0.0"
+  },
+  {
+    "id":"sheepInd-G1000-Turboprop-fix",
+    "name":"SCS G1000 Turbofix",
+    "version":"1.0.0"
   }
 ]
