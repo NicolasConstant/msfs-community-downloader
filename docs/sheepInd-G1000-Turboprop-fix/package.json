@@ -1,0 +1,13 @@
+{
+  "id":"sheepInd-G1000-Turboprop-fix",
+  "name":"SCS G1000 Turbofix",
+  "description":"SCS G1000 Turboprop fix",
+  "githubOwner":"SheepCreativeSoftware",
+  "githubRepo":"msfs2020-C208-Improvment-Mod",
+  "assetName":"sheepInd-G1000-Turboprop-fix",
+  "folderName":"sheepInd-G1000-Turboprop-fix",
+  "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/sheepInd-G1000-Turboprop-fix/illustration.jpg",
+  "summary":"This Mod fixes the Annunciation Messages on Turboprops (like the Cessna C208B) which are using a G1000 (not NXi).",
+  "webpageUrl":"https://github.com/SheepCreativeSoftware/msfs2020-C208-Improvment-Mod",
+  "minSoftwareVersion":"1.1.0"
+}
