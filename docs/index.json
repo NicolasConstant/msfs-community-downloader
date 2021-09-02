@@ -1,27 +1,32 @@
 [
-  {
-    "id":"aircraft-tbm930-improvement",
-    "name":"MixMugz TBM 930 Project",
-    "version":"1.0.0"
-  },
-  {
-    "id":"C208B-mod",
-    "name":"SCS Cessna 208B",
-    "version":"1.0.0"
-  },
-  {
-    "id":"Cessna-182T",
-    "name":"Geoffda Cessna-182T",
-    "version":"1.0.0"
-  },
-  {
-    "id":"community-vl3rotax915",
-    "name":"VL-3 Rotax 915",
-    "version":"1.0.0"
-  },
-  {
-    "id":"sheepInd-G1000-Turboprop-fix",
-    "name":"SCS G1000 Turbofix",
-    "version":"1.0.0"
-  }
+    {
+        "id": "aircraft-tbm930-improvement",
+        "name": "MixMugz TBM 930 Project",
+        "version": "1.0.0"
+    },
+    {
+        "id": "C208B-mod",
+        "name": "SCS Cessna 208B",
+        "version": "1.0.0"
+    },
+    {
+        "id": "Cessna-182T",
+        "name": "Geoffda Cessna-182T",
+        "version": "1.0.0"
+    },
+    {
+        "id": "community-vl3rotax915",
+        "name": "VL-3 Rotax 915",
+        "version": "1.0.0"
+    },
+    {
+        "id": "sheepInd-G1000-Turboprop-fix",
+        "name": "SCS G1000 Turbofix",
+        "version": "1.0.0"
+    },
+    {
+        "id": "aa-light",
+        "name": "Azgharie Airlines Light",
+        "version": "1.0.0"
+    }
 ]
