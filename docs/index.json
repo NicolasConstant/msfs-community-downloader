@@ -28,5 +28,10 @@
         "id": "aa-light",
         "name": "Azgharie Airlines Light",
         "version": "1.0.0"
+    },
+    {
+        "id": "workingtitle-g3000-roaddata",
+        "name": "WT G3000 RD",
+        "version": "1.0.0"
     }
 ]
