@@ -1,0 +1,14 @@
+{
+    "id": "workingtitle-g3000-roaddata",
+    "name": "WT G3000 RD",
+    "description": "WorkingTitle G3000 Road Data",
+    "githubOwner": "Working-Title-MSFS-Mods",
+    "githubRepo": "fspackages",
+    "assetName": "workingtitle-g3000-roaddata-v",
+    "versionPatternToRemove": "g3000-",
+    "folderName": "workingtitle-g3000-roaddata",
+    "illustration": "assets/illustrations/g3000.jpg",
+    "summary": "Road data to enable road display for the WT G3000 navigation map.",
+    "webpageUrl": "https://www.workingtitle.aero/",
+    "minSoftwareVersion": "1.1.0"
+}

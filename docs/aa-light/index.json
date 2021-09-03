@@ -1,0 +1,12 @@
+{
+    "id": "AA",
+    "name": "AA Light",
+    "description": "Light liveries of Azgharie Airline",
+    "githubOwner": "dites33",
+    "githubRepo": "AA-LIGHT",
+    "folderName": "aa-light",
+    "illustration": "assets/illustrations/aa.jpg",
+    "summary": "Light liveries of Azgharie Airline, same as Azgharie Airlines package but without vehicules and humans mods.<br/>(don't use it with Azgharie Airline)",
+    "webpageUrl": "https://www.azgharie.net",
+    "minSoftwareVersion": "1.1.0"
+}
