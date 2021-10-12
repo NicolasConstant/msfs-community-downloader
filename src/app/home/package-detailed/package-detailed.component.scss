@@ -306,6 +306,9 @@
     }
 
     &--update {
+        position: relative;
+        top: -20px;
+
         background-color: rgb(255, 195, 85);
         background-image: linear-gradient(to right, #fdad00, #ee5f00);
         background-image: linear-gradient(to right, #fdad00, #ee5f00);
@@ -313,6 +316,22 @@
         &:hover {
             background-color: rgb(158, 227, 240);
             background-image: linear-gradient(to right, #ffbb29, #eb7527);
+        }
+
+        &--remove {
+            position: relative;
+            top: 20px;
+            right: 75px;
+
+            width: 50px;
+
+            // float: left; 
+
+            color: rgba(245, 245, 245, 0.5);
+
+            &:hover {
+                color: rgb(255, 94, 94);                
+            }
         }
     }
 
