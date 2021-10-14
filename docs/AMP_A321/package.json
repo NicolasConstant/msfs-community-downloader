@@ -1,0 +1,13 @@
+{
+    "id": "AMP_A321",
+    "name": "PMP A321-200",
+    "description": "Project Mega Pack A321-200",
+    "githubOwner": "Project-Mega-Pack",
+    "githubRepo": "amp-aircraft-a321",
+    "assetName": "",
+    "folderName": "AMP_A321",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/AMP_A321/illustration.jpg",
+    "summary": "A321-200 made by Project Mega Pack",
+    "webpageUrl": "https://www.projectmegapack.com/",
+    "minSoftwareVersion": "1.2.0"
+}

@@ -33,5 +33,15 @@
         "id": "workingtitle-g3000-roaddata",
         "name": "WT G3000 RD",
         "version": "1.0.0"
+    },
+    {
+        "id": "AMP_A321",
+        "name": "PMP A321-200",
+        "version": "1.0.0"
+    },
+    {
+        "id": "PMP_A330_300",
+        "name": "PMP A330-300",
+        "version": "1.0.0"
     }
 ]
