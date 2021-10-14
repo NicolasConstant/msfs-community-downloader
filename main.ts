@@ -2,7 +2,8 @@ import { app, BrowserWindow, ipcMain, shell } from 'electron'; //screen
 import * as path from 'path';
 import * as url from 'url';
 import { download } from 'electron-dl';
-import * as AdmZip from 'adm-zip';
+import * as StreamZip from 'node-stream-zip';
+
 import * as fse from 'fs-extra';
 
 // Initialize remote module
@@ -96,14 +97,10 @@ try {
         ipcMain.on('extract-item', (event, info) => {
             (async () => {
                 try {
-                    const pro = new Promise((resolve, reject) => {
-                        const zip = new AdmZip(info.filePath);
-                        zip.extractAllToAsync(info.extractFolder, true, (err) => {
-                            if (err) reject();
-                            resolve();
-                        });
-                    });
-                    await pro;
+                    const zip = new StreamZip.async({ file: info.filePath });
+                    await zip.extract(null, info.extractFolder);
+                    await zip.close();
+
                     event.sender.send('extract-success', info);
                 } catch (err) {
                     event.sender.send('log-error', err);
