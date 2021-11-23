@@ -24,19 +24,19 @@ export class PackagesService {
         wtcj4.summary = "OPEN BETA<br/>Performance and avionics improvements for the Citation CJ4";
         wtcj4.webpageUrl = "https://www.workingtitle.aero/packages/cj4/";       
 
-        const wtg1000 = new Package();
-        wtg1000.id = "wt-g1000";
-        wtg1000.name = "WT G1000";
-        wtg1000.description = "Working Title G1000";
-        wtg1000.githubOwner = "Working-Title-MSFS-Mods";
-        wtg1000.githubRepo = "fspackages";
-        wtg1000.illustration = "assets/illustrations/g1000.jpg";
-        wtg1000.folderName = "workingtitle-g1000";
-        wtg1000.assetName = "workingtitle-g1000-v";
-        wtg1000.versionPatternToRemove = "g1000-";
-        wtg1000.state = InstallStatusEnum.unknown;
-        wtg1000.summary = "Fixes and enhancements for the stock G1000 avionics package";
-        wtg1000.webpageUrl = "https://www.workingtitle.aero/packages/g1000/";
+        // const wtg1000 = new Package();
+        // wtg1000.id = "wt-g1000";
+        // wtg1000.name = "WT G1000";
+        // wtg1000.description = "Working Title G1000";
+        // wtg1000.githubOwner = "Working-Title-MSFS-Mods";
+        // wtg1000.githubRepo = "fspackages";
+        // wtg1000.illustration = "assets/illustrations/g1000.jpg";
+        // wtg1000.folderName = "workingtitle-g1000";
+        // wtg1000.assetName = "workingtitle-g1000-v";
+        // wtg1000.versionPatternToRemove = "g1000-";
+        // wtg1000.state = InstallStatusEnum.unknown;
+        // wtg1000.summary = "Fixes and enhancements for the stock G1000 avionics package";
+        // wtg1000.webpageUrl = "https://www.workingtitle.aero/packages/g1000/";
 
         const wtg3000 = new Package();
         wtg3000.id = "wt-g3000";
@@ -153,7 +153,7 @@ export class PackagesService {
         pms50gns530.state = InstallStatusEnum.unknown; 
         pms50gns530.summary = "This package is an enhancement of the built-in GNS530 GPS. The goal is to offer an instrument that comes as close as possible to the original.";
         
-        const packages = [wtcj4, wtg1000, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152, pms50gns530];
+        const packages = [wtcj4, wtg3000, wtg3x, a32nx, b787xe, salty747, aa, tfg36p, jplc152, pms50gns530];
         
         const customPackages = this.settingsService.getSettings().customPackages;
         for (const p of customPackages) {
