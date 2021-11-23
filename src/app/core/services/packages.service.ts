@@ -65,7 +65,7 @@ export class PackagesService {
         wtg3x.state = InstallStatusEnum.unknown;
         wtg3x.summary = "This is an early release of what is intended to eventually be the reworking of several of the smaller Garmin units in the game.<br/><br/>At the moment the only thing that has been updated is the G3X Touch, but future modifications to the non-touch G3X, and to the touch-based Aera which uses much of the same code, are possible.";
         wtg3x.webpageUrl = "https://www.workingtitle.aero/packages/g3x/";
-        wtg3x.isPrerelease = true;
+        // wtg3x.isPrerelease = true;
 
         const a32nx = new Package();
         a32nx.id = "a32nx";
