@@ -38,5 +38,10 @@
         "id": "PMP_A330_300",
         "name": "PMP A330-300",
         "version": "1.0.0"
+    },
+    {
+        "id": "ui-widget-for-vfrmap",
+        "name": "Widget for VFRMap",
+        "version": "1.1.1"
     }
 ]
