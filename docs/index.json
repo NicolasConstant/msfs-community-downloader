@@ -1,17 +1,57 @@
 [
-  {
-    "id":"aircraft-tbm930-improvement",
-    "name":"MixMugz TBM 930 Project",
-    "version":"1.0.0"
-  },
-  {
-    "id":"C208B-mod",
-    "name":"SCS Cessna 208B",
-    "version":"1.0.0"
-  },
-  {
-    "id":"Cessna-182T",
-    "name":"Geoffda Cessna-182T",
-    "version":"1.0.0"
-  }
+    {
+        "id": "aircraft-tbm930-improvement",
+        "name": "MixMugz TBM 930 Project",
+        "version": "1.1.0"
+    },
+    {
+        "id": "C208B-mod",
+        "name": "SCS Cessna 208B",
+        "version": "1.0.0"
+    },
+    {
+        "id": "Cessna-182T",
+        "name": "Geoffda Cessna-182T",
+        "version": "1.0.0"
+    },
+    {
+        "id": "community-vl3rotax915",
+        "name": "VL-3 Rotax 915",
+        "version": "1.0.0"
+    },
+    {
+        "id": "workingtitle-g3000-roaddata",
+        "name": "WT G3000 RD",
+        "version": "1.0.0"
+    },
+    {
+        "id": "AMP_A321",
+        "name": "PMP A321-200",
+        "version": "1.0.0"
+    },
+    {
+        "id": "PMP_A330_300",
+        "name": "PMP A330-300",
+        "version": "1.0.0"
+    },
+    {
+        "id": "ui-widget-for-vfrmap",
+        "name": "Widget for VFRMap",
+        "version": "1.0.0"
+    },
+    {
+        "id": "azgharie-airport-azga-supreme-leader-airport",
+        "name": "AZGA",
+        "version": "1.0.0"
+    },
+    {
+        "id": "azgharie-airport-azga-supreme-leader-airport-navigation",
+        "name": "AZGA",
+        "version": "1.0.0"
+    },
+    {
+        "id": "Azgharie-Vehicules",
+        "name": "Azgharie-Vehicules",
+        "version": "1.0.0"
+    }
 ]

@@ -1,0 +1,12 @@
+{
+    "id": "community-vl3rotax915",
+    "name": "VL-3 Rotax 915",
+    "description": "Upgraded VL-3 with Rotax 915",
+    "githubOwner": "r9r-dev",
+    "githubRepo": "fs2020-vl3-rotax915",
+    "assetName": "community-vl3rotax915",
+    "folderName": "community-vl3rotax915",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/community-vl3rotax915/illustration.jpg",
+    "summary": "This project is a realism and conversion mod turning the stock VL-3 912 into the versatile JMB Aircraft VL-3 915 top-of-the-line edition. This sporty composite plane is the fastest Ultra Light side-by-side in the world, able to sustain 370kph / 200kts cruise speeds at FL180 yet requiring only 180m / 590ft of runway.<br/><br/>She's a sports car with wings, and yours to fly!",
+    "minSoftwareVersion": "0.7.0"
+}

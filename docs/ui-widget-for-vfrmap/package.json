@@ -1,0 +1,12 @@
+{
+    "id": "ui-widget-for-vfrmap",
+    "name": "Widget for VFRMap",
+    "description": "Toolbar widget for VFRMap",
+    "githubOwner": "joelcancela",
+    "githubRepo": "MFS2020_VFRMap_UI_Widget",
+    "assetName": "ui-widget-for-vfrmap",
+    "folderName": "ui-widget-for-vfrmap",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/ui-widget-for-vfrmap/illustration.jpg",
+    "summary": "Toolbar widget for VFRMap - requires VFRMap",
+    "minSoftwareVersion": "1.2.1"
+}

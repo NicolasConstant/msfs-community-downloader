@@ -1,0 +1,12 @@
+{
+    "id": "PMP_A330_300",
+    "name": "PMP A330-300",
+    "description": "Project Mega Pack A330-300",
+    "githubOwner": "Project-Mega-Pack",
+    "githubRepo": "amp-aircraft-a330-300",
+    "folderName": "PMP_A330_300",
+    "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/PMP_A330_300/illustration.jpg",
+    "summary": "A330-300 made by Project Mega Pack",
+    "webpageUrl": "https://www.projectmegapack.com/",
+    "minSoftwareVersion": "1.2.0"
+}
