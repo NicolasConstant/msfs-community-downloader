@@ -20,11 +20,6 @@
         "version": "1.0.0"
     },
     {
-        "id": "aa-light",
-        "name": "AA Light",
-        "version": "1.0.0"
-    },
-    {
         "id": "workingtitle-g3000-roaddata",
         "name": "WT G3000 RD",
         "version": "1.0.0"
@@ -42,6 +37,21 @@
     {
         "id": "ui-widget-for-vfrmap",
         "name": "Widget for VFRMap",
+        "version": "1.0.0"
+    },
+    {
+        "id": "azgharie-airport-azga-supreme-leader-airport",
+        "name": "AZGA",
+        "version": "1.0.0"
+    },
+    {
+        "id": "azgharie-airport-azga-supreme-leader-airport-navigation",
+        "name": "AZGA",
+        "version": "1.0.0"
+    },
+    {
+        "id": "Azgharie-Vehicules",
+        "name": "Azgharie-Vehicules",
         "version": "1.0.0"
     }
 ]
