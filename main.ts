@@ -97,7 +97,7 @@ try {
         ipcMain.on('extract-item', (event, info) => {
             (async () => {
                 try {
-                    const zip = new StreamZip.async({ file: info.filePath });
+                    const zip = new StreamZip.async({ file: info.filePath, skipEntryNameValidation: true });
                     await zip.extract(null, info.extractFolder);
                     await zip.close();
 
