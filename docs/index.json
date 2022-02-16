@@ -53,5 +53,10 @@
         "id": "Azgharie-Vehicules",
         "name": "Azgharie-Vehicules",
         "version": "1.0.0"
+    }, 
+    {
+        "id": "bonanza-g36-improvement-project",
+        "name": "G36 B Improvement Project",
+        "version": "1.0.0"
     }
 ]
