@@ -1,0 +1,14 @@
+{
+    "id": "bonanza-g36-improvement-project",
+    "name": "G36 BIP",
+    "description": "G36 Bonanza Improvement Project",
+    "githubOwner": "50North4West",
+    "githubRepo": "MSFS-G36-Improvement-Mod",
+    "folderName": "bonanza-g36-improvement-project",
+    "summary": "This is the improvement project for the MSFS default G36. It all started as a simple edit of some configuration files but it has since grown into a fully-fledged modification that improves all aspects of the default G36 and introduces new features.<br/>This was made possible with the help of the community consisting of both enthusiasts and G36 pilots.",
+    "illustration": "assets/illustrations/tfg36.jpg",
+    "minSoftwareVersion": "1.2.2",
+    "oldFolderNames": [
+        "z-bonanza-g36-improvement-project"
+    ]
+}
