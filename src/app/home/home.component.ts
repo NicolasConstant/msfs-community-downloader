@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ApplicationRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { faSyncAlt, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import { Subscription } from 'rxjs';
 
 import { Package } from '../core/services/packages.service';
 import { DomainService } from '../core/services/domain.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { SettingsService } from '../core/services/settings.service';
+
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
     faSyncAlt = faSyncAlt;
     faPlusSquare = faPlusSquare;
     faTasks = faTasks;
@@ -22,10 +24,21 @@ export class HomeComponent implements OnInit {
     selectedPackage: Package;
     isGithubRateLimited: boolean;
 
+    hasError: boolean;
+    errorMessage: string;
+
+    private errorSub: Subscription;
+
     constructor(
+        private app: ApplicationRef,
         private settingsService: SettingsService,
         private router: Router,
-        private domainService: DomainService) { }
+        private domainService: DomainService) { 
+
+            this.errorSub = this.domainService.errorSubject.subscribe(err => {
+                this.displayError(err);
+            });
+        }
 
     ngOnInit(): void {
         this.packages = this.domainService.getPackages();
@@ -52,6 +65,10 @@ export class HomeComponent implements OnInit {
                     this.analyseHttpError(err);
                 });
         }
+    } 
+    
+    ngOnDestroy(): void {
+        if(this.errorSub) this.errorSub.unsubscribe();
     }
 
     selectPackage(p: Package): boolean {
@@ -89,5 +106,19 @@ export class HomeComponent implements OnInit {
         if (this.isGithubRateLimited) {
             console.warn(`API rate limit exceeded`);
         }
+    }
+
+    displayError(err: string) {
+        if(err) {
+            this.hasError = true;
+            this.errorMessage = err;
+            this.app.tick();
+
+            setTimeout(() => { 
+                this.hasError = false;
+                this.errorMessage = null;
+                this.app.tick();
+            }, 10*1000);
+        }        
     }
 }

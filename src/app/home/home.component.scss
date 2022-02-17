@@ -163,6 +163,21 @@
     }
 }
 
+.error-message {
+    z-index: 9999;
+    position: absolute;
+    top: 20px;
+    right: 200px;
+    width: 470px;
+    padding: 10px 20px;
+
+    background-color: rgb(141, 14, 14);
+    color: white;
+
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
 .package-not-found {
     color: #838fa3;
     display: block;

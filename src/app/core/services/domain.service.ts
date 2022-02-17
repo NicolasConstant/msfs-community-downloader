@@ -1,5 +1,5 @@
 import { Injectable, ApplicationRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 import { FilesystemService, LocalState, CopyFolderInfo } from './filesystem.service';
 import { GithubService, PackageInfo } from './github.service';
@@ -19,6 +19,8 @@ export class DomainService {
     private downloadUpdateSub: Subscription;
     private extractSub: Subscription;
     private copySub: Subscription;
+
+    public errorSubject = new Subject<string>();
 
     constructor(
         private app: ApplicationRef,
@@ -59,7 +61,13 @@ export class DomainService {
                 this.processPackageError(info);
 
                 console.error('Node error');
-                console.error(arg);
+                console.error(error);
+
+                if(error.message){
+                    this.errorSubject.next(error.message);
+                } else {
+                    this.errorSubject.next(error);
+                }
             }
         });
     }   
