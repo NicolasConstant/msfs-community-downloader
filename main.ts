@@ -98,7 +98,6 @@ try {
             (async () => {
                 try {
                     const zip = new StreamZip.async({ file: info.filePath, skipEntryNameValidation: true });
-                    //const zip = new StreamZip.async({ file: info.filePath });
                     await zip.extract(null, info.extractFolder);
                     await zip.close();
 
