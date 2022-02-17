@@ -305,6 +305,19 @@
         }
     }
 
+    &--error {
+        //border: 1px solid rgba(245, 245, 245, 0);
+        border: 0px;
+        background-image: linear-gradient(to right, #f52e2e, #9e0505);
+        color: white;
+
+        &:hover {
+            border: 0px;
+            background-image: linear-gradient(to right, #ff0101, #740101);
+            color: white;
+        }
+    }
+
     &--update {
         position: relative;
         top: -20px;

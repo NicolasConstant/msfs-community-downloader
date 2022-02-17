@@ -64,6 +64,14 @@ export class PackageDetailedComponent implements OnInit {
         }
     }
 
+    resetError(): boolean {
+        const p = this.package;
+        if(p.state === InstallStatusEnum.error) {
+            this.domainService.resetPackage(p.id);
+        }
+        return false;
+    }
+
     cleanUpVersion(version: string): string {
         if(!version && this.package.state === InstallStatusEnum.untrackedPackageFound) return "Unknown";
 

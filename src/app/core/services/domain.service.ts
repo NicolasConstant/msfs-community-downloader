@@ -1,21 +1,26 @@
 import { Injectable, ApplicationRef } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+
 import { FilesystemService, LocalState, CopyFolderInfo } from './filesystem.service';
 import { GithubService, PackageInfo } from './github.service';
 import { Package, InstallStatusEnum, PackagesService } from './packages.service';
-import { DownloaderService, FileDownloadInfo, FileDownloadUpdate } from './downloader.service';
-import { Subscription } from 'rxjs';
-import { ExtractorService, FileExtractedInfo } from './extractor.service';
+import { DownloaderService } from './downloader.service';
+import { ExtractorService } from './extractor.service';
 import { SettingsService } from './settings.service';
+import { FileDownloadInfo, FileDownloadUpdate, FileExtractedInfo, FilePackageInfo } from '../models';
+import { ElectronService } from './electron/electron.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DomainService {
+export class DomainService {   
     private packages: Package[];
     private downloadSub: Subscription;
     private downloadUpdateSub: Subscription;
     private extractSub: Subscription;
     private copySub: Subscription;
+
+    public errorSubject = new Subject<string>();
 
     constructor(
         private app: ApplicationRef,
@@ -24,7 +29,8 @@ export class DomainService {
         private githubService: GithubService,
         private downloaderService: DownloaderService,
         private extractorService: ExtractorService,
-        private settingsService: SettingsService
+        private settingsService: SettingsService,
+        private electronService: ElectronService
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
             if (r) {
@@ -46,7 +52,25 @@ export class DomainService {
                 this.processCopiedFolder(r);
             }
         });
-    }
+
+        this.electronService.ipcRenderer.on('log-error', (event, arg) => {
+            if (arg) {
+                const error = arg.error;
+                const info: FilePackageInfo = arg.info;
+
+                this.processPackageError(info);
+
+                console.error('Node error');
+                console.error(error);
+
+                if(error.message){
+                    this.errorSubject.next(error.message);
+                } else {
+                    this.errorSubject.next(error);
+                }
+            }
+        });
+    }   
 
     analysePackages(packages: Package[]): Promise<any> {
         let error: any = null;
@@ -88,12 +112,13 @@ export class DomainService {
                     p.publishedAt = remote.publishedAt;
                     p.html_url = remote.html_url;
                 }
-
+                
                 p.state = this.getState(p, local, remote);
             });
     }
 
-    private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
+    private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {        
+        if (p.state === InstallStatusEnum.error) return InstallStatusEnum.error;
         if (p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
         if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
@@ -105,7 +130,6 @@ export class DomainService {
             if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
         }
 
-        if (p.state === InstallStatusEnum.error) return InstallStatusEnum.error;
         return InstallStatusEnum.unknown;
     }
 
@@ -116,6 +140,13 @@ export class DomainService {
         this.app.tick();
 
         this.extractorService.extract(downloadedPackage.id, r.filePath);
+    }
+
+    processPackageError(r: FilePackageInfo) {
+        const errorPackage = this.packages.find(x => x.id === r.packageId);
+        errorPackage.state = InstallStatusEnum.error;
+        errorPackage.downloaded = null;
+        this.app.tick();
     }
 
     processDownloadedUpdate(r: FileDownloadUpdate): void {
@@ -340,6 +371,18 @@ export class DomainService {
 
     update(p: Package): void {
         this.install(p);
+    }
+
+    resetPackage(packageId: string): void {
+        const p = this.packages.find(x => x.id === packageId);
+        p.state = InstallStatusEnum.unknown;
+        this.analysePackage(p)
+            .catch(err => {
+                console.error(err);
+            })
+            .then(_ => {
+                this.app.tick();
+            });            
     }
 
     remove(p: Package): void {

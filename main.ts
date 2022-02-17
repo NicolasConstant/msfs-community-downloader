@@ -89,7 +89,7 @@ try {
                     await download(win, info.url, info.properties)
                         .then(dl => event.sender.send('download-success', dl.getSavePath()));
                 } catch (err) {
-                    event.sender.send('log-error', err);
+                    event.sender.send('log-error', { info: info, error: err});
                 }
             })();
         });
@@ -103,7 +103,7 @@ try {
 
                     event.sender.send('extract-success', info);
                 } catch (err) {
-                    event.sender.send('log-error', err);
+                    event.sender.send('log-error', { info: info, error: err});
                 }
             })();
         });
@@ -120,7 +120,7 @@ try {
                     await pro;
                     event.sender.send('copy-folder-success', info);
                 } catch (err) {
-                    event.sender.send('log-error', err);
+                    event.sender.send('log-error', { info: info, error: err});
                 }
             })();
         });

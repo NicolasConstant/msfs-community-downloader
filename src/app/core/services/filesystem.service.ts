@@ -19,14 +19,7 @@ export class FilesystemService {
             if (arg) {
                 this.folderCopied.next(arg);
             }
-        });
-
-        this.electronService.ipcRenderer.on('log-error', (event, arg) => {
-            if (arg) {
-                console.error('Node error');
-                console.error(arg);
-            }
-        });
+        });      
 
         this.checkCleanUpCommunity();
     }
