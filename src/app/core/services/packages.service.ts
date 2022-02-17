@@ -209,6 +209,16 @@ export class Package {
     public onlineVersion: string;    
 
     public minSoftwareVersion: string;
+
+    public releaseType: ReleaseTypeEnum;
+    public branchName: string;
+    public releaseBranchTag: string;
+}
+
+export enum ReleaseTypeEnum {
+    release = 0,
+    branch = 1,
+    releaseFromBranch = 2
 }
 
 export enum InstallStatusEnum {
