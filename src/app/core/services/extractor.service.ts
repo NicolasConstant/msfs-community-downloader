@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+
+import { FileExtractedInfo } from '../models';
 import { ElectronService } from './electron/electron.service';
 
 @Injectable({
@@ -28,10 +30,4 @@ export class ExtractorService {
 
         this.electronService.ipcRenderer.send('extract-item', info);
     }
-}
-
-export class FileExtractedInfo {
-    packageId: string;
-    filePath: string;
-    extractFolder: string;
 }

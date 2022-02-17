@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ElectronService } from './electron/electron.service';
 import { BehaviorSubject, Subject } from 'rxjs';
+
+import { FileDownloadInfo, FileDownloadUpdate } from '../models';
+import { ElectronService } from './electron/electron.service';
 
 @Injectable({
     providedIn: 'root'
@@ -42,16 +44,4 @@ export class DownloaderService {
         this.downloadCache[path] = info;
         this.electronService.ipcRenderer.send('download-item', info);
     }
-}
-
-export class FileDownloadInfo {
-    packageId: string;
-    url: string;
-    properties: any;
-    filePath: string;
-}
-
-export class FileDownloadUpdate {
-    packageId: string;
-    downloadedData: number;
 }

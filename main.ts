@@ -89,7 +89,7 @@ try {
                     await download(win, info.url, info.properties)
                         .then(dl => event.sender.send('download-success', dl.getSavePath()));
                 } catch (err) {
-                    event.sender.send('log-error', err);
+                    event.sender.send('log-error', { info: info, error: err});
                 }
             })();
         });
@@ -98,12 +98,13 @@ try {
             (async () => {
                 try {
                     const zip = new StreamZip.async({ file: info.filePath, skipEntryNameValidation: true });
+                    //const zip = new StreamZip.async({ file: info.filePath });
                     await zip.extract(null, info.extractFolder);
                     await zip.close();
 
                     event.sender.send('extract-success', info);
                 } catch (err) {
-                    event.sender.send('log-error', err);
+                    event.sender.send('log-error', { info: info, error: err});
                 }
             })();
         });
@@ -120,7 +121,7 @@ try {
                     await pro;
                     event.sender.send('copy-folder-success', info);
                 } catch (err) {
-                    event.sender.send('log-error', err);
+                    event.sender.send('log-error', { info: info, error: err});
                 }
             })();
         });
