@@ -52,17 +52,17 @@
                 <span class="entry__radio"><input type="radio" id="ReleaseFromBranch" value="Release from Branch" name="releaseType" [checked]="package.releaseType === 2" (change)="onReleaseTypeChange(2)"> <label for="ReleaseFromBranch"> Release from Branch</label></span>
                 <p class="entry__description">Select "Release" if the package is released as a Github Release with a unique tag version each time.<br/>Select "Branch" if the package is release at each commit in the branch and is released as a zip of the said branch.<br/>Select "Release from Branch" if a Github Release is generated from a branch but with a unique tag version.</p>
             </div>
-            <div class="entry">
+            <div class="entry" *ngIf="package.releaseType === 1 || package.releaseType === 2">
                 <label class="entry__label">Branch name</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.branchName" />
                 <p class="entry__description">The name of the branch.</p>
             </div>
-            <div class="entry">
+            <div class="entry" *ngIf="package.releaseType === 2">
                 <label class="entry__label">Release Branch Tag</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.releaseBranchTag" />
                 <p class="entry__description">The name of the tag used in the unique Github Release.</p>
             </div>
-            <div class="entry">
+            <div class="entry" *ngIf="package.releaseType === 0 || package.releaseType === 2">
                 <label class="entry__label">Zip package name</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.assetName" />
                 <p class="entry__description">The name of the zip file of the package.<br />If it changes every version,
@@ -70,7 +70,7 @@
                     "my-package-v0.5.0.zip" enter "my-package-v" in this field.<br />If the package isn't released via a
                     zip, leave empty.</p>
             </div>
-            <div class="entry">
+            <div class="entry" *ngIf="package.releaseType === 0 || package.releaseType === 2">
                 <label class="entry__label">Is Prerelease</label>
                 <input type="checkbox" id="prerelease" name="prerelease" value="prerelease"
                     [(ngModel)]="package.isPrerelease">
@@ -88,7 +88,7 @@
                     enter
                     the URL here.</p>
             </div>
-            <div class="entry">
+            <div class="entry" *ngIf="package.releaseType === 0 || package.releaseType === 2">
                 <label class="entry__label">Version Clean-up</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.versionPatternToRemove" />
                 <p class="entry__description">Optional.<br />If the version is messed up, you can clean-up for display
