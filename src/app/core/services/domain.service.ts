@@ -305,6 +305,9 @@ export class DomainService {
         toUpdate.illustration = p.illustration;
         toUpdate.webpageUrl = p.webpageUrl;
         toUpdate.versionPatternToRemove = p.versionPatternToRemove;
+        toUpdate.releaseType = p.releaseType;
+        toUpdate.branchName = p.branchName;
+        toUpdate.releaseBranchTag = p.releaseBranchTag;
 
         this.settingsService.saveSettings(settings);
 
@@ -322,6 +325,9 @@ export class DomainService {
         localToUpdate.illustration = p.illustration;
         localToUpdate.webpageUrl = p.webpageUrl;
         localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
+        localToUpdate.releaseType = p.releaseType;
+        localToUpdate.branchName = p.branchName;
+        localToUpdate.releaseBranchTag = p.releaseBranchTag;
     }
 
     updateOnlinePackage(p: Package): void {
@@ -343,6 +349,9 @@ export class DomainService {
         toUpdate.webpageUrl = p.webpageUrl;
         toUpdate.versionPatternToRemove = p.versionPatternToRemove;
         toUpdate.onlineVersion = p.onlineVersion;
+        toUpdate.releaseType = p.releaseType;
+        toUpdate.branchName = p.branchName;
+        toUpdate.releaseBranchTag = p.releaseBranchTag;
 
         this.settingsService.saveSettings(settings);
 
@@ -361,6 +370,9 @@ export class DomainService {
         localToUpdate.webpageUrl = p.webpageUrl;
         localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
         localToUpdate.onlineVersion = p.onlineVersion;
+        localToUpdate.releaseType = p.releaseType;
+        localToUpdate.branchName = p.branchName;
+        localToUpdate.releaseBranchTag = p.releaseBranchTag;
     }
 
     removeCustomPackage(p: Package): void {

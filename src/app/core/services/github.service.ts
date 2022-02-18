@@ -35,7 +35,7 @@ export class GithubService {
                     .find(x => this.isCandidate(x, p));
 
                 if(!lastRelease) return null;
-
+                
                 return this.buildPackageInfo(lastRelease, p);
             });
     }
