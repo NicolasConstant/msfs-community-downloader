@@ -213,6 +213,7 @@ export class Package {
     public releaseType: ReleaseTypeEnum = ReleaseTypeEnum.release;
     public branchName: string;
     public releaseBranchTag: string;
+    // public lastCommitHashVersion: string;
 }
 
 export enum ReleaseTypeEnum {
