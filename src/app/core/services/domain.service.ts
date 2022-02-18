@@ -139,11 +139,11 @@ export class DomainService {
                 }
                 // }
 
-                p.state = this.getState(p, local, remote);
+                p.state = this.getState(p, local);
             });
     }
 
-    private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
+    private getState(p: Package, local: LocalState): InstallStatusEnum {
         if (p.state === InstallStatusEnum.error) return InstallStatusEnum.error;
         if (p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
@@ -151,9 +151,9 @@ export class DomainService {
 
         if (local && local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
         if (local && !local.folderFound) return InstallStatusEnum.notFound;
-        if (local && local.version && info && info.availableVersion) {
-            if (local.version === info.availableVersion) return InstallStatusEnum.installed;
-            if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
+        if (local && local.version && p && p.availableVersion) {
+            if (local.version === p.availableVersion) return InstallStatusEnum.installed;
+            if (local.version !== p.availableVersion) return InstallStatusEnum.updateAvailable;
         }
 
         return InstallStatusEnum.unknown;

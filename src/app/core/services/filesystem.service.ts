@@ -161,7 +161,7 @@ export class FilesystemService {
             try {
                 const path = `${targetDir}\\msfs-downloader-updater.json`;
                 this.electronService.fs.writeFileSync(path, version, 'utf-8');
-                resolve();
+                resolve(null);
             } catch (error) {
                 reject(error);
             }
