@@ -210,7 +210,7 @@ export class Package {
 
     public minSoftwareVersion: string;
 
-    public releaseType: ReleaseTypeEnum;
+    public releaseType: ReleaseTypeEnum = ReleaseTypeEnum.release;
     public branchName: string;
     public releaseBranchTag: string;
 }

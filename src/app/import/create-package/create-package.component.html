@@ -46,10 +46,10 @@
             </div>
             <div class="entry">
                 <label class="entry__label">Release Type</label>
-                <input type="radio" id="Release" value="Release" name="releaseType" checked> <label for="Release">
+                <input type="radio" id="Release" value="Release" name="releaseType" [checked]="package.releaseType === 0" (change)="onReleaseTypeChange(0)"> <label for="Release">
                     Release</label><br />
-                <span class="entry__radio"><input type="radio" id="Branch" value="Branch" name="releaseType"> <label for="Branch"> Branch</label></span> 
-                <span class="entry__radio"><input type="radio" id="ReleaseFromBranch" value="Release from Branch" name="releaseType"> <label for="ReleaseFromBranch"> Release from Branch</label></span>
+                <span class="entry__radio"><input type="radio" id="Branch" value="Branch" name="releaseType" [checked]="package.releaseType === 1" (change)="onReleaseTypeChange(1)"> <label for="Branch"> Branch</label></span> 
+                <span class="entry__radio"><input type="radio" id="ReleaseFromBranch" value="Release from Branch" name="releaseType" [checked]="package.releaseType === 2" (change)="onReleaseTypeChange(2)"> <label for="ReleaseFromBranch"> Release from Branch</label></span>
                 <p class="entry__description">Select "Release" if the package is released as a Github Release with a unique tag version each time.<br/>Select "Branch" if the package is release at each commit in the branch and is released as a zip of the said branch.<br/>Select "Release from Branch" if a Github Release is generated from a branch but with a unique tag version.</p>
             </div>
             <div class="entry">
