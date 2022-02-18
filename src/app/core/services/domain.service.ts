@@ -134,6 +134,7 @@ export class DomainService {
                 if (p.releaseType === ReleaseTypeEnum.release || p.releaseType === ReleaseTypeEnum.releaseFromBranch) {
                     p.publishedAt = remote.publishedAt;
                     p.html_url = remote.html_url;
+                    p.fileSize = remote.fileSize;
                 } else if (p.releaseType === ReleaseTypeEnum.branch) {
                     p.publishedAt = branch.publishedAt;
                 }

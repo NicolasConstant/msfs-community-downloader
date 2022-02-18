@@ -52,6 +52,11 @@
                 <span class="release-date__date" *ngIf="!package.html_url">{{ package.publishedAt | date:'yyyy/MM/dd' }}</span>
             </div>
 
+            <div class="file-size" *ngIf="package.fileSize">
+                <span class="file-size__title">Size</span><br/>
+                <span class="file-size__date">{{ getSize(package.fileSize) }}</span>
+            </div>
+
             <a href="https://github.com/{{package.githubOwner}}/{{package.githubRepo}}" target="_blank" class="version__github">
                 <fa-icon class="version__github--icon" [icon]="faGithub"></fa-icon>
             </a>

@@ -57,12 +57,14 @@ export class GithubService {
 
         let publishedAt = lastRelease.published_at;
         let downloadUrl = lastRelease.zipball_url;
+        let fileSize: number = null;
         if (asset) {
             publishedAt = asset.updated_at;
             downloadUrl = asset.browser_download_url;
+            fileSize = asset.size;
         }
 
-        const res = new PackageInfo(lastRelease.tag_name, downloadUrl, publishedAt, lastRelease.html_url);
+        const res = new PackageInfo(lastRelease.tag_name, downloadUrl, publishedAt, lastRelease.html_url, fileSize);
         return res;
     }
 
@@ -114,7 +116,8 @@ export class PackageInfo {
         public availableVersion: string,
         public downloadUrl: string,
         public publishedAt: Date,
-        public html_url: string) { }
+        public html_url: string,
+        public fileSize: number) { }
 }
 
 interface GithubRelease {
