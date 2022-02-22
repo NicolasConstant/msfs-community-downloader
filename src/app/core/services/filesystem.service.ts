@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Package } from './packages.service';
+import { Package, ReleaseTypeEnum } from './packages.service';
 import { SettingsService } from './settings.service';
 import { ElectronService } from './electron/electron.service';
 import { BehaviorSubject } from 'rxjs';
@@ -47,7 +47,7 @@ export class FilesystemService {
         const promise = new Promise<LocalState>((resolve, reject) => {
             try {
                 const communityPath = this.settingsService.getSettings().communityPath;
-                if (!communityPath) return resolve(new LocalState(false, false, null));
+                if (!communityPath) return resolve(new LocalState(false, false, null, null));
 
                 let path = `${communityPath}\\${p.folderName}`;
 
@@ -62,13 +62,21 @@ export class FilesystemService {
                 const versionFound = this.electronService.fs.existsSync(versionPath);
 
                 let version: string = null;
+                let publishedAt: Date = null;
                 if (versionFound) {
-                    version = this.electronService.fs.readFileSync(versionPath, 'utf-8');
+                    if(p.releaseType === ReleaseTypeEnum.release) {
+                        version = this.electronService.fs.readFileSync(versionPath, 'utf-8');
+                    } else {
+                        const json = this.electronService.fs.readFileSync(versionPath, 'utf-8');
+                        const savedVersion = <SavedVersion>JSON.parse(json);
+                        version = savedVersion.version;
+                        publishedAt = savedVersion.publishedAt;
+                    }                    
                 }
 
                 const untrackedFolderFound = folderFound && !versionFound;
 
-                resolve(new LocalState(folderFound, untrackedFolderFound, version));
+                resolve(new LocalState(folderFound, untrackedFolderFound, version, publishedAt));
             } catch (error) {
                 reject(error);
             }
@@ -131,7 +139,7 @@ export class FilesystemService {
                 if (this.electronService.fs.existsSync(folderPath)) {
                     this.electronService.fs.rmdirSync(folderPath, { recursive: true });
                 }
-                resolve();
+                resolve(null);
             } catch (error) {
                 reject(error);
             }
@@ -156,12 +164,20 @@ export class FilesystemService {
         this.electronService.ipcRenderer.send('copy-folder', info);
     }
 
-    writeVersionFile(targetDir: string, version: string): Promise<any> {
+    writeVersionFile(targetDir: string, p: Package): Promise<any> {
         const promise = new Promise<any>((resolve, reject) => {
             try {
                 const path = `${targetDir}\\msfs-downloader-updater.json`;
-                this.electronService.fs.writeFileSync(path, version, 'utf-8');
-                resolve();
+                
+                if(p.releaseType === ReleaseTypeEnum.release) {
+                    this.electronService.fs.writeFileSync(path, p.availableVersion, 'utf-8');
+                } else {
+                    const s = new SavedVersion(p.availableVersion, p.publishedAt);
+                    const serialS = JSON.stringify(s);
+                    this.electronService.fs.writeFileSync(path, serialS, 'utf-8');
+                } 
+
+                resolve(null);
             } catch (error) {
                 reject(error);
             }
@@ -185,11 +201,20 @@ export class FilesystemService {
     }
 }
 
+export class SavedVersion {    
+    constructor(
+        public version: string,
+        public publishedAt: Date){
+
+        }
+}
+
 export class LocalState {
     constructor(
         public folderFound: boolean,
         public untrackedFolderFound: boolean,
-        public version: string) { }
+        public version: string,
+        public publishedAt: Date) { }
 }
 
 export class CopyFolderInfo {

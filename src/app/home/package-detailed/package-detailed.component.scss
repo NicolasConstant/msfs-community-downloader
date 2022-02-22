@@ -124,7 +124,7 @@
         }
 
     }
-    
+
 }
 
 .package-detailed::-webkit-scrollbar {
@@ -206,6 +206,30 @@
     &__title {
         color: #b3bfcc;
     }
+
+    &__date {
+        &--link {
+            color: white;
+            text-decoration: underline;
+
+            &:hover {
+                color: gray;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.file-size {
+    float: left;
+    padding-top: 5px;
+    padding-left: 25px;
+    text-align: center;
+
+    &__title {
+        color: #b3bfcc;
+    }
+
     &__date {
         &--link {
             color: white;
@@ -234,7 +258,8 @@
 
 .link {
     color: whitesmoke;
-    &:hover{
+
+    &:hover {
         color: gray;
     }
 }
@@ -343,7 +368,7 @@
             color: rgba(245, 245, 245, 0.5);
 
             &:hover {
-                color: rgb(255, 94, 94);                
+                color: rgb(255, 94, 94);
             }
         }
     }
@@ -352,4 +377,3 @@
         background-image: linear-gradient(to right, #ba25ff, #7300a8);
     }
 }
-

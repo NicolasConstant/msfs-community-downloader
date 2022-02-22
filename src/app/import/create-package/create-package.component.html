@@ -1,6 +1,6 @@
 <div class="add-package">
     <div class="add-package__content">
-        
+
         <div class="add-package__header">
             <h1 *ngIf="!isEditing" class="add-package__header__title">Create a new package</h1>
             <h1 *ngIf="isEditing" class="add-package__header__title">Edit package</h1>
@@ -14,7 +14,8 @@
             <div *ngIf="!isEditing" class="entry">
                 <label class="entry__label">Folder Name</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.folderName" />
-                <p class="entry__description">The name of the package's folder. Must be unique among all other packages. Usually, the name of the folder inside the zip package.</p>
+                <p class="entry__description">The name of the package's folder. Must be unique among all other packages.
+                    Usually, the name of the folder inside the zip package.</p>
             </div>
             <div class="entry">
                 <label class="entry__label">Name</label>
@@ -34,23 +35,47 @@
             <div class="entry">
                 <label class="entry__label">Github Owner</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.githubOwner" />
-                <p class="entry__description">The name of the github owner.<br/>If the URL is https://github.com/my-name/my-package the owner is "my-name".</p>
+                <p class="entry__description">The name of the github owner.<br />If the URL is
+                    https://github.com/my-name/my-package the owner is "my-name".</p>
             </div>
             <div class="entry">
                 <label class="entry__label">Github Repository</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.githubRepo" />
-                <p class="entry__description">The name of the github repository.<br/>If the URL is https://github.com/my-name/my-package the repository is "my-package".</p>
+                <p class="entry__description">The name of the github repository.<br />If the URL is
+                    https://github.com/my-name/my-package the repository is "my-package".</p>
             </div>
             <div class="entry">
+                <label class="entry__label">Release Type</label>
+                <input type="radio" id="Release" value="Release" name="releaseType" [checked]="package.releaseType === 1" (change)="onReleaseTypeChange(1)"> <label for="Release">
+                    Release</label><br />
+                <span class="entry__radio"><input type="radio" id="Branch" value="Branch" name="releaseType" [checked]="package.releaseType === 2" (change)="onReleaseTypeChange(2)"> <label for="Branch"> Branch</label></span> 
+                <span class="entry__radio"><input type="radio" id="ReleaseFromBranch" value="Release from Branch" name="releaseType" [checked]="package.releaseType === 3" (change)="onReleaseTypeChange(3)"> <label for="ReleaseFromBranch"> Release from Branch</label></span>
+                <p class="entry__description">Select "Release" if the package is released as a Github Release with a unique tag version each time.<br/>Select "Branch" if the package is release at each commit in the branch and is released as a zip of the said branch.<br/>Select "Release from Branch" if a Github Release is generated from a branch but with a unique tag version.</p>
+            </div>
+            <div class="entry" *ngIf="package.releaseType === 2 || package.releaseType === 3">
+                <label class="entry__label">Branch name</label>
+                <input class="entry__input" type="text" [(ngModel)]="package.branchName" />
+                <p class="entry__description">The name of the branch.</p>
+            </div>
+            <div class="entry" *ngIf="package.releaseType === 3">
+                <label class="entry__label">Release Branch Tag</label>
+                <input class="entry__input" type="text" [(ngModel)]="package.releaseBranchTag" />
+                <p class="entry__description">The name of the tag used in the unique Github Release.</p>
+            </div>
+            <div class="entry" *ngIf="package.releaseType === 1 || package.releaseType === 3">
                 <label class="entry__label">Zip package name</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.assetName" />
-                <p class="entry__description">The name of the zip file of the package.<br/>If it changes every version, just enter the first part that is common. For example, if a package is released via a zip called "my-package-v0.5.0.zip" enter "my-package-v" in this field.<br/>If the package isn't released via a zip, leave empty.</p>
+                <p class="entry__description">The name of the zip file of the package.<br />If it changes every version,
+                    just enter the first part that is common. For example, if a package is released via a zip called
+                    "my-package-v0.5.0.zip" enter "my-package-v" in this field.<br />If the package isn't released via a
+                    zip, leave empty.</p>
             </div>
-            <div class="entry">
+            <div class="entry" *ngIf="package.releaseType === 1">
                 <label class="entry__label">Is Prerelease</label>
-                <input type="checkbox" id="prerelease" name="prerelease" value="prerelease" [(ngModel)]="package.isPrerelease" >
+                <input type="checkbox" id="prerelease" name="prerelease" value="prerelease"
+                    [(ngModel)]="package.isPrerelease">
                 <p class="entry__description">If this package is released with the Github tag "Prerelease".</p>
-            </div>           
+            </div>
             <div class="entry">
                 <label class="entry__label">Illustration URL</label>
                 <input class="entry__input entry__input--long" type="text" [(ngModel)]="package.illustration" />
@@ -59,13 +84,17 @@
             <div class="entry">
                 <label class="entry__label">Webpage URL</label>
                 <input class="entry__input entry__input--long" type="text" [(ngModel)]="package.webpageUrl" />
-                <p class="entry__description">Optional.<br/>If the package has a landing page, official website, etc, enter the URL here.</p>
+                <p class="entry__description">Optional.<br />If the package has a landing page, official website, etc,
+                    enter
+                    the URL here.</p>
             </div>
-            <div class="entry">
+            <div class="entry" *ngIf="package.releaseType === 0 || package.releaseType === 2">
                 <label class="entry__label">Version Clean-up</label>
                 <input class="entry__input" type="text" [(ngModel)]="package.versionPatternToRemove" />
-                <p class="entry__description">Optional.<br/>If the version is messed up, you can clean-up for display purposes. If the version is released like "data-v0.5.0", enter "data-" to remove this part in the interface.</p>
-            </div>         
+                <p class="entry__description">Optional.<br />If the version is messed up, you can clean-up for display
+                    purposes. If the version is released like "data-v0.5.0", enter "data-" to remove this part in the
+                    interface.</p>
+            </div>
         </div>
         <div class="add-package__footer">
             <a *ngIf="!isEditing" href class="button button--cancel" routerLink="/add-package">

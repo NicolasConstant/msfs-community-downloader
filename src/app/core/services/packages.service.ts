@@ -171,6 +171,12 @@ export class PackagesService {
 
         //packages = packages.sort((a, b) => a.name.localeCompare(b.name));
 
+        packages.forEach(p => {
+            if(!p.releaseType){
+                p.releaseType = ReleaseTypeEnum.release;
+            }
+        })
+
         return packages;
     }
 }
@@ -209,6 +215,19 @@ export class Package {
     public onlineVersion: string;    
 
     public minSoftwareVersion: string;
+
+    public releaseType: ReleaseTypeEnum;
+    public branchName: string;
+    public releaseBranchTag: string;
+    
+    public fileSize: number;
+}
+
+export enum ReleaseTypeEnum {
+    unknown = 0,
+    release = 1,
+    branch = 2,
+    releaseFromBranch = 3
 }
 
 export enum InstallStatusEnum {

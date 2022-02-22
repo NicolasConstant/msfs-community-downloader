@@ -22,7 +22,7 @@ export class AddPackageComponent implements OnInit {
         this.onlineRepoService.retrievePackageList()
             .then((list: OnlinePackageInfo[]) => {
                 console.log(list);
-                this.list = list;
+                this.list = list.sort((a, b) => a.name.localeCompare(b.name));
             })
             .catch(err => {
                 console.error(err);

@@ -92,4 +92,17 @@ export class PackageDetailedComponent implements OnInit {
         this.deletedEvent.next(this.package);
         return false;
     }
+
+    getSize(size: number): string {
+        if(size > 1024*1024*1024){
+            return `${(size/(1024*1024*1024)).toFixed(2)}GB`;
+        }
+        if(size > 1024*1024){
+            return `${(size/(1024*1024)).toFixed(2)}MB`;
+        }
+        if(size > 1024){
+            return `${(size/(1024)).toFixed(2)}KB`;
+        }
+        return `${(size).toFixed(2)}B`;
+    }
 }

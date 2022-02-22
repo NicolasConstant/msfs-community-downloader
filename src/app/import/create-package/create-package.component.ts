@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Package } from '../../core/services/packages.service';
+import { Package, ReleaseTypeEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
 
 @Component({
@@ -50,6 +50,9 @@ export class CreatePackageComponent implements OnInit, OnDestroy {
                 this.package.webpageUrl = p.webpageUrl;
                 this.package.versionPatternToRemove = p.versionPatternToRemove;
                 this.package.minSoftwareVersion = p.minSoftwareVersion;
+                this.package.releaseType = p.releaseType;
+                this.package.branchName = p.branchName;
+                this.package.releaseBranchTag = p.releaseBranchTag;
             } else {
                 this.isEditing = false;               
             }
@@ -84,6 +87,11 @@ export class CreatePackageComponent implements OnInit, OnDestroy {
         }       
 
         this.router.navigate(['/']);
+        return false;
+    }
+
+    onReleaseTypeChange(type: ReleaseTypeEnum): boolean {
+        this.package.releaseType = type;
         return false;
     }
 }
