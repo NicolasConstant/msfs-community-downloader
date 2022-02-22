@@ -139,9 +139,14 @@ export class DomainService {
                     p.publishedAt = branch.publishedAt;
                 }
                 // }
-
                 p.state = this.getState(p, local);
             });
+    }
+
+    private getDifferenceInSeconds(date1: Date, date2: Date) {
+        const diffInMs = Math.abs(date2.getTime() - date1.getTime());
+        const result = diffInMs / 1000;
+        return result;
     }
 
     private getState(p: Package, local: LocalState): InstallStatusEnum {
@@ -153,8 +158,14 @@ export class DomainService {
         if (local && local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
         if (local && !local.folderFound) return InstallStatusEnum.notFound;
         if (local && local.version && p && p.availableVersion) {
-            if (local.version === p.availableVersion) return InstallStatusEnum.installed;
-            if (local.version !== p.availableVersion) return InstallStatusEnum.updateAvailable;
+            if (p.releaseType === ReleaseTypeEnum.release) {
+                if (local.version === p.availableVersion) return InstallStatusEnum.installed;
+                if (local.version !== p.availableVersion) return InstallStatusEnum.updateAvailable;
+            } else {
+                if (local.version !== p.availableVersion) return InstallStatusEnum.updateAvailable;
+                if (this.getDifferenceInSeconds(new Date(local.publishedAt), new Date(p.publishedAt)) > 5) return InstallStatusEnum.updateAvailable;
+                if (local.version === p.availableVersion) return InstallStatusEnum.installed;
+            }
         }
 
         return InstallStatusEnum.unknown;
@@ -222,7 +233,7 @@ export class DomainService {
                 this.filesystemService.deleteFolder(p.tempWorkingDir);
                 p.tempWorkingDir = null;
             }
-            this.filesystemService.writeVersionFile(r.target, p.availableVersion);
+            this.filesystemService.writeVersionFile(r.target, p);
             p.localVersion = p.availableVersion;
             p.state = InstallStatusEnum.installed;
             this.app.tick();
