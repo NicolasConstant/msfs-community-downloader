@@ -5,9 +5,11 @@
     "githubOwner": "saltysimulations",
     "githubRepo": "salty-747",
     "assetName": "salty-747-dev.zip",
-    "isPrerelease": true,
     "folderName": "salty-747-dev",
     "summary": "DEVELOPMENT BUILD<br/><br/>The Salty Simulations 747 is an open-source modification for the default Asobo 747-8 included in Microsoft Flight Simulator.<br/><br/>We are dedicated to improving the default 747-8 to a level where it is enjoyable and realistic to fly.",
     "illustration": "assets/illustrations/salty747.jpg",
-    "minSoftwareVersion": "1.3.0"
+    "minSoftwareVersion": "1.3.0",
+    "releaseType":3,
+    "branchName":"master",
+    "releaseBranchTag":"vdev"
 }
