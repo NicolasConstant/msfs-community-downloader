@@ -33,20 +33,20 @@ export class HomeComponent implements OnInit, OnDestroy {
         private app: ApplicationRef,
         private settingsService: SettingsService,
         private router: Router,
-        private domainService: DomainService) { 
+        private domainService: DomainService) {
 
-            this.errorSub = this.domainService.errorSubject.subscribe(err => {
-                this.displayError(err);
-            });
-        }
+        this.errorSub = this.domainService.errorSubject.subscribe(err => {
+            this.displayError(err);
+        });
+    }
 
     ngOnInit(): void {
         this.packages = this.domainService.getPackages();
-        
+
         const removedPackageIds = this.settingsService.getSettings().removedPackageIds;
 
         const removedPackages = this.packages.filter(x => removedPackageIds.includes(x.id));
-        for(const rp of removedPackages){
+        for (const rp of removedPackages) {
             rp.isSelected = false;
         }
         this.packages = this.packages.filter(x => !removedPackageIds.includes(x.id));
@@ -65,10 +65,10 @@ export class HomeComponent implements OnInit, OnDestroy {
                     this.analyseHttpError(err);
                 });
         }
-    } 
-    
+    }
+
     ngOnDestroy(): void {
-        if(this.errorSub) this.errorSub.unsubscribe();
+        if (this.errorSub) this.errorSub.unsubscribe();
     }
 
     selectPackage(p: Package): boolean {
@@ -108,17 +108,17 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
     }
 
-    displayError(err: string) {
-        if(err) {
+    displayError(err: string): void {
+        if (err) {
             this.hasError = true;
             this.errorMessage = err;
             this.app.tick();
 
-            setTimeout(() => { 
+            setTimeout(() => {
                 this.hasError = false;
                 this.errorMessage = null;
                 this.app.tick();
-            }, 10*1000);
-        }        
+            }, 10 * 1000);
+        }
     }
 }

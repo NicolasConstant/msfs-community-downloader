@@ -19,7 +19,7 @@ export class FilesystemService {
             if (arg) {
                 this.folderCopied.next(arg);
             }
-        });      
+        });
 
         this.checkCleanUpCommunity();
     }
@@ -64,14 +64,14 @@ export class FilesystemService {
                 let version: string = null;
                 let publishedAt: Date = null;
                 if (versionFound) {
-                    if(p.releaseType === ReleaseTypeEnum.release) {
+                    if (p.releaseType === ReleaseTypeEnum.release) {
                         version = this.electronService.fs.readFileSync(versionPath, 'utf-8');
                     } else {
                         const json = this.electronService.fs.readFileSync(versionPath, 'utf-8');
                         const savedVersion = <SavedVersion>JSON.parse(json);
                         version = savedVersion.version;
                         publishedAt = savedVersion.publishedAt;
-                    }                    
+                    }
                 }
 
                 const untrackedFolderFound = folderFound && !versionFound;
@@ -168,14 +168,14 @@ export class FilesystemService {
         const promise = new Promise<any>((resolve, reject) => {
             try {
                 const path = `${targetDir}\\msfs-downloader-updater.json`;
-                
-                if(p.releaseType === ReleaseTypeEnum.release) {
+
+                if (p.releaseType === ReleaseTypeEnum.release) {
                     this.electronService.fs.writeFileSync(path, p.availableVersion, 'utf-8');
                 } else {
                     const s = new SavedVersion(p.availableVersion, p.publishedAt);
                     const serialS = JSON.stringify(s);
                     this.electronService.fs.writeFileSync(path, serialS, 'utf-8');
-                } 
+                }
 
                 resolve(null);
             } catch (error) {
@@ -201,12 +201,12 @@ export class FilesystemService {
     }
 }
 
-export class SavedVersion {    
+export class SavedVersion {
     constructor(
         public version: string,
-        public publishedAt: Date){
+        public publishedAt: Date) {
 
-        }
+    }
 }
 
 export class LocalState {

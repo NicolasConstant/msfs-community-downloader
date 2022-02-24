@@ -175,7 +175,7 @@ export class PackagesService {
             if(!p.releaseType){
                 p.releaseType = ReleaseTypeEnum.release;
             }
-        })
+        });
 
         return packages;
     }

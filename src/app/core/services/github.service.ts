@@ -19,7 +19,7 @@ export class GithubService {
                 const hashVersion = res.commit.sha.substring(0,7);
                 const downloadUrl = `http://github.com/${p.githubOwner}/${p.githubRepo}/archive/${p.branchName}.zip`;
 
-                let result = new BranchInfo(res.commit.sha, hashVersion, res.commit.commit.committer.date, downloadUrl);
+                const result = new BranchInfo(res.commit.sha, hashVersion, res.commit.commit.committer.date, downloadUrl);
                 return result;
             });
     }
