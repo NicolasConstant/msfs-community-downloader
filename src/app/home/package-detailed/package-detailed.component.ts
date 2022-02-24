@@ -64,6 +64,14 @@ export class PackageDetailedComponent implements OnInit {
         }
     }
 
+    resetError(): boolean {
+        const p = this.package;
+        if(p.state === InstallStatusEnum.error) {
+            this.domainService.resetPackage(p.id);
+        }
+        return false;
+    }
+
     cleanUpVersion(version: string): string {
         if(!version && this.package.state === InstallStatusEnum.untrackedPackageFound) return "Unknown";
 
@@ -83,5 +91,18 @@ export class PackageDetailedComponent implements OnInit {
         
         this.deletedEvent.next(this.package);
         return false;
+    }
+
+    getSize(size: number): string {
+        if(size > 1024*1024*1024){
+            return `${(size/(1024*1024*1024)).toFixed(2)}GB`;
+        }
+        if(size > 1024*1024){
+            return `${(size/(1024*1024)).toFixed(2)}MB`;
+        }
+        if(size > 1024){
+            return `${(size/(1024)).toFixed(2)}KB`;
+        }
+        return `${(size).toFixed(2)}B`;
     }
 }

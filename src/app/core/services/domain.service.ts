@@ -1,11 +1,14 @@
 import { Injectable, ApplicationRef } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+
 import { FilesystemService, LocalState, CopyFolderInfo } from './filesystem.service';
-import { GithubService, PackageInfo } from './github.service';
-import { Package, InstallStatusEnum, PackagesService } from './packages.service';
-import { DownloaderService, FileDownloadInfo, FileDownloadUpdate } from './downloader.service';
-import { Subscription } from 'rxjs';
-import { ExtractorService, FileExtractedInfo } from './extractor.service';
+import { BranchInfo, GithubService, PackageInfo } from './github.service';
+import { Package, InstallStatusEnum, PackagesService, ReleaseTypeEnum } from './packages.service';
+import { DownloaderService } from './downloader.service';
+import { ExtractorService } from './extractor.service';
 import { SettingsService } from './settings.service';
+import { FileDownloadInfo, FileDownloadUpdate, FileExtractedInfo, FilePackageInfo } from '../models';
+import { ElectronService } from './electron/electron.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +20,8 @@ export class DomainService {
     private extractSub: Subscription;
     private copySub: Subscription;
 
+    public errorSubject = new Subject<string>();
+
     constructor(
         private app: ApplicationRef,
         private packageService: PackagesService,
@@ -24,7 +29,8 @@ export class DomainService {
         private githubService: GithubService,
         private downloaderService: DownloaderService,
         private extractorService: ExtractorService,
-        private settingsService: SettingsService
+        private settingsService: SettingsService,
+        private electronService: ElectronService
     ) {
         this.downloadSub = downloaderService.fileDownloaded.subscribe(r => {
             if (r) {
@@ -44,6 +50,24 @@ export class DomainService {
         this.copySub = filesystemService.folderCopied.subscribe(r => {
             if (r) {
                 this.processCopiedFolder(r);
+            }
+        });
+
+        this.electronService.ipcRenderer.on('log-error', (event, arg) => {
+            if (arg) {
+                const error = arg.error;
+                const info: FilePackageInfo = arg.info;
+
+                this.processPackageError(info);
+
+                console.error('Node error');
+                console.error(error);
+
+                if (error.message) {
+                    this.errorSubject.next(error.message);
+                } else {
+                    this.errorSubject.next(error);
+                }
             }
         });
     }
@@ -71,41 +95,79 @@ export class DomainService {
 
     private analysePackage(p: Package): Promise<any> {
         const localPromise = this.filesystemService.retrievePackageInfo(p);
-        const githubPromise = this.githubService.retrievePackageInfo(p);
 
-        return Promise.all([localPromise, githubPromise])
+        let githubPromise: Promise<PackageInfo> = Promise.resolve(null);
+        if (p.releaseType === ReleaseTypeEnum.release) {
+            githubPromise = this.githubService.retrievePackageInfo(p);
+        } else if (p.releaseType === ReleaseTypeEnum.releaseFromBranch) {
+            githubPromise = this.githubService.retrievePackageInfoFromUniqueTag(p);
+        }
+
+        let branchPromise: Promise<BranchInfo> = Promise.resolve(null);
+        if (p.releaseType === ReleaseTypeEnum.branch || p.releaseType === ReleaseTypeEnum.releaseFromBranch) {
+            branchPromise = this.githubService.retrieveBranchInfo(p);
+        }
+
+        return Promise.all([localPromise, githubPromise, branchPromise])
             .then(result => {
                 const local = result[0];
                 const remote = result[1];
+                const branch = result[2];
 
                 if (local) {
                     p.localVersion = local.version;
                 }
 
-                if (remote) {
-                    p.availableVersion = remote.availableVersion;
+                // if (remote || p.releaseType === ReleaseTypeEnum.branch) {
+                if (p.releaseType === ReleaseTypeEnum.branch) {
+                    p.assetDownloadUrl = branch.downloadUrl;
+                } else {
                     p.assetDownloadUrl = remote.downloadUrl;
-                    p.publishedAt = remote.publishedAt;
-                    p.html_url = remote.html_url;
                 }
 
-                p.state = this.getState(p, local, remote);
+                if (p.releaseType === ReleaseTypeEnum.branch || p.releaseType === ReleaseTypeEnum.releaseFromBranch) {
+                    p.availableVersion = branch.hashVersion;
+                } else {
+                    p.availableVersion = remote.availableVersion;
+                }
+
+                if (p.releaseType === ReleaseTypeEnum.release || p.releaseType === ReleaseTypeEnum.releaseFromBranch) {
+                    p.publishedAt = remote.publishedAt;
+                    p.html_url = remote.html_url;
+                    p.fileSize = remote.fileSize;
+                } else if (p.releaseType === ReleaseTypeEnum.branch) {
+                    p.publishedAt = branch.publishedAt;
+                }
+                // }
+                p.state = this.getState(p, local);
             });
     }
 
-    private getState(p: Package, local: LocalState, info: PackageInfo): InstallStatusEnum {
+    private getDifferenceInSeconds(date1: Date, date2: Date) {
+        const diffInMs = Math.abs(date2.getTime() - date1.getTime());
+        const result = diffInMs / 1000;
+        return result;
+    }
+
+    private getState(p: Package, local: LocalState): InstallStatusEnum {
+        if (p.state === InstallStatusEnum.error) return InstallStatusEnum.error;
         if (p.state === InstallStatusEnum.downloading) return InstallStatusEnum.downloading;
         if (p.state === InstallStatusEnum.extracting) return InstallStatusEnum.extracting;
         if (p.state === InstallStatusEnum.installing) return InstallStatusEnum.installing;
 
         if (local && local.untrackedFolderFound) return InstallStatusEnum.untrackedPackageFound;
         if (local && !local.folderFound) return InstallStatusEnum.notFound;
-        if (local && local.version && info && info.availableVersion) {
-            if (local.version === info.availableVersion) return InstallStatusEnum.installed;
-            if (local.version !== info.availableVersion) return InstallStatusEnum.updateAvailable;
+        if (local && local.version && p && p.availableVersion) {
+            if (p.releaseType === ReleaseTypeEnum.release) {
+                if (local.version === p.availableVersion) return InstallStatusEnum.installed;
+                if (local.version !== p.availableVersion) return InstallStatusEnum.updateAvailable;
+            } else {
+                if (local.version !== p.availableVersion) return InstallStatusEnum.updateAvailable;
+                if (this.getDifferenceInSeconds(new Date(local.publishedAt), new Date(p.publishedAt)) > 5) return InstallStatusEnum.updateAvailable;
+                if (local.version === p.availableVersion) return InstallStatusEnum.installed;
+            }
         }
 
-        if (p.state === InstallStatusEnum.error) return InstallStatusEnum.error;
         return InstallStatusEnum.unknown;
     }
 
@@ -116,6 +178,13 @@ export class DomainService {
         this.app.tick();
 
         this.extractorService.extract(downloadedPackage.id, r.filePath);
+    }
+
+    processPackageError(r: FilePackageInfo) {
+        const errorPackage = this.packages.find(x => x.id === r.packageId);
+        errorPackage.state = InstallStatusEnum.error;
+        errorPackage.downloaded = null;
+        this.app.tick();
     }
 
     processDownloadedUpdate(r: FileDownloadUpdate): void {
@@ -164,7 +233,7 @@ export class DomainService {
                 this.filesystemService.deleteFolder(p.tempWorkingDir);
                 p.tempWorkingDir = null;
             }
-            this.filesystemService.writeVersionFile(r.target, p.availableVersion);
+            this.filesystemService.writeVersionFile(r.target, p);
             p.localVersion = p.availableVersion;
             p.state = InstallStatusEnum.installed;
             this.app.tick();
@@ -248,6 +317,9 @@ export class DomainService {
         toUpdate.illustration = p.illustration;
         toUpdate.webpageUrl = p.webpageUrl;
         toUpdate.versionPatternToRemove = p.versionPatternToRemove;
+        toUpdate.releaseType = p.releaseType;
+        toUpdate.branchName = p.branchName;
+        toUpdate.releaseBranchTag = p.releaseBranchTag;
 
         this.settingsService.saveSettings(settings);
 
@@ -265,6 +337,9 @@ export class DomainService {
         localToUpdate.illustration = p.illustration;
         localToUpdate.webpageUrl = p.webpageUrl;
         localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
+        localToUpdate.releaseType = p.releaseType;
+        localToUpdate.branchName = p.branchName;
+        localToUpdate.releaseBranchTag = p.releaseBranchTag;
     }
 
     updateOnlinePackage(p: Package): void {
@@ -286,6 +361,9 @@ export class DomainService {
         toUpdate.webpageUrl = p.webpageUrl;
         toUpdate.versionPatternToRemove = p.versionPatternToRemove;
         toUpdate.onlineVersion = p.onlineVersion;
+        toUpdate.releaseType = p.releaseType;
+        toUpdate.branchName = p.branchName;
+        toUpdate.releaseBranchTag = p.releaseBranchTag;
 
         this.settingsService.saveSettings(settings);
 
@@ -304,6 +382,9 @@ export class DomainService {
         localToUpdate.webpageUrl = p.webpageUrl;
         localToUpdate.versionPatternToRemove = p.versionPatternToRemove;
         localToUpdate.onlineVersion = p.onlineVersion;
+        localToUpdate.releaseType = p.releaseType;
+        localToUpdate.branchName = p.branchName;
+        localToUpdate.releaseBranchTag = p.releaseBranchTag;
     }
 
     removeCustomPackage(p: Package): void {
@@ -340,6 +421,18 @@ export class DomainService {
 
     update(p: Package): void {
         this.install(p);
+    }
+
+    resetPackage(packageId: string): void {
+        const p = this.packages.find(x => x.id === packageId);
+        p.state = InstallStatusEnum.unknown;
+        this.analysePackage(p)
+            .catch(err => {
+                console.error(err);
+            })
+            .then(_ => {
+                this.app.tick();
+            });
     }
 
     remove(p: Package): void {

@@ -21,7 +21,7 @@
                 <a href *ngIf="package.state === 1" class="button button--remove" (click)="remove()">Remove</a>
                 <a href *ngIf="package.state === 2" class="button button--update--remove" (click)="remove()"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
                 <a href *ngIf="package.state === 2" class="button button--update" (click)="update()">Update</a>
-                <span *ngIf="package.state === 3">Error</span>
+                <a href *ngIf="package.state === 3" class="button button--error" (click)="resetError()">Error</a>
                 <a href *ngIf="package.state === 4 || package.state === 8" class="button button--install" (click)="install()">Install</a>
                 <a *ngIf="package.state === 5 || package.state === 6 || package.state === 7"
                     class="button button--working">{{getWorkingInfo()}}</a>
@@ -48,7 +48,13 @@
 
             <div class="release-date">
                 <span class="release-date__title">Release date</span><br/>
-                <span class="release-date__date"><a href="{{package.html_url}}" target="_blank" class="release-date__date--link">{{ package.publishedAt | date:'yyyy/MM/dd' }}</a></span>
+                <span class="release-date__date" *ngIf="package.html_url"><a href="{{package.html_url}}" target="_blank" class="release-date__date--link">{{ package.publishedAt | date:'yyyy/MM/dd' }}</a></span>
+                <span class="release-date__date" *ngIf="!package.html_url">{{ package.publishedAt | date:'yyyy/MM/dd' }}</span>
+            </div>
+
+            <div class="file-size" *ngIf="package.fileSize">
+                <span class="file-size__title">Size</span><br/>
+                <span class="file-size__date">{{ getSize(package.fileSize) }}</span>
             </div>
 
             <a href="https://github.com/{{package.githubOwner}}/{{package.githubRepo}}" target="_blank" class="version__github">
