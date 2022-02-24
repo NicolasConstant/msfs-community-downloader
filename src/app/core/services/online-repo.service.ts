@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ReleaseTypeEnum } from './packages.service';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,9 @@ export class ExportablePackage {
     public webpageUrl: string;
     public oldFolderNames: string[];
     public minSoftwareVersion: string;
+    public releaseType: ReleaseTypeEnum;
+    public releaseBranchTag: string;
+    public branchName: string;
 }
 
 export class OnlinePackageInfo {

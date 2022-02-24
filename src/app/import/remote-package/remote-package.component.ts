@@ -4,7 +4,7 @@ import { faArrowDown, faCheck, faChevronUp } from '@fortawesome/free-solid-svg-i
 
 import { OnlinePackageInfo, OnlineRepoService, ExportablePackage } from '../../core/services/online-repo.service';
 import { SettingsService } from '../../core/services/settings.service';
-import { Package } from '../../core/services/packages.service';
+import { Package, ReleaseTypeEnum } from '../../core/services/packages.service';
 import { DomainService } from '../../core/services/domain.service';
 
 @Component({
@@ -106,8 +106,16 @@ export class RemotePackageComponent implements OnInit {
         p.webpageUrl = this.exportablePackage.webpageUrl;
         p.versionPatternToRemove = this.exportablePackage.versionPatternToRemove;
 
+        p.releaseType = this.exportablePackage.releaseType;
+        p.releaseBranchTag = this.exportablePackage.releaseBranchTag;
+        p.branchName = this.exportablePackage.branchName;
+
         p.onlineVersion = this.remotePackageInfo.version;
         p.isOnlinePackage = true;
+
+        if(!p.releaseType){
+            p.releaseType = ReleaseTypeEnum.release;
+        }
 
         if(this.status === RemotePackageStatusEnum.notFound || this.status === RemotePackageStatusEnum.unknown){
             this.domainService.addOnlinePackage(p);

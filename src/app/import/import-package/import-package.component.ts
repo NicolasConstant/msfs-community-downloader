@@ -6,7 +6,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { ElectronService } from '../../core/services/electron/electron.service';
 import { DomainService } from '../../core/services/domain.service';
-import { Package } from '../../core/services/packages.service';
+import { Package, ReleaseTypeEnum } from '../../core/services/packages.service';
 import { ExportablePackage } from '../../core/services/online-repo.service';
 import { SettingsService } from '../../core/services/settings.service';
 
@@ -132,6 +132,14 @@ export class ImportPackageComponent implements OnInit, OnDestroy {
         p.summary = this.loadedPackage.summary;
         p.webpageUrl = this.loadedPackage.webpageUrl;
         p.oldFolderNames = this.loadedPackage.oldFolderNames;
+        
+        p.releaseType = this.loadedPackage.releaseType;
+        p.releaseBranchTag = this.loadedPackage.releaseBranchTag;
+        p.branchName = this.loadedPackage.branchName;
+
+        if(!p.releaseType) {
+            p.releaseType = ReleaseTypeEnum.release;
+        }
         
         this.domainService.addCustomPackage(p);
         this.router.navigate(['/']);

@@ -49,6 +49,9 @@ export class ExportPackageComponent implements OnInit, OnDestroy {
                 this.exportablePackage.webpageUrl = p.webpageUrl;
                 this.exportablePackage.oldFolderNames = p.oldFolderNames;
                 this.exportablePackage.minSoftwareVersion = p.minSoftwareVersion;
+                this.exportablePackage.releaseType = p.releaseType;
+                this.exportablePackage.branchName = p.branchName;
+                this.exportablePackage.releaseBranchTag = p.releaseBranchTag;
 
                 if(!this.exportablePackage.minSoftwareVersion) this.exportablePackage.minSoftwareVersion = this.settingsService.getVersion();
 
