@@ -68,5 +68,20 @@
         "id": "salty-747-dev",
         "name": "Salty 747 DEV",
         "version": "1.0.0"
+    }, 
+    {
+        "id": "JPLogistics_C152-dev",
+        "name": "JPL C152 DEV",
+        "version": "1.0.0"
+    }, 
+    {
+        "id": "B78XH-dev",
+        "name": "HD B78XH DEV",
+        "version": "1.0.0"
+    }, 
+    {
+        "id": "B78XH-exp",
+        "name": "HD B78XH EXP",
+        "version": "1.0.0"
     }
 ]
