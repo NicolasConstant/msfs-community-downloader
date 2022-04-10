@@ -83,5 +83,10 @@
         "id": "B78XH-exp",
         "name": "HD B78XH EXP",
         "version": "1.0.0"
+    }, 
+    {
+        "id": "z-dementedmonkey-cj4-mcdu",
+        "name": "MCDU Web application for the Working Title CJ4",
+        "version": "1.0.0"
     }
 ]
