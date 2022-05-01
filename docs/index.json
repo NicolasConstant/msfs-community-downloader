@@ -83,5 +83,20 @@
         "id": "B78XH-exp",
         "name": "HD B78XH EXP",
         "version": "1.0.0"
+    }, 
+    {
+        "id": "z-dementedmonkey-cj4-mcdu",
+        "name": "MCDU WT CJ4",
+        "version": "1.0.0"
+    }, 
+    {
+        "id": "headwind-a330neo",
+        "name": "HW A339neo",
+        "version": "1.0.0"
+    }, 
+    {
+        "id": "headwind-a330neo-dev",
+        "name": "HW A339neo DEV",
+        "version": "1.0.0"
     }
 ]
