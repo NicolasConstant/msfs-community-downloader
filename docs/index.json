@@ -93,5 +93,10 @@
         "id": "headwind-a330neo",
         "name": "HW A339neo",
         "version": "1.0.0"
+    }, 
+    {
+        "id": "headwind-a330neo-dev",
+        "name": "HW A339neo DEV",
+        "version": "1.0.0"
     }
 ]
