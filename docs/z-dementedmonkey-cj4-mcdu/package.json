@@ -1,1 +1,12 @@
-{"id":"z-dementedmonkey-cj4-mcdu","name":"MCDU Web application for the Working Title CJ4","description":"This application provides a web-based MCDU for the Working Title CJ4 in Microsoft Flight Simulator 2020.","githubOwner":"dementedmonkey","githubRepo":"cj4-mcdu","assetName":"cj4-mcdu-","folderName":"z-dementedmonkey-cj4-mcdu","summary":"This project contains an application that will allow you to access the MCDU of the Working Title CJ4 from a web browser on a tablet or another PC.  In addition to this application, it includes a Flight Simulator mod that will connect the CJ4 to this application. This mod requires a specific version of the CJ4, currently 0.12.12.","minSoftwareVersion":"1.3.0","releaseType":1}
+{
+    "id": "z-dementedmonkey-cj4-mcdu",
+    "name": "MCDU WT CJ4",
+    "description": "MCDU Web application for the Working Title CJ4",
+    "githubOwner": "dementedmonkey",
+    "githubRepo": "cj4-mcdu",
+    "assetName": "cj4-mcdu-",
+    "folderName": "z-dementedmonkey-cj4-mcdu",
+    "summary": "This project contains an application that will allow you to access the MCDU of the Working Title CJ4 from a web browser on a tablet or another PC.<br/><br/>In addition to this application, it includes a Flight Simulator mod that will connect the CJ4 to this application.<br/><br/>This mod might requires a specific version of the CJ4, please check the github repo.",
+    "minSoftwareVersion": "1.3.0",
+    "releaseType": 1
+}
