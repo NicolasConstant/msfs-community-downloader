@@ -4,7 +4,7 @@
     "description": "Headwind A330-900neo",
     "githubOwner": "headwind-msfs",
     "githubRepo": "a330-900",
-    "assetName": "headwind-aircraft-a330-900",
+    "assetName": "headwindsim-aircraft-a330-900",
     "folderName": "headwind-a330neo",
     "illustration": "https://nicolasconstant.github.io/msfs-community-downloader/headwind-a330neo/illustration.jpg",
     "summary": "This is a open source project to create a free Airbus A330-900neo in Microsoft Flight Simulator and is mainly based on the FlyByWire A32NX. ",
