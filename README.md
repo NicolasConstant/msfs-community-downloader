@@ -20,3 +20,4 @@ The software is in a really early stage.
 * SASS
 * Electron 12
 * Maxime Gris' `angular-electron` [template](https://github.com/maximegris/angular-electron)
+* Node 10.13.0 (build the project with this version via `nvm`)
